@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RootNamespace>PicomotorStageControl_v2</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ScottPlot" Version="5.0.47" />
+    <PackageReference Include="ScottPlot.WinForms" Version="5.0.47" />
+    <PackageReference Include="System.IO.Ports" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CmdLib">
+      <HintPath>..\..\..\..\..\..\Program Files\New Focus\New Focus Picomotor Application\Samples\CmdLib.dll</HintPath>
+    </Reference>
+    <Reference Include="CmdLib8742">
+      <HintPath>..\..\..\..\..\..\Program Files\New Focus\New Focus Picomotor Application\Samples\CmdLib8742.dll</HintPath>
+    </Reference>
+    <Reference Include="DeviceIOLib">
+      <HintPath>..\..\..\..\..\..\Program Files\New Focus\New Focus Picomotor Application\Samples\DeviceIOLib.dll</HintPath>
+    </Reference>
+    <Reference Include="NpEthernet">
+      <HintPath>..\..\..\..\..\..\Program Files\New Focus\New Focus Picomotor Application\Samples\NpEthernet.dll</HintPath>
+    </Reference>
+    <Reference Include="NpSerial">
+      <HintPath>..\..\..\..\..\..\Program Files\New Focus\New Focus Picomotor Application\Samples\NpSerial.dll</HintPath>
+    </Reference>
+    <Reference Include="UsbDllWrap">
+      <HintPath>..\..\..\..\..\..\Program Files\New Focus\New Focus Picomotor Application\Samples\UsbDllWrap.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
