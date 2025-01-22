@@ -11,8 +11,8 @@ namespace PicomotorStageControl_v2
     public class Indicator
     {
         public string COMPort { get; private set; } = "";
-        public decimal Position { get; private set; } = 0.0M;
-        public decimal Velocity { get; private set; } = 0.0M;
+        public decimal Position { get; private set; } = Decimal.MinValue;
+        public decimal Velocity { get; private set; } = Decimal.MinValue;
 
         public bool Connected { get { return SerialPort.IsOpen; } }
 
@@ -32,10 +32,26 @@ namespace PicomotorStageControl_v2
             };
         }
 
-        public void Connect()
+        public bool Connect()
         {
-            SerialPort.Open();
-            SerialDataReaderThread.Start();
+            try
+            {
+                SerialPort.Open();
+                SerialDataReaderThread.Start();
+
+                Thread.Sleep(1000);
+
+                if (this.Position == Decimal.MinValue)
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public void Disconnect()
@@ -65,15 +81,17 @@ namespace PicomotorStageControl_v2
                     if (SerialPort.BytesToRead != 0)
                     {
                         msg = SerialPort.ReadLine();
-                        if (msg[0] != '9') {
+                        if (msg[0] != '9')
+                        {
                             msg = msg.Split('A')[1];
-                            num = decimal.Parse(msg) * 1000.0M;
+                            num = decimal.Parse(msg);
 
-                            this.Position = num;
+                            this.Position = num * 1000.0M;
 
                             now = DateTime.Now;
                             deltaTime = now.Subtract(previousTime);
                             deltaPosition = num - previousPosition;
+                            deltaPosition *= 1000.0M;
 
                             vel = deltaPosition / (decimal)deltaTime.TotalSeconds;
 
@@ -83,7 +101,8 @@ namespace PicomotorStageControl_v2
                             previousPosition = num;
                         }
                     }
-                    Thread.Sleep(5);
+                    Thread.Sleep(150);
+
                     // TO DO: Handle disconnections
                 }
                 catch (Exception ex)

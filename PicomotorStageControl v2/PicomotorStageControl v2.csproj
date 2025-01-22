@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <RootNamespace>PicomotorStageControl_v2</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
@@ -10,9 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ScottPlot" Version="5.0.47" />
-    <PackageReference Include="ScottPlot.WinForms" Version="5.0.47" />
-    <PackageReference Include="System.IO.Ports" Version="9.0.0" />
+    <PackageReference Include="ScottPlot.WinForms" Version="5.0.53" />
+    <PackageReference Include="System.IO.Ports" Version="9.0.1" />
+    <PackageReference Include="System.Management" Version="9.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +34,21 @@
     <Reference Include="UsbDllWrap">
       <HintPath>..\..\..\..\..\..\Program Files\New Focus\New Focus Picomotor Application\Samples\UsbDllWrap.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

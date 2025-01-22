@@ -28,62 +28,63 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             groupBox6 = new GroupBox();
             tableLayoutPanel6 = new TableLayoutPanel();
-            button2 = new Button();
+            btnCalZeroPosition = new Button();
             groupBox8 = new GroupBox();
             tableLayoutPanel8 = new TableLayoutPanel();
             tableLayoutPanel10 = new TableLayoutPanel();
             label26 = new Label();
-            label25 = new Label();
+            lblCalPositionEstMicronPosition = new Label();
             label24 = new Label();
             label23 = new Label();
-            label22 = new Label();
+            lblCalPositionPosSteps = new Label();
             label20 = new Label();
             label19 = new Label();
-            label18 = new Label();
+            lblCalPositionNegSteps = new Label();
             label14 = new Label();
             label13 = new Label();
-            label12 = new Label();
+            lblCalPositionTotalSteps = new Label();
             label8 = new Label();
             groupBox11 = new GroupBox();
             tableLayoutPanel11 = new TableLayoutPanel();
             tableLayoutPanel12 = new TableLayoutPanel();
             label30 = new Label();
-            label31 = new Label();
+            lblCalVelPos = new Label();
             label32 = new Label();
             label33 = new Label();
-            label34 = new Label();
+            lblCalVelNeg = new Label();
             label35 = new Label();
             label36 = new Label();
-            label37 = new Label();
+            lblCalVelRaw = new Label();
             label38 = new Label();
             groupBox13 = new GroupBox();
             tableLayoutPanel13 = new TableLayoutPanel();
             tableLayoutPanel14 = new TableLayoutPanel();
             label42 = new Label();
-            label43 = new Label();
+            lblCalAccelPos = new Label();
             label44 = new Label();
             label45 = new Label();
-            label46 = new Label();
+            lblCalAccelNeg = new Label();
             label47 = new Label();
             label48 = new Label();
-            label49 = new Label();
+            lblCalAccelRaw = new Label();
             label50 = new Label();
             tableLayoutPanel1 = new TableLayoutPanel();
             label6 = new Label();
-            label5 = new Label();
+            lblCalPosStepSize = new Label();
             label4 = new Label();
             label3 = new Label();
-            label2 = new Label();
+            lblCalNegStepSize = new Label();
             label1 = new Label();
             groupBox1 = new GroupBox();
             tableLayoutPanel2 = new TableLayoutPanel();
             label16 = new Label();
-            label15 = new Label();
+            lblIndicatorDisplayVelocity = new Label();
             label11 = new Label();
             label10 = new Label();
-            label9 = new Label();
+            lblIndicatorDisplayPosition = new Label();
             label7 = new Label();
             statusStrip1 = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
@@ -101,77 +102,86 @@
             toolStripStatusLabel13 = new ToolStripStatusLabel();
             toolStripStatusLabel14 = new ToolStripStatusLabel();
             menuStrip1 = new MenuStrip();
-            settingsToolStripMenuItem = new ToolStripMenuItem();
-            aboutToolStripMenuItem = new ToolStripMenuItem();
+            connectToolStripMenuItem = new ToolStripMenuItem();
+            stripConnectStage = new ToolStripMenuItem();
+            stripConnectIndicator = new ToolStripMenuItem();
+            stripSettings = new ToolStripMenuItem();
+            stripAbout = new ToolStripMenuItem();
             groupBox2 = new GroupBox();
-            button7 = new Button();
+            btnStopAllMotion = new Button();
             groupBox4 = new GroupBox();
             tableLayoutPanel9 = new TableLayoutPanel();
-            label28 = new Label();
-            button6 = new Button();
+            btnGoTo = new Button();
             tableLayoutPanel15 = new TableLayoutPanel();
-            numericUpDown2 = new NumericUpDown();
+            numGoTo = new NumericUpDown();
             label29 = new Label();
-            label40 = new Label();
-            label39 = new Label();
+            lblGoToUnits = new Label();
+            lblGoToEstDistance = new Label();
             groupBox5 = new GroupBox();
             tableLayoutPanel5 = new TableLayoutPanel();
-            label27 = new Label();
-            button4 = new Button();
+            btnMoveDistance = new Button();
             tableLayoutPanel4 = new TableLayoutPanel();
-            numericUpDown1 = new NumericUpDown();
-            label51 = new Label();
+            numMoveDistance = new NumericUpDown();
+            lblMoveDistanceUnits = new Label();
             label41 = new Label();
-            label21 = new Label();
+            lblMoveDistanceEstDistance = new Label();
             groupBox7 = new GroupBox();
             tableLayoutPanel7 = new TableLayoutPanel();
-            radioButton3 = new RadioButton();
-            button5 = new Button();
-            radioButton1 = new RadioButton();
-            radioButton2 = new RadioButton();
+            radRefSteps = new RadioButton();
+            btnLockReference = new Button();
+            radRefIndicator = new RadioButton();
+            radRefCalibration = new RadioButton();
             groupBox3 = new GroupBox();
             tableLayoutPanel3 = new TableLayoutPanel();
-            button3 = new Button();
-            button1 = new Button();
+            btnActiveControlsDown = new Button();
+            btnActiveControlsUp = new Button();
             groupBox9 = new GroupBox();
             tableLayoutPanel16 = new TableLayoutPanel();
-            button10 = new Button();
-            button9 = new Button();
-            button8 = new Button();
-            label60 = new Label();
-            label59 = new Label();
+            btnMotorSettingsApply = new Button();
+            btnMotorSettingsCancel = new Button();
+            btnMotorSettingsApplyDefault = new Button();
+            lblMotorSettingsAccelerationUnits = new Label();
+            lblMotorSettingsEstPosAccel = new Label();
             label57 = new Label();
-            numericUpDown4 = new NumericUpDown();
+            numMotorSettingsAcceleration = new NumericUpDown();
             label56 = new Label();
-            label55 = new Label();
-            label54 = new Label();
+            lblMotorSettingsVelocityUnits = new Label();
+            lblMotorSettingsEstPosVel = new Label();
             label52 = new Label();
-            numericUpDown3 = new NumericUpDown();
+            numMotorSettingsVelocity = new NumericUpDown();
             label17 = new Label();
-            formsPlot1 = new ScottPlot.WinForms.FormsPlot();
             groupBox10 = new GroupBox();
+            groupBox15 = new GroupBox();
+            tableLayoutPanel22 = new TableLayoutPanel();
+            checkBox3 = new CheckBox();
+            checkBox1 = new CheckBox();
+            checkBox2 = new CheckBox();
+            label15 = new Label();
+            btnPlotClear = new Button();
+            numPlotInterval = new NumericUpDown();
+            label9 = new Label();
             groupBox12 = new GroupBox();
             tableLayoutPanel17 = new TableLayoutPanel();
             tableLayoutPanel20 = new TableLayoutPanel();
-            button12 = new Button();
+            btnDataCollect = new Button();
             label62 = new Label();
             label61 = new Label();
-            numericUpDown5 = new NumericUpDown();
+            numDataCollectionRate = new NumericUpDown();
             tableLayoutPanel19 = new TableLayoutPanel();
-            textBox2 = new TextBox();
+            txtDataFileName = new TextBox();
             label58 = new Label();
             tableLayoutPanel18 = new TableLayoutPanel();
             button11 = new Button();
             label53 = new Label();
-            textBox1 = new TextBox();
+            txtDataDirectory = new TextBox();
             groupBox14 = new GroupBox();
             tableLayoutPanel21 = new TableLayoutPanel();
-            btnConnectStage = new Button();
-            btnConnectIndicator = new Button();
             btnOpenSequenceEditor = new Button();
-            connectToolStripMenuItem = new ToolStripMenuItem();
-            stageToolStripMenuItem = new ToolStripMenuItem();
-            indicatorToolStripMenuItem = new ToolStripMenuItem();
+            formsPlot2 = new ScottPlot.WinForms.FormsPlot();
+            tmrIndicatorDisplayUpdate = new System.Windows.Forms.Timer(components);
+            tmrMotorDisplayUpdate = new System.Windows.Forms.Timer(components);
+            lblMotorSettingsEstNegVel = new Label();
+            lblMotorSettingsEstNegAccel = new Label();
             groupBox6.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
             groupBox8.SuspendLayout();
@@ -192,23 +202,27 @@
             groupBox4.SuspendLayout();
             tableLayoutPanel9.SuspendLayout();
             tableLayoutPanel15.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numGoTo).BeginInit();
             groupBox5.SuspendLayout();
             tableLayoutPanel5.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numMoveDistance).BeginInit();
             groupBox7.SuspendLayout();
             tableLayoutPanel7.SuspendLayout();
             groupBox3.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             groupBox9.SuspendLayout();
             tableLayoutPanel16.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numMotorSettingsAcceleration).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numMotorSettingsVelocity).BeginInit();
+            groupBox10.SuspendLayout();
+            groupBox15.SuspendLayout();
+            tableLayoutPanel22.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numPlotInterval).BeginInit();
             groupBox12.SuspendLayout();
             tableLayoutPanel17.SuspendLayout();
             tableLayoutPanel20.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numDataCollectionRate).BeginInit();
             tableLayoutPanel19.SuspendLayout();
             tableLayoutPanel18.SuspendLayout();
             groupBox14.SuspendLayout();
@@ -229,7 +243,7 @@
             // 
             tableLayoutPanel6.ColumnCount = 1;
             tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel6.Controls.Add(button2, 0, 4);
+            tableLayoutPanel6.Controls.Add(btnCalZeroPosition, 0, 4);
             tableLayoutPanel6.Controls.Add(groupBox8, 0, 0);
             tableLayoutPanel6.Controls.Add(groupBox11, 0, 1);
             tableLayoutPanel6.Controls.Add(groupBox13, 0, 2);
@@ -247,15 +261,15 @@
             tableLayoutPanel6.Size = new Size(437, 657);
             tableLayoutPanel6.TabIndex = 0;
             // 
-            // button2
+            // btnCalZeroPosition
             // 
-            button2.Dock = DockStyle.Fill;
-            button2.Location = new Point(3, 608);
-            button2.Name = "button2";
-            button2.Size = new Size(431, 46);
-            button2.TabIndex = 4;
-            button2.Text = "Zero Position";
-            button2.UseVisualStyleBackColor = true;
+            btnCalZeroPosition.Dock = DockStyle.Fill;
+            btnCalZeroPosition.Location = new Point(3, 608);
+            btnCalZeroPosition.Name = "btnCalZeroPosition";
+            btnCalZeroPosition.Size = new Size(431, 46);
+            btnCalZeroPosition.TabIndex = 4;
+            btnCalZeroPosition.Text = "Zero Position";
+            btnCalZeroPosition.UseVisualStyleBackColor = true;
             // 
             // groupBox8
             // 
@@ -289,16 +303,16 @@
             tableLayoutPanel10.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel10.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel10.Controls.Add(label26, 2, 3);
-            tableLayoutPanel10.Controls.Add(label25, 1, 3);
+            tableLayoutPanel10.Controls.Add(lblCalPositionEstMicronPosition, 1, 3);
             tableLayoutPanel10.Controls.Add(label24, 0, 3);
             tableLayoutPanel10.Controls.Add(label23, 2, 2);
-            tableLayoutPanel10.Controls.Add(label22, 1, 2);
+            tableLayoutPanel10.Controls.Add(lblCalPositionPosSteps, 1, 2);
             tableLayoutPanel10.Controls.Add(label20, 0, 2);
             tableLayoutPanel10.Controls.Add(label19, 2, 1);
-            tableLayoutPanel10.Controls.Add(label18, 1, 1);
+            tableLayoutPanel10.Controls.Add(lblCalPositionNegSteps, 1, 1);
             tableLayoutPanel10.Controls.Add(label14, 0, 1);
             tableLayoutPanel10.Controls.Add(label13, 2, 0);
-            tableLayoutPanel10.Controls.Add(label12, 1, 0);
+            tableLayoutPanel10.Controls.Add(lblCalPositionTotalSteps, 1, 0);
             tableLayoutPanel10.Controls.Add(label8, 0, 0);
             tableLayoutPanel10.Dock = DockStyle.Fill;
             tableLayoutPanel10.Location = new Point(3, 3);
@@ -318,25 +332,25 @@
             label26.BackColor = Color.Transparent;
             label26.Dock = DockStyle.Fill;
             label26.Font = new Font("Segoe UI", 9F);
-            label26.Location = new Point(185, 126);
+            label26.Location = new Point(169, 126);
             label26.Name = "label26";
-            label26.Size = new Size(231, 44);
+            label26.Size = new Size(247, 44);
             label26.TabIndex = 13;
             label26.Text = "um";
             label26.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label25
+            // lblCalPositionEstMicronPosition
             // 
-            label25.AutoSize = true;
-            label25.BackColor = Color.Transparent;
-            label25.Dock = DockStyle.Fill;
-            label25.Font = new Font("Segoe UI", 9F);
-            label25.Location = new Point(143, 126);
-            label25.Name = "label25";
-            label25.Size = new Size(36, 44);
-            label25.TabIndex = 12;
-            label25.Text = "N/A";
-            label25.TextAlign = ContentAlignment.MiddleLeft;
+            lblCalPositionEstMicronPosition.AutoSize = true;
+            lblCalPositionEstMicronPosition.BackColor = Color.Transparent;
+            lblCalPositionEstMicronPosition.Dock = DockStyle.Fill;
+            lblCalPositionEstMicronPosition.Font = new Font("Segoe UI", 9F);
+            lblCalPositionEstMicronPosition.Location = new Point(127, 126);
+            lblCalPositionEstMicronPosition.Name = "lblCalPositionEstMicronPosition";
+            lblCalPositionEstMicronPosition.Size = new Size(36, 44);
+            lblCalPositionEstMicronPosition.TabIndex = 12;
+            lblCalPositionEstMicronPosition.Text = "N/A";
+            lblCalPositionEstMicronPosition.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label24
             // 
@@ -346,9 +360,9 @@
             label24.Font = new Font("Segoe UI", 9F);
             label24.Location = new Point(3, 126);
             label24.Name = "label24";
-            label24.Size = new Size(134, 44);
+            label24.Size = new Size(118, 44);
             label24.TabIndex = 11;
-            label24.Text = "Estimated Position:";
+            label24.Text = "Est. Cal. Position:";
             label24.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label23
@@ -357,25 +371,25 @@
             label23.BackColor = Color.Transparent;
             label23.Dock = DockStyle.Fill;
             label23.Font = new Font("Segoe UI", 9F);
-            label23.Location = new Point(185, 84);
+            label23.Location = new Point(169, 84);
             label23.Name = "label23";
-            label23.Size = new Size(231, 42);
+            label23.Size = new Size(247, 42);
             label23.TabIndex = 10;
             label23.Text = "steps";
             label23.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label22
+            // lblCalPositionPosSteps
             // 
-            label22.AutoSize = true;
-            label22.BackColor = Color.Transparent;
-            label22.Dock = DockStyle.Fill;
-            label22.Font = new Font("Segoe UI", 9F);
-            label22.Location = new Point(143, 84);
-            label22.Name = "label22";
-            label22.Size = new Size(36, 42);
-            label22.TabIndex = 9;
-            label22.Text = "N/A";
-            label22.TextAlign = ContentAlignment.MiddleLeft;
+            lblCalPositionPosSteps.AutoSize = true;
+            lblCalPositionPosSteps.BackColor = Color.Transparent;
+            lblCalPositionPosSteps.Dock = DockStyle.Fill;
+            lblCalPositionPosSteps.Font = new Font("Segoe UI", 9F);
+            lblCalPositionPosSteps.Location = new Point(127, 84);
+            lblCalPositionPosSteps.Name = "lblCalPositionPosSteps";
+            lblCalPositionPosSteps.Size = new Size(36, 42);
+            lblCalPositionPosSteps.TabIndex = 9;
+            lblCalPositionPosSteps.Text = "N/A";
+            lblCalPositionPosSteps.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label20
             // 
@@ -385,7 +399,7 @@
             label20.Font = new Font("Segoe UI", 9F);
             label20.Location = new Point(3, 84);
             label20.Name = "label20";
-            label20.Size = new Size(134, 42);
+            label20.Size = new Size(118, 42);
             label20.TabIndex = 8;
             label20.Text = "Positive Steps:";
             label20.TextAlign = ContentAlignment.MiddleLeft;
@@ -396,25 +410,25 @@
             label19.BackColor = Color.Transparent;
             label19.Dock = DockStyle.Fill;
             label19.Font = new Font("Segoe UI", 9F);
-            label19.Location = new Point(185, 42);
+            label19.Location = new Point(169, 42);
             label19.Name = "label19";
-            label19.Size = new Size(231, 42);
+            label19.Size = new Size(247, 42);
             label19.TabIndex = 7;
             label19.Text = "steps";
             label19.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label18
+            // lblCalPositionNegSteps
             // 
-            label18.AutoSize = true;
-            label18.BackColor = Color.Transparent;
-            label18.Dock = DockStyle.Fill;
-            label18.Font = new Font("Segoe UI", 9F);
-            label18.Location = new Point(143, 42);
-            label18.Name = "label18";
-            label18.Size = new Size(36, 42);
-            label18.TabIndex = 6;
-            label18.Text = "N/A";
-            label18.TextAlign = ContentAlignment.MiddleLeft;
+            lblCalPositionNegSteps.AutoSize = true;
+            lblCalPositionNegSteps.BackColor = Color.Transparent;
+            lblCalPositionNegSteps.Dock = DockStyle.Fill;
+            lblCalPositionNegSteps.Font = new Font("Segoe UI", 9F);
+            lblCalPositionNegSteps.Location = new Point(127, 42);
+            lblCalPositionNegSteps.Name = "lblCalPositionNegSteps";
+            lblCalPositionNegSteps.Size = new Size(36, 42);
+            lblCalPositionNegSteps.TabIndex = 6;
+            lblCalPositionNegSteps.Text = "N/A";
+            lblCalPositionNegSteps.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label14
             // 
@@ -424,7 +438,7 @@
             label14.Font = new Font("Segoe UI", 9F);
             label14.Location = new Point(3, 42);
             label14.Name = "label14";
-            label14.Size = new Size(134, 42);
+            label14.Size = new Size(118, 42);
             label14.TabIndex = 5;
             label14.Text = "Negative Steps:";
             label14.TextAlign = ContentAlignment.MiddleLeft;
@@ -435,25 +449,25 @@
             label13.BackColor = Color.Transparent;
             label13.Dock = DockStyle.Fill;
             label13.Font = new Font("Segoe UI", 9F);
-            label13.Location = new Point(185, 0);
+            label13.Location = new Point(169, 0);
             label13.Name = "label13";
-            label13.Size = new Size(231, 42);
+            label13.Size = new Size(247, 42);
             label13.TabIndex = 4;
             label13.Text = "steps";
             label13.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label12
+            // lblCalPositionTotalSteps
             // 
-            label12.AutoSize = true;
-            label12.BackColor = Color.Transparent;
-            label12.Dock = DockStyle.Fill;
-            label12.Font = new Font("Segoe UI", 9F);
-            label12.Location = new Point(143, 0);
-            label12.Name = "label12";
-            label12.Size = new Size(36, 42);
-            label12.TabIndex = 3;
-            label12.Text = "N/A";
-            label12.TextAlign = ContentAlignment.MiddleLeft;
+            lblCalPositionTotalSteps.AutoSize = true;
+            lblCalPositionTotalSteps.BackColor = Color.Transparent;
+            lblCalPositionTotalSteps.Dock = DockStyle.Fill;
+            lblCalPositionTotalSteps.Font = new Font("Segoe UI", 9F);
+            lblCalPositionTotalSteps.Location = new Point(127, 0);
+            lblCalPositionTotalSteps.Name = "lblCalPositionTotalSteps";
+            lblCalPositionTotalSteps.Size = new Size(36, 42);
+            lblCalPositionTotalSteps.TabIndex = 3;
+            lblCalPositionTotalSteps.Text = "N/A";
+            lblCalPositionTotalSteps.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label8
             // 
@@ -463,7 +477,7 @@
             label8.Font = new Font("Segoe UI", 9F);
             label8.Location = new Point(3, 0);
             label8.Name = "label8";
-            label8.Size = new Size(134, 42);
+            label8.Size = new Size(118, 42);
             label8.TabIndex = 2;
             label8.Text = "Total Steps:";
             label8.TextAlign = ContentAlignment.MiddleLeft;
@@ -500,13 +514,13 @@
             tableLayoutPanel12.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel12.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel12.Controls.Add(label30, 2, 2);
-            tableLayoutPanel12.Controls.Add(label31, 1, 2);
+            tableLayoutPanel12.Controls.Add(lblCalVelPos, 1, 2);
             tableLayoutPanel12.Controls.Add(label32, 0, 2);
             tableLayoutPanel12.Controls.Add(label33, 2, 1);
-            tableLayoutPanel12.Controls.Add(label34, 1, 1);
+            tableLayoutPanel12.Controls.Add(lblCalVelNeg, 1, 1);
             tableLayoutPanel12.Controls.Add(label35, 0, 1);
             tableLayoutPanel12.Controls.Add(label36, 2, 0);
-            tableLayoutPanel12.Controls.Add(label37, 1, 0);
+            tableLayoutPanel12.Controls.Add(lblCalVelRaw, 1, 0);
             tableLayoutPanel12.Controls.Add(label38, 0, 0);
             tableLayoutPanel12.Dock = DockStyle.Fill;
             tableLayoutPanel12.Location = new Point(3, 3);
@@ -532,18 +546,18 @@
             label30.Text = "um/s";
             label30.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label31
+            // lblCalVelPos
             // 
-            label31.AutoSize = true;
-            label31.BackColor = Color.Transparent;
-            label31.Dock = DockStyle.Fill;
-            label31.Font = new Font("Segoe UI", 9F);
-            label31.Location = new Point(105, 90);
-            label31.Name = "label31";
-            label31.Size = new Size(36, 45);
-            label31.TabIndex = 9;
-            label31.Text = "N/A";
-            label31.TextAlign = ContentAlignment.MiddleLeft;
+            lblCalVelPos.AutoSize = true;
+            lblCalVelPos.BackColor = Color.Transparent;
+            lblCalVelPos.Dock = DockStyle.Fill;
+            lblCalVelPos.Font = new Font("Segoe UI", 9F);
+            lblCalVelPos.Location = new Point(105, 90);
+            lblCalVelPos.Name = "lblCalVelPos";
+            lblCalVelPos.Size = new Size(36, 45);
+            lblCalVelPos.TabIndex = 9;
+            lblCalVelPos.Text = "N/A";
+            lblCalVelPos.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label32
             // 
@@ -571,18 +585,18 @@
             label33.Text = "um/s";
             label33.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label34
+            // lblCalVelNeg
             // 
-            label34.AutoSize = true;
-            label34.BackColor = Color.Transparent;
-            label34.Dock = DockStyle.Fill;
-            label34.Font = new Font("Segoe UI", 9F);
-            label34.Location = new Point(105, 45);
-            label34.Name = "label34";
-            label34.Size = new Size(36, 45);
-            label34.TabIndex = 6;
-            label34.Text = "N/A";
-            label34.TextAlign = ContentAlignment.MiddleLeft;
+            lblCalVelNeg.AutoSize = true;
+            lblCalVelNeg.BackColor = Color.Transparent;
+            lblCalVelNeg.Dock = DockStyle.Fill;
+            lblCalVelNeg.Font = new Font("Segoe UI", 9F);
+            lblCalVelNeg.Location = new Point(105, 45);
+            lblCalVelNeg.Name = "lblCalVelNeg";
+            lblCalVelNeg.Size = new Size(36, 45);
+            lblCalVelNeg.TabIndex = 6;
+            lblCalVelNeg.Text = "N/A";
+            lblCalVelNeg.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label35
             // 
@@ -610,18 +624,18 @@
             label36.Text = "steps/s";
             label36.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label37
+            // lblCalVelRaw
             // 
-            label37.AutoSize = true;
-            label37.BackColor = Color.Transparent;
-            label37.Dock = DockStyle.Fill;
-            label37.Font = new Font("Segoe UI", 9F);
-            label37.Location = new Point(105, 0);
-            label37.Name = "label37";
-            label37.Size = new Size(36, 45);
-            label37.TabIndex = 3;
-            label37.Text = "N/A";
-            label37.TextAlign = ContentAlignment.MiddleLeft;
+            lblCalVelRaw.AutoSize = true;
+            lblCalVelRaw.BackColor = Color.Transparent;
+            lblCalVelRaw.Dock = DockStyle.Fill;
+            lblCalVelRaw.Font = new Font("Segoe UI", 9F);
+            lblCalVelRaw.Location = new Point(105, 0);
+            lblCalVelRaw.Name = "lblCalVelRaw";
+            lblCalVelRaw.Size = new Size(36, 45);
+            lblCalVelRaw.TabIndex = 3;
+            lblCalVelRaw.Text = "N/A";
+            lblCalVelRaw.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label38
             // 
@@ -668,13 +682,13 @@
             tableLayoutPanel14.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel14.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel14.Controls.Add(label42, 2, 2);
-            tableLayoutPanel14.Controls.Add(label43, 1, 2);
+            tableLayoutPanel14.Controls.Add(lblCalAccelPos, 1, 2);
             tableLayoutPanel14.Controls.Add(label44, 0, 2);
             tableLayoutPanel14.Controls.Add(label45, 2, 1);
-            tableLayoutPanel14.Controls.Add(label46, 1, 1);
+            tableLayoutPanel14.Controls.Add(lblCalAccelNeg, 1, 1);
             tableLayoutPanel14.Controls.Add(label47, 0, 1);
             tableLayoutPanel14.Controls.Add(label48, 2, 0);
-            tableLayoutPanel14.Controls.Add(label49, 1, 0);
+            tableLayoutPanel14.Controls.Add(lblCalAccelRaw, 1, 0);
             tableLayoutPanel14.Controls.Add(label50, 0, 0);
             tableLayoutPanel14.Dock = DockStyle.Fill;
             tableLayoutPanel14.Location = new Point(3, 3);
@@ -699,18 +713,18 @@
             label42.Text = "um/s^2";
             label42.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label43
+            // lblCalAccelPos
             // 
-            label43.AutoSize = true;
-            label43.BackColor = Color.Transparent;
-            label43.Dock = DockStyle.Fill;
-            label43.Font = new Font("Segoe UI", 9F);
-            label43.Location = new Point(136, 90);
-            label43.Name = "label43";
-            label43.Size = new Size(36, 45);
-            label43.TabIndex = 9;
-            label43.Text = "N/A";
-            label43.TextAlign = ContentAlignment.MiddleLeft;
+            lblCalAccelPos.AutoSize = true;
+            lblCalAccelPos.BackColor = Color.Transparent;
+            lblCalAccelPos.Dock = DockStyle.Fill;
+            lblCalAccelPos.Font = new Font("Segoe UI", 9F);
+            lblCalAccelPos.Location = new Point(136, 90);
+            lblCalAccelPos.Name = "lblCalAccelPos";
+            lblCalAccelPos.Size = new Size(36, 45);
+            lblCalAccelPos.TabIndex = 9;
+            lblCalAccelPos.Text = "N/A";
+            lblCalAccelPos.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label44
             // 
@@ -738,18 +752,18 @@
             label45.Text = "um/s^2";
             label45.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label46
+            // lblCalAccelNeg
             // 
-            label46.AutoSize = true;
-            label46.BackColor = Color.Transparent;
-            label46.Dock = DockStyle.Fill;
-            label46.Font = new Font("Segoe UI", 9F);
-            label46.Location = new Point(136, 45);
-            label46.Name = "label46";
-            label46.Size = new Size(36, 45);
-            label46.TabIndex = 6;
-            label46.Text = "N/A";
-            label46.TextAlign = ContentAlignment.MiddleLeft;
+            lblCalAccelNeg.AutoSize = true;
+            lblCalAccelNeg.BackColor = Color.Transparent;
+            lblCalAccelNeg.Dock = DockStyle.Fill;
+            lblCalAccelNeg.Font = new Font("Segoe UI", 9F);
+            lblCalAccelNeg.Location = new Point(136, 45);
+            lblCalAccelNeg.Name = "lblCalAccelNeg";
+            lblCalAccelNeg.Size = new Size(36, 45);
+            lblCalAccelNeg.TabIndex = 6;
+            lblCalAccelNeg.Text = "N/A";
+            lblCalAccelNeg.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label47
             // 
@@ -777,18 +791,18 @@
             label48.Text = "steps/s^2";
             label48.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label49
+            // lblCalAccelRaw
             // 
-            label49.AutoSize = true;
-            label49.BackColor = Color.Transparent;
-            label49.Dock = DockStyle.Fill;
-            label49.Font = new Font("Segoe UI", 9F);
-            label49.Location = new Point(136, 0);
-            label49.Name = "label49";
-            label49.Size = new Size(36, 45);
-            label49.TabIndex = 3;
-            label49.Text = "N/A";
-            label49.TextAlign = ContentAlignment.MiddleLeft;
+            lblCalAccelRaw.AutoSize = true;
+            lblCalAccelRaw.BackColor = Color.Transparent;
+            lblCalAccelRaw.Dock = DockStyle.Fill;
+            lblCalAccelRaw.Font = new Font("Segoe UI", 9F);
+            lblCalAccelRaw.Location = new Point(136, 0);
+            lblCalAccelRaw.Name = "lblCalAccelRaw";
+            lblCalAccelRaw.Size = new Size(36, 45);
+            lblCalAccelRaw.TabIndex = 3;
+            lblCalAccelRaw.Text = "N/A";
+            lblCalAccelRaw.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label50
             // 
@@ -810,10 +824,10 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel1.Controls.Add(label6, 2, 1);
-            tableLayoutPanel1.Controls.Add(label5, 1, 1);
+            tableLayoutPanel1.Controls.Add(lblCalPosStepSize, 1, 1);
             tableLayoutPanel1.Controls.Add(label4, 0, 1);
             tableLayoutPanel1.Controls.Add(label3, 2, 0);
-            tableLayoutPanel1.Controls.Add(label2, 1, 0);
+            tableLayoutPanel1.Controls.Add(lblCalNegStepSize, 1, 0);
             tableLayoutPanel1.Controls.Add(label1, 0, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(3, 557);
@@ -837,18 +851,18 @@
             label6.Text = "um/step";
             label6.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label5
+            // lblCalPosStepSize
             // 
-            label5.AutoSize = true;
-            label5.BackColor = Color.Transparent;
-            label5.Dock = DockStyle.Fill;
-            label5.Font = new Font("Segoe UI", 9F);
-            label5.Location = new Point(146, 22);
-            label5.Name = "label5";
-            label5.Size = new Size(36, 23);
-            label5.TabIndex = 7;
-            label5.Text = "N/A";
-            label5.TextAlign = ContentAlignment.MiddleLeft;
+            lblCalPosStepSize.AutoSize = true;
+            lblCalPosStepSize.BackColor = Color.Transparent;
+            lblCalPosStepSize.Dock = DockStyle.Fill;
+            lblCalPosStepSize.Font = new Font("Segoe UI", 9F);
+            lblCalPosStepSize.Location = new Point(146, 22);
+            lblCalPosStepSize.Name = "lblCalPosStepSize";
+            lblCalPosStepSize.Size = new Size(36, 23);
+            lblCalPosStepSize.TabIndex = 7;
+            lblCalPosStepSize.Text = "N/A";
+            lblCalPosStepSize.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label4
             // 
@@ -876,18 +890,18 @@
             label3.Text = "um/step";
             label3.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label2
+            // lblCalNegStepSize
             // 
-            label2.AutoSize = true;
-            label2.BackColor = Color.Transparent;
-            label2.Dock = DockStyle.Fill;
-            label2.Font = new Font("Segoe UI", 9F);
-            label2.Location = new Point(146, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(36, 22);
-            label2.TabIndex = 4;
-            label2.Text = "N/A";
-            label2.TextAlign = ContentAlignment.MiddleLeft;
+            lblCalNegStepSize.AutoSize = true;
+            lblCalNegStepSize.BackColor = Color.Transparent;
+            lblCalNegStepSize.Dock = DockStyle.Fill;
+            lblCalNegStepSize.Font = new Font("Segoe UI", 9F);
+            lblCalNegStepSize.Location = new Point(146, 0);
+            lblCalNegStepSize.Name = "lblCalNegStepSize";
+            lblCalNegStepSize.Size = new Size(36, 22);
+            lblCalNegStepSize.TabIndex = 4;
+            lblCalNegStepSize.Text = "N/A";
+            lblCalNegStepSize.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label1
             // 
@@ -919,10 +933,10 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel2.Controls.Add(label16, 2, 1);
-            tableLayoutPanel2.Controls.Add(label15, 1, 1);
+            tableLayoutPanel2.Controls.Add(lblIndicatorDisplayVelocity, 1, 1);
             tableLayoutPanel2.Controls.Add(label11, 0, 1);
             tableLayoutPanel2.Controls.Add(label10, 2, 0);
-            tableLayoutPanel2.Controls.Add(label9, 1, 0);
+            tableLayoutPanel2.Controls.Add(lblIndicatorDisplayPosition, 1, 0);
             tableLayoutPanel2.Controls.Add(label7, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(3, 23);
@@ -946,18 +960,18 @@
             label16.Text = "um/s";
             label16.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label15
+            // lblIndicatorDisplayVelocity
             // 
-            label15.AutoSize = true;
-            label15.BackColor = Color.Transparent;
-            label15.Dock = DockStyle.Fill;
-            label15.Font = new Font("Segoe UI", 9F);
-            label15.Location = new Point(118, 44);
-            label15.Name = "label15";
-            label15.Size = new Size(36, 45);
-            label15.TabIndex = 7;
-            label15.Text = "N/A";
-            label15.TextAlign = ContentAlignment.MiddleLeft;
+            lblIndicatorDisplayVelocity.AutoSize = true;
+            lblIndicatorDisplayVelocity.BackColor = Color.Transparent;
+            lblIndicatorDisplayVelocity.Dock = DockStyle.Fill;
+            lblIndicatorDisplayVelocity.Font = new Font("Segoe UI", 9F);
+            lblIndicatorDisplayVelocity.Location = new Point(118, 44);
+            lblIndicatorDisplayVelocity.Name = "lblIndicatorDisplayVelocity";
+            lblIndicatorDisplayVelocity.Size = new Size(36, 45);
+            lblIndicatorDisplayVelocity.TabIndex = 7;
+            lblIndicatorDisplayVelocity.Text = "N/A";
+            lblIndicatorDisplayVelocity.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label11
             // 
@@ -985,18 +999,18 @@
             label10.Text = "um";
             label10.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label9
+            // lblIndicatorDisplayPosition
             // 
-            label9.AutoSize = true;
-            label9.BackColor = Color.Transparent;
-            label9.Dock = DockStyle.Fill;
-            label9.Font = new Font("Segoe UI", 9F);
-            label9.Location = new Point(118, 0);
-            label9.Name = "label9";
-            label9.Size = new Size(36, 44);
-            label9.TabIndex = 4;
-            label9.Text = "N/A";
-            label9.TextAlign = ContentAlignment.MiddleLeft;
+            lblIndicatorDisplayPosition.AutoSize = true;
+            lblIndicatorDisplayPosition.BackColor = Color.Transparent;
+            lblIndicatorDisplayPosition.Dock = DockStyle.Fill;
+            lblIndicatorDisplayPosition.Font = new Font("Segoe UI", 9F);
+            lblIndicatorDisplayPosition.Location = new Point(118, 0);
+            lblIndicatorDisplayPosition.Name = "lblIndicatorDisplayPosition";
+            lblIndicatorDisplayPosition.Size = new Size(36, 44);
+            lblIndicatorDisplayPosition.TabIndex = 4;
+            lblIndicatorDisplayPosition.Text = "N/A";
+            lblIndicatorDisplayPosition.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label7
             // 
@@ -1015,7 +1029,7 @@
             // 
             statusStrip1.ImageScalingSize = new Size(20, 20);
             statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1, statusStageConnected, toolStripStatusLabel3, toolStripStatusLabel4, statusIndicatorConnected, toolStripStatusLabel6, toolStripStatusLabel7, toolStripStatusLabel8, toolStripStatusLabel9, toolStripStatusLabel10, toolStripStatusLabel11, toolStripStatusLabel12, toolStripStatusLabel13, toolStripStatusLabel14 });
-            statusStrip1.Location = new Point(0, 943);
+            statusStrip1.Location = new Point(0, 916);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.RenderMode = ToolStripRenderMode.Professional;
             statusStrip1.Size = new Size(1522, 26);
@@ -1030,6 +1044,7 @@
             // 
             // statusStageConnected
             // 
+            statusStageConnected.ForeColor = Color.Red;
             statusStageConnected.Name = "statusStageConnected";
             statusStageConnected.Size = new Size(99, 20);
             statusStageConnected.Text = "Disconnected";
@@ -1048,6 +1063,7 @@
             // 
             // statusIndicatorConnected
             // 
+            statusIndicatorConnected.ForeColor = Color.Red;
             statusIndicatorConnected.Name = "statusIndicatorConnected";
             statusIndicatorConnected.Size = new Size(99, 20);
             statusIndicatorConnected.Text = "Disconnected";
@@ -1109,7 +1125,7 @@
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { connectToolStripMenuItem, settingsToolStripMenuItem, aboutToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { connectToolStripMenuItem, stripSettings, stripAbout });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(6, 3, 0, 3);
@@ -1117,22 +1133,44 @@
             menuStrip1.TabIndex = 5;
             menuStrip1.Text = "menuStrip1";
             // 
-            // settingsToolStripMenuItem
+            // connectToolStripMenuItem
             // 
-            settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            settingsToolStripMenuItem.Size = new Size(76, 24);
-            settingsToolStripMenuItem.Text = "Settings";
+            connectToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { stripConnectStage, stripConnectIndicator });
+            connectToolStripMenuItem.Name = "connectToolStripMenuItem";
+            connectToolStripMenuItem.Size = new Size(77, 24);
+            connectToolStripMenuItem.Text = "Connect";
             // 
-            // aboutToolStripMenuItem
+            // stripConnectStage
             // 
-            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new Size(64, 24);
-            aboutToolStripMenuItem.Text = "About";
-            aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
+            stripConnectStage.Name = "stripConnectStage";
+            stripConnectStage.Size = new Size(151, 26);
+            stripConnectStage.Text = "Stage";
+            stripConnectStage.Click += stripConnectStage_Click;
+            // 
+            // stripConnectIndicator
+            // 
+            stripConnectIndicator.Name = "stripConnectIndicator";
+            stripConnectIndicator.Size = new Size(151, 26);
+            stripConnectIndicator.Text = "Indicator";
+            stripConnectIndicator.Click += stripConnectIndicator_Click;
+            // 
+            // stripSettings
+            // 
+            stripSettings.Name = "stripSettings";
+            stripSettings.Size = new Size(76, 24);
+            stripSettings.Text = "Settings";
+            stripSettings.Click += stripSettings_Click;
+            // 
+            // stripAbout
+            // 
+            stripAbout.Name = "stripAbout";
+            stripAbout.Size = new Size(64, 24);
+            stripAbout.Text = "About";
+            stripAbout.Click += stripAbout_Click;
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(button7);
+            groupBox2.Controls.Add(btnStopAllMotion);
             groupBox2.Controls.Add(groupBox4);
             groupBox2.Controls.Add(groupBox5);
             groupBox2.Controls.Add(groupBox7);
@@ -1144,15 +1182,16 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Standard Stage Controls";
             // 
-            // button7
+            // btnStopAllMotion
             // 
-            button7.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button7.Location = new Point(305, 36);
-            button7.Name = "button7";
-            button7.Size = new Size(150, 164);
-            button7.TabIndex = 15;
-            button7.Text = "STOP ALL MOTION";
-            button7.UseVisualStyleBackColor = true;
+            btnStopAllMotion.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold);
+            btnStopAllMotion.Location = new Point(305, 36);
+            btnStopAllMotion.Name = "btnStopAllMotion";
+            btnStopAllMotion.Size = new Size(150, 164);
+            btnStopAllMotion.TabIndex = 15;
+            btnStopAllMotion.Text = "STOP ALL MOTION";
+            btnStopAllMotion.UseVisualStyleBackColor = true;
+            btnStopAllMotion.Click += btnStopAllMotion_Click;
             // 
             // groupBox4
             // 
@@ -1168,41 +1207,30 @@
             // 
             tableLayoutPanel9.ColumnCount = 1;
             tableLayoutPanel9.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel9.Controls.Add(label28, 0, 2);
-            tableLayoutPanel9.Controls.Add(button6, 0, 3);
+            tableLayoutPanel9.Controls.Add(btnGoTo, 0, 2);
             tableLayoutPanel9.Controls.Add(tableLayoutPanel15, 0, 0);
-            tableLayoutPanel9.Controls.Add(label39, 0, 1);
+            tableLayoutPanel9.Controls.Add(lblGoToEstDistance, 0, 1);
             tableLayoutPanel9.Dock = DockStyle.Fill;
             tableLayoutPanel9.Location = new Point(3, 23);
             tableLayoutPanel9.Name = "tableLayoutPanel9";
-            tableLayoutPanel9.RowCount = 4;
-            tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 27.3387814F));
-            tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 18.1653042F));
-            tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 18.1653042F));
-            tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 36.33061F));
+            tableLayoutPanel9.RowCount = 3;
+            tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 33.4073257F));
+            tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 22.1975613F));
+            tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 44.3951225F));
+            tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
             tableLayoutPanel9.Size = new Size(443, 147);
             tableLayoutPanel9.TabIndex = 13;
             // 
-            // label28
+            // btnGoTo
             // 
-            label28.AutoSize = true;
-            label28.Dock = DockStyle.Fill;
-            label28.Location = new Point(3, 66);
-            label28.Name = "label28";
-            label28.Size = new Size(437, 26);
-            label28.TabIndex = 5;
-            label28.Text = "(Approx. N/A units)";
-            label28.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // button6
-            // 
-            button6.Dock = DockStyle.Fill;
-            button6.Location = new Point(3, 95);
-            button6.Name = "button6";
-            button6.Size = new Size(437, 49);
-            button6.TabIndex = 4;
-            button6.Text = "Go!";
-            button6.UseVisualStyleBackColor = true;
+            btnGoTo.Dock = DockStyle.Fill;
+            btnGoTo.Location = new Point(3, 84);
+            btnGoTo.Name = "btnGoTo";
+            btnGoTo.Size = new Size(437, 60);
+            btnGoTo.TabIndex = 4;
+            btnGoTo.Text = "Go!";
+            btnGoTo.UseVisualStyleBackColor = true;
+            btnGoTo.Click += btnGoTo_Click;
             // 
             // tableLayoutPanel15
             // 
@@ -1210,27 +1238,27 @@
             tableLayoutPanel15.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel15.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel15.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel15.Controls.Add(numericUpDown2, 1, 0);
+            tableLayoutPanel15.Controls.Add(numGoTo, 1, 0);
             tableLayoutPanel15.Controls.Add(label29, 0, 0);
-            tableLayoutPanel15.Controls.Add(label40, 2, 0);
+            tableLayoutPanel15.Controls.Add(lblGoToUnits, 2, 0);
             tableLayoutPanel15.Dock = DockStyle.Fill;
             tableLayoutPanel15.Location = new Point(3, 3);
             tableLayoutPanel15.Name = "tableLayoutPanel15";
             tableLayoutPanel15.RowCount = 1;
             tableLayoutPanel15.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel15.Size = new Size(437, 34);
+            tableLayoutPanel15.Size = new Size(437, 43);
             tableLayoutPanel15.TabIndex = 0;
             // 
-            // numericUpDown2
+            // numGoTo
             // 
-            numericUpDown2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            numericUpDown2.Increment = new decimal(new int[] { 5, 0, 0, 262144 });
-            numericUpDown2.Location = new Point(73, 3);
-            numericUpDown2.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
-            numericUpDown2.Minimum = new decimal(new int[] { -1, 0, 0, int.MinValue });
-            numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Size = new Size(267, 27);
-            numericUpDown2.TabIndex = 5;
+            numGoTo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            numGoTo.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+            numGoTo.Location = new Point(73, 8);
+            numGoTo.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
+            numGoTo.Minimum = new decimal(new int[] { -1, 0, 0, int.MinValue });
+            numGoTo.Name = "numGoTo";
+            numGoTo.Size = new Size(267, 27);
+            numGoTo.TabIndex = 5;
             // 
             // label29
             // 
@@ -1238,32 +1266,32 @@
             label29.Dock = DockStyle.Fill;
             label29.Location = new Point(3, 0);
             label29.Name = "label29";
-            label29.Size = new Size(64, 34);
+            label29.Size = new Size(64, 43);
             label29.TabIndex = 4;
             label29.Text = "Position:";
             label29.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label40
+            // lblGoToUnits
             // 
-            label40.AutoSize = true;
-            label40.Dock = DockStyle.Fill;
-            label40.Location = new Point(346, 0);
-            label40.Name = "label40";
-            label40.Size = new Size(88, 34);
-            label40.TabIndex = 3;
-            label40.Text = "units";
-            label40.TextAlign = ContentAlignment.MiddleLeft;
+            lblGoToUnits.AutoSize = true;
+            lblGoToUnits.Dock = DockStyle.Fill;
+            lblGoToUnits.Location = new Point(346, 0);
+            lblGoToUnits.Name = "lblGoToUnits";
+            lblGoToUnits.Size = new Size(88, 43);
+            lblGoToUnits.TabIndex = 3;
+            lblGoToUnits.Text = "um";
+            lblGoToUnits.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label39
+            // lblGoToEstDistance
             // 
-            label39.AutoSize = true;
-            label39.Dock = DockStyle.Fill;
-            label39.Location = new Point(3, 40);
-            label39.Name = "label39";
-            label39.Size = new Size(437, 26);
-            label39.TabIndex = 1;
-            label39.Text = "(Approx. N/A units)";
-            label39.TextAlign = ContentAlignment.MiddleLeft;
+            lblGoToEstDistance.AutoSize = true;
+            lblGoToEstDistance.Dock = DockStyle.Fill;
+            lblGoToEstDistance.Location = new Point(3, 49);
+            lblGoToEstDistance.Name = "lblGoToEstDistance";
+            lblGoToEstDistance.Size = new Size(437, 32);
+            lblGoToEstDistance.TabIndex = 1;
+            lblGoToEstDistance.Text = "(Approx. 0 steps)";
+            lblGoToEstDistance.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // groupBox5
             // 
@@ -1279,41 +1307,30 @@
             // 
             tableLayoutPanel5.ColumnCount = 1;
             tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel5.Controls.Add(label27, 0, 2);
-            tableLayoutPanel5.Controls.Add(button4, 0, 3);
+            tableLayoutPanel5.Controls.Add(btnMoveDistance, 0, 2);
             tableLayoutPanel5.Controls.Add(tableLayoutPanel4, 0, 0);
-            tableLayoutPanel5.Controls.Add(label21, 0, 1);
+            tableLayoutPanel5.Controls.Add(lblMoveDistanceEstDistance, 0, 1);
             tableLayoutPanel5.Dock = DockStyle.Fill;
             tableLayoutPanel5.Location = new Point(3, 23);
             tableLayoutPanel5.Name = "tableLayoutPanel5";
-            tableLayoutPanel5.RowCount = 4;
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 27.3387814F));
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 18.1653042F));
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 18.1653042F));
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 36.33061F));
+            tableLayoutPanel5.RowCount = 3;
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 33.4073257F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 22.1975613F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 44.3951225F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
             tableLayoutPanel5.Size = new Size(443, 147);
             tableLayoutPanel5.TabIndex = 13;
             // 
-            // label27
+            // btnMoveDistance
             // 
-            label27.AutoSize = true;
-            label27.Dock = DockStyle.Fill;
-            label27.Location = new Point(3, 66);
-            label27.Name = "label27";
-            label27.Size = new Size(437, 26);
-            label27.TabIndex = 5;
-            label27.Text = "(Approx. N/A units)";
-            label27.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // button4
-            // 
-            button4.Dock = DockStyle.Fill;
-            button4.Location = new Point(3, 95);
-            button4.Name = "button4";
-            button4.Size = new Size(437, 49);
-            button4.TabIndex = 4;
-            button4.Text = "Go!";
-            button4.UseVisualStyleBackColor = true;
+            btnMoveDistance.Dock = DockStyle.Fill;
+            btnMoveDistance.Location = new Point(3, 84);
+            btnMoveDistance.Name = "btnMoveDistance";
+            btnMoveDistance.Size = new Size(437, 60);
+            btnMoveDistance.TabIndex = 4;
+            btnMoveDistance.Text = "Go!";
+            btnMoveDistance.UseVisualStyleBackColor = true;
+            btnMoveDistance.Click += btnMoveDistance_Click;
             // 
             // tableLayoutPanel4
             // 
@@ -1321,38 +1338,38 @@
             tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel4.Controls.Add(numericUpDown1, 1, 0);
-            tableLayoutPanel4.Controls.Add(label51, 2, 0);
+            tableLayoutPanel4.Controls.Add(numMoveDistance, 1, 0);
+            tableLayoutPanel4.Controls.Add(lblMoveDistanceUnits, 2, 0);
             tableLayoutPanel4.Controls.Add(label41, 0, 0);
             tableLayoutPanel4.Dock = DockStyle.Fill;
             tableLayoutPanel4.Location = new Point(3, 3);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 1;
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel4.Size = new Size(437, 34);
+            tableLayoutPanel4.Size = new Size(437, 43);
             tableLayoutPanel4.TabIndex = 0;
             // 
-            // numericUpDown1
+            // numMoveDistance
             // 
-            numericUpDown1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            numericUpDown1.Increment = new decimal(new int[] { 5, 0, 0, 262144 });
-            numericUpDown1.Location = new Point(78, 3);
-            numericUpDown1.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
-            numericUpDown1.Minimum = new decimal(new int[] { -1, 0, 0, int.MinValue });
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(262, 27);
-            numericUpDown1.TabIndex = 6;
+            numMoveDistance.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            numMoveDistance.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+            numMoveDistance.Location = new Point(78, 8);
+            numMoveDistance.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
+            numMoveDistance.Minimum = new decimal(new int[] { -1, 0, 0, int.MinValue });
+            numMoveDistance.Name = "numMoveDistance";
+            numMoveDistance.Size = new Size(262, 27);
+            numMoveDistance.TabIndex = 6;
             // 
-            // label51
+            // lblMoveDistanceUnits
             // 
-            label51.AutoSize = true;
-            label51.Dock = DockStyle.Fill;
-            label51.Location = new Point(346, 0);
-            label51.Name = "label51";
-            label51.Size = new Size(88, 34);
-            label51.TabIndex = 3;
-            label51.Text = "units";
-            label51.TextAlign = ContentAlignment.MiddleLeft;
+            lblMoveDistanceUnits.AutoSize = true;
+            lblMoveDistanceUnits.Dock = DockStyle.Fill;
+            lblMoveDistanceUnits.Location = new Point(346, 0);
+            lblMoveDistanceUnits.Name = "lblMoveDistanceUnits";
+            lblMoveDistanceUnits.Size = new Size(88, 43);
+            lblMoveDistanceUnits.TabIndex = 3;
+            lblMoveDistanceUnits.Text = "um";
+            lblMoveDistanceUnits.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label41
             // 
@@ -1360,21 +1377,21 @@
             label41.Dock = DockStyle.Fill;
             label41.Location = new Point(3, 0);
             label41.Name = "label41";
-            label41.Size = new Size(69, 34);
+            label41.Size = new Size(69, 43);
             label41.TabIndex = 2;
             label41.Text = "Distance:";
             label41.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label21
+            // lblMoveDistanceEstDistance
             // 
-            label21.AutoSize = true;
-            label21.Dock = DockStyle.Fill;
-            label21.Location = new Point(3, 40);
-            label21.Name = "label21";
-            label21.Size = new Size(437, 26);
-            label21.TabIndex = 1;
-            label21.Text = "(Approx. N/A units)";
-            label21.TextAlign = ContentAlignment.MiddleLeft;
+            lblMoveDistanceEstDistance.AutoSize = true;
+            lblMoveDistanceEstDistance.Dock = DockStyle.Fill;
+            lblMoveDistanceEstDistance.Location = new Point(3, 49);
+            lblMoveDistanceEstDistance.Name = "lblMoveDistanceEstDistance";
+            lblMoveDistanceEstDistance.Size = new Size(437, 32);
+            lblMoveDistanceEstDistance.TabIndex = 1;
+            lblMoveDistanceEstDistance.Text = "(Approx. 0 steps)";
+            lblMoveDistanceEstDistance.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // groupBox7
             // 
@@ -1390,10 +1407,10 @@
             // 
             tableLayoutPanel7.ColumnCount = 1;
             tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel7.Controls.Add(radioButton3, 0, 2);
-            tableLayoutPanel7.Controls.Add(button5, 0, 3);
-            tableLayoutPanel7.Controls.Add(radioButton1, 0, 0);
-            tableLayoutPanel7.Controls.Add(radioButton2, 0, 1);
+            tableLayoutPanel7.Controls.Add(radRefSteps, 0, 2);
+            tableLayoutPanel7.Controls.Add(btnLockReference, 0, 3);
+            tableLayoutPanel7.Controls.Add(radRefIndicator, 0, 0);
+            tableLayoutPanel7.Controls.Add(radRefCalibration, 0, 1);
             tableLayoutPanel7.Dock = DockStyle.Fill;
             tableLayoutPanel7.Location = new Point(3, 23);
             tableLayoutPanel7.Name = "tableLayoutPanel7";
@@ -1405,51 +1422,54 @@
             tableLayoutPanel7.Size = new Size(159, 147);
             tableLayoutPanel7.TabIndex = 0;
             // 
-            // radioButton3
+            // radRefSteps
             // 
-            radioButton3.AutoSize = true;
-            radioButton3.Dock = DockStyle.Fill;
-            radioButton3.Location = new Point(3, 63);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(153, 24);
-            radioButton3.TabIndex = 10;
-            radioButton3.TabStop = true;
-            radioButton3.Text = "Steps";
-            radioButton3.UseVisualStyleBackColor = true;
+            radRefSteps.AutoSize = true;
+            radRefSteps.Dock = DockStyle.Fill;
+            radRefSteps.Location = new Point(3, 63);
+            radRefSteps.Name = "radRefSteps";
+            radRefSteps.Size = new Size(153, 24);
+            radRefSteps.TabIndex = 10;
+            radRefSteps.Text = "Steps";
+            radRefSteps.UseVisualStyleBackColor = true;
+            radRefSteps.CheckedChanged += radRefSteps_CheckedChanged;
             // 
-            // button5
+            // btnLockReference
             // 
-            button5.Dock = DockStyle.Fill;
-            button5.Location = new Point(3, 93);
-            button5.Name = "button5";
-            button5.Size = new Size(153, 51);
-            button5.TabIndex = 7;
-            button5.Text = "Lock";
-            button5.UseVisualStyleBackColor = true;
+            btnLockReference.Dock = DockStyle.Fill;
+            btnLockReference.Location = new Point(3, 93);
+            btnLockReference.Name = "btnLockReference";
+            btnLockReference.Size = new Size(153, 51);
+            btnLockReference.TabIndex = 7;
+            btnLockReference.Text = "Lock";
+            btnLockReference.UseVisualStyleBackColor = true;
+            btnLockReference.Click += btnLockReference_Click;
             // 
-            // radioButton1
+            // radRefIndicator
             // 
-            radioButton1.AutoSize = true;
-            radioButton1.Dock = DockStyle.Fill;
-            radioButton1.Location = new Point(3, 3);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(153, 24);
-            radioButton1.TabIndex = 8;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Indicator";
-            radioButton1.UseVisualStyleBackColor = true;
+            radRefIndicator.AutoSize = true;
+            radRefIndicator.Checked = true;
+            radRefIndicator.Dock = DockStyle.Fill;
+            radRefIndicator.Location = new Point(3, 3);
+            radRefIndicator.Name = "radRefIndicator";
+            radRefIndicator.Size = new Size(153, 24);
+            radRefIndicator.TabIndex = 8;
+            radRefIndicator.TabStop = true;
+            radRefIndicator.Text = "Indicator";
+            radRefIndicator.UseVisualStyleBackColor = true;
+            radRefIndicator.CheckedChanged += radRefIndicator_CheckedChanged;
             // 
-            // radioButton2
+            // radRefCalibration
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Dock = DockStyle.Fill;
-            radioButton2.Location = new Point(3, 33);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(153, 24);
-            radioButton2.TabIndex = 9;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Calibrated";
-            radioButton2.UseVisualStyleBackColor = true;
+            radRefCalibration.AutoSize = true;
+            radRefCalibration.Dock = DockStyle.Fill;
+            radRefCalibration.Location = new Point(3, 33);
+            radRefCalibration.Name = "radRefCalibration";
+            radRefCalibration.Size = new Size(153, 24);
+            radRefCalibration.TabIndex = 9;
+            radRefCalibration.Text = "Calibration";
+            radRefCalibration.UseVisualStyleBackColor = true;
+            radRefCalibration.CheckedChanged += radRefCalibration_CheckedChanged;
             // 
             // groupBox3
             // 
@@ -1465,8 +1485,8 @@
             // 
             tableLayoutPanel3.ColumnCount = 1;
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel3.Controls.Add(button3, 0, 1);
-            tableLayoutPanel3.Controls.Add(button1, 0, 0);
+            tableLayoutPanel3.Controls.Add(btnActiveControlsDown, 0, 1);
+            tableLayoutPanel3.Controls.Add(btnActiveControlsUp, 0, 0);
             tableLayoutPanel3.Dock = DockStyle.Fill;
             tableLayoutPanel3.Location = new Point(3, 23);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -1476,34 +1496,40 @@
             tableLayoutPanel3.Size = new Size(117, 147);
             tableLayoutPanel3.TabIndex = 0;
             // 
-            // button3
+            // btnActiveControlsDown
             // 
-            button3.Dock = DockStyle.Fill;
-            button3.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            button3.Location = new Point(3, 76);
-            button3.Name = "button3";
-            button3.Size = new Size(111, 68);
-            button3.TabIndex = 8;
-            button3.Text = "↓";
-            button3.UseVisualStyleBackColor = true;
+            btnActiveControlsDown.Dock = DockStyle.Fill;
+            btnActiveControlsDown.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            btnActiveControlsDown.Location = new Point(3, 76);
+            btnActiveControlsDown.Name = "btnActiveControlsDown";
+            btnActiveControlsDown.Size = new Size(111, 68);
+            btnActiveControlsDown.TabIndex = 8;
+            btnActiveControlsDown.Text = "↓";
+            btnActiveControlsDown.UseVisualStyleBackColor = true;
+            btnActiveControlsDown.Click += btnActiveControlsDown_Click;
+            btnActiveControlsDown.MouseDown += btnActiveControlsDown_MouseDown;
+            btnActiveControlsDown.MouseUp += btnActiveControlsDown_MouseUp;
             // 
-            // button1
+            // btnActiveControlsUp
             // 
-            button1.Dock = DockStyle.Fill;
-            button1.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            button1.Location = new Point(3, 3);
-            button1.Name = "button1";
-            button1.Size = new Size(111, 67);
-            button1.TabIndex = 7;
-            button1.Text = "↑";
-            button1.UseVisualStyleBackColor = true;
+            btnActiveControlsUp.Dock = DockStyle.Fill;
+            btnActiveControlsUp.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            btnActiveControlsUp.Location = new Point(3, 3);
+            btnActiveControlsUp.Name = "btnActiveControlsUp";
+            btnActiveControlsUp.Size = new Size(111, 67);
+            btnActiveControlsUp.TabIndex = 7;
+            btnActiveControlsUp.Text = "↑";
+            btnActiveControlsUp.UseVisualStyleBackColor = true;
+            btnActiveControlsUp.Click += btnActiveControlsUp_Click;
+            btnActiveControlsUp.MouseDown += btnActiveControlsUp_MouseDown;
+            btnActiveControlsUp.MouseUp += btnActiveControlsUp_MouseUp;
             // 
             // groupBox9
             // 
             groupBox9.Controls.Add(tableLayoutPanel16);
             groupBox9.Location = new Point(11, 724);
             groupBox9.Name = "groupBox9";
-            groupBox9.Size = new Size(439, 201);
+            groupBox9.Size = new Size(439, 189);
             groupBox9.TabIndex = 7;
             groupBox9.TabStop = false;
             groupBox9.Text = "Motor Settings";
@@ -1511,140 +1537,143 @@
             // tableLayoutPanel16
             // 
             tableLayoutPanel16.ColumnCount = 3;
-            tableLayoutPanel16.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel16.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 37.7142868F));
-            tableLayoutPanel16.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 29.1428566F));
-            tableLayoutPanel16.Controls.Add(button10, 2, 4);
-            tableLayoutPanel16.Controls.Add(button9, 1, 4);
-            tableLayoutPanel16.Controls.Add(button8, 0, 4);
-            tableLayoutPanel16.Controls.Add(label60, 2, 3);
-            tableLayoutPanel16.Controls.Add(label59, 1, 3);
+            tableLayoutPanel16.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.26995F));
+            tableLayoutPanel16.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 37.6425934F));
+            tableLayoutPanel16.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 29.0874577F));
+            tableLayoutPanel16.Controls.Add(lblMotorSettingsEstNegAccel, 0, 3);
+            tableLayoutPanel16.Controls.Add(btnMotorSettingsApply, 2, 4);
+            tableLayoutPanel16.Controls.Add(btnMotorSettingsCancel, 1, 4);
+            tableLayoutPanel16.Controls.Add(btnMotorSettingsApplyDefault, 0, 4);
+            tableLayoutPanel16.Controls.Add(lblMotorSettingsAccelerationUnits, 2, 3);
+            tableLayoutPanel16.Controls.Add(lblMotorSettingsEstPosAccel, 1, 3);
             tableLayoutPanel16.Controls.Add(label57, 2, 2);
-            tableLayoutPanel16.Controls.Add(numericUpDown4, 1, 2);
+            tableLayoutPanel16.Controls.Add(numMotorSettingsAcceleration, 1, 2);
             tableLayoutPanel16.Controls.Add(label56, 0, 2);
-            tableLayoutPanel16.Controls.Add(label55, 2, 1);
-            tableLayoutPanel16.Controls.Add(label54, 1, 1);
+            tableLayoutPanel16.Controls.Add(lblMotorSettingsVelocityUnits, 2, 1);
+            tableLayoutPanel16.Controls.Add(lblMotorSettingsEstPosVel, 1, 1);
             tableLayoutPanel16.Controls.Add(label52, 2, 0);
-            tableLayoutPanel16.Controls.Add(numericUpDown3, 1, 0);
+            tableLayoutPanel16.Controls.Add(numMotorSettingsVelocity, 1, 0);
             tableLayoutPanel16.Controls.Add(label17, 0, 0);
+            tableLayoutPanel16.Controls.Add(lblMotorSettingsEstNegVel, 0, 1);
             tableLayoutPanel16.Dock = DockStyle.Fill;
             tableLayoutPanel16.Location = new Point(3, 23);
             tableLayoutPanel16.Name = "tableLayoutPanel16";
             tableLayoutPanel16.RowCount = 5;
+            tableLayoutPanel16.RowStyles.Add(new RowStyle(SizeType.Percent, 50.00001F));
             tableLayoutPanel16.RowStyles.Add(new RowStyle());
+            tableLayoutPanel16.RowStyles.Add(new RowStyle(SizeType.Percent, 49.99999F));
             tableLayoutPanel16.RowStyles.Add(new RowStyle());
-            tableLayoutPanel16.RowStyles.Add(new RowStyle());
-            tableLayoutPanel16.RowStyles.Add(new RowStyle());
-            tableLayoutPanel16.RowStyles.Add(new RowStyle());
-            tableLayoutPanel16.Size = new Size(433, 175);
+            tableLayoutPanel16.RowStyles.Add(new RowStyle(SizeType.Absolute, 51F));
+            tableLayoutPanel16.Size = new Size(433, 163);
             tableLayoutPanel16.TabIndex = 0;
             // 
-            // button10
+            // btnMotorSettingsApply
             // 
-            button10.Dock = DockStyle.Fill;
-            button10.Location = new Point(309, 109);
-            button10.Name = "button10";
-            button10.Size = new Size(121, 63);
-            button10.TabIndex = 20;
-            button10.Text = "Apply";
-            button10.UseVisualStyleBackColor = true;
+            btnMotorSettingsApply.Dock = DockStyle.Fill;
+            btnMotorSettingsApply.Location = new Point(309, 114);
+            btnMotorSettingsApply.Name = "btnMotorSettingsApply";
+            btnMotorSettingsApply.Size = new Size(121, 46);
+            btnMotorSettingsApply.TabIndex = 20;
+            btnMotorSettingsApply.Text = "Apply";
+            btnMotorSettingsApply.UseVisualStyleBackColor = true;
+            btnMotorSettingsApply.Click += btnMotorSettingsApply_Click;
             // 
-            // button9
+            // btnMotorSettingsCancel
             // 
-            button9.Dock = DockStyle.Fill;
-            button9.Location = new Point(147, 109);
-            button9.Name = "button9";
-            button9.Size = new Size(156, 63);
-            button9.TabIndex = 19;
-            button9.Text = "Cancel";
-            button9.UseVisualStyleBackColor = true;
+            btnMotorSettingsCancel.Dock = DockStyle.Fill;
+            btnMotorSettingsCancel.Location = new Point(147, 114);
+            btnMotorSettingsCancel.Name = "btnMotorSettingsCancel";
+            btnMotorSettingsCancel.Size = new Size(156, 46);
+            btnMotorSettingsCancel.TabIndex = 19;
+            btnMotorSettingsCancel.Text = "Cancel";
+            btnMotorSettingsCancel.UseVisualStyleBackColor = true;
             // 
-            // button8
+            // btnMotorSettingsApplyDefault
             // 
-            button8.Dock = DockStyle.Fill;
-            button8.Location = new Point(3, 109);
-            button8.Name = "button8";
-            button8.Size = new Size(138, 63);
-            button8.TabIndex = 18;
-            button8.Text = "Apply Default";
-            button8.UseVisualStyleBackColor = true;
+            btnMotorSettingsApplyDefault.Dock = DockStyle.Fill;
+            btnMotorSettingsApplyDefault.Location = new Point(3, 114);
+            btnMotorSettingsApplyDefault.Name = "btnMotorSettingsApplyDefault";
+            btnMotorSettingsApplyDefault.Size = new Size(138, 46);
+            btnMotorSettingsApplyDefault.TabIndex = 18;
+            btnMotorSettingsApplyDefault.Text = "Apply Default";
+            btnMotorSettingsApplyDefault.UseVisualStyleBackColor = true;
             // 
-            // label60
+            // lblMotorSettingsAccelerationUnits
             // 
-            label60.AutoSize = true;
-            label60.Dock = DockStyle.Fill;
-            label60.Location = new Point(309, 86);
-            label60.Name = "label60";
-            label60.Size = new Size(121, 20);
-            label60.TabIndex = 17;
-            label60.Text = "units/s^2";
-            label60.TextAlign = ContentAlignment.MiddleCenter;
+            lblMotorSettingsAccelerationUnits.AutoSize = true;
+            lblMotorSettingsAccelerationUnits.Dock = DockStyle.Fill;
+            lblMotorSettingsAccelerationUnits.Location = new Point(309, 91);
+            lblMotorSettingsAccelerationUnits.Name = "lblMotorSettingsAccelerationUnits";
+            lblMotorSettingsAccelerationUnits.Size = new Size(121, 20);
+            lblMotorSettingsAccelerationUnits.TabIndex = 17;
+            lblMotorSettingsAccelerationUnits.Text = "um/s^2 (est.)";
+            lblMotorSettingsAccelerationUnits.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label59
+            // lblMotorSettingsEstPosAccel
             // 
-            label59.AutoSize = true;
-            label59.Dock = DockStyle.Fill;
-            label59.Location = new Point(147, 86);
-            label59.Name = "label59";
-            label59.Size = new Size(156, 20);
-            label59.TabIndex = 16;
-            label59.Text = "N/A";
-            label59.TextAlign = ContentAlignment.MiddleCenter;
+            lblMotorSettingsEstPosAccel.AutoSize = true;
+            lblMotorSettingsEstPosAccel.Dock = DockStyle.Fill;
+            lblMotorSettingsEstPosAccel.Location = new Point(147, 91);
+            lblMotorSettingsEstPosAccel.Name = "lblMotorSettingsEstPosAccel";
+            lblMotorSettingsEstPosAccel.Size = new Size(156, 20);
+            lblMotorSettingsEstPosAccel.TabIndex = 16;
+            lblMotorSettingsEstPosAccel.Text = "Pos: 0";
+            lblMotorSettingsEstPosAccel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label57
             // 
             label57.AutoSize = true;
             label57.Dock = DockStyle.Fill;
-            label57.Location = new Point(309, 53);
+            label57.Location = new Point(309, 56);
             label57.Name = "label57";
-            label57.Size = new Size(121, 33);
+            label57.Size = new Size(121, 35);
             label57.TabIndex = 14;
             label57.Text = "steps/s";
             label57.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // numericUpDown4
+            // numMotorSettingsAcceleration
             // 
-            numericUpDown4.Anchor = AnchorStyles.None;
-            numericUpDown4.Increment = new decimal(new int[] { 5, 0, 0, 262144 });
-            numericUpDown4.Location = new Point(147, 56);
-            numericUpDown4.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
-            numericUpDown4.Minimum = new decimal(new int[] { -1, 0, 0, int.MinValue });
-            numericUpDown4.Name = "numericUpDown4";
-            numericUpDown4.Size = new Size(155, 27);
-            numericUpDown4.TabIndex = 13;
+            numMotorSettingsAcceleration.Anchor = AnchorStyles.None;
+            numMotorSettingsAcceleration.Location = new Point(147, 60);
+            numMotorSettingsAcceleration.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
+            numMotorSettingsAcceleration.Minimum = new decimal(new int[] { -1, 0, 0, int.MinValue });
+            numMotorSettingsAcceleration.Name = "numMotorSettingsAcceleration";
+            numMotorSettingsAcceleration.Size = new Size(155, 27);
+            numMotorSettingsAcceleration.TabIndex = 13;
+            numMotorSettingsAcceleration.ValueChanged += numMotorSettingsAcceleration_ValueChanged;
             // 
             // label56
             // 
             label56.AutoSize = true;
             label56.Dock = DockStyle.Fill;
-            label56.Location = new Point(3, 53);
+            label56.Location = new Point(3, 56);
             label56.Name = "label56";
-            label56.Size = new Size(138, 33);
+            label56.Size = new Size(138, 35);
             label56.TabIndex = 12;
             label56.Text = "Acceleration:";
             label56.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label55
+            // lblMotorSettingsVelocityUnits
             // 
-            label55.AutoSize = true;
-            label55.Dock = DockStyle.Fill;
-            label55.Location = new Point(309, 33);
-            label55.Name = "label55";
-            label55.Size = new Size(121, 20);
-            label55.TabIndex = 11;
-            label55.Text = "units/s";
-            label55.TextAlign = ContentAlignment.MiddleCenter;
+            lblMotorSettingsVelocityUnits.AutoSize = true;
+            lblMotorSettingsVelocityUnits.Dock = DockStyle.Fill;
+            lblMotorSettingsVelocityUnits.Location = new Point(309, 36);
+            lblMotorSettingsVelocityUnits.Name = "lblMotorSettingsVelocityUnits";
+            lblMotorSettingsVelocityUnits.Size = new Size(121, 20);
+            lblMotorSettingsVelocityUnits.TabIndex = 11;
+            lblMotorSettingsVelocityUnits.Text = "um/s (est.)";
+            lblMotorSettingsVelocityUnits.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label54
+            // lblMotorSettingsEstPosVel
             // 
-            label54.AutoSize = true;
-            label54.Dock = DockStyle.Fill;
-            label54.Location = new Point(147, 33);
-            label54.Name = "label54";
-            label54.Size = new Size(156, 20);
-            label54.TabIndex = 10;
-            label54.Text = "N/A";
-            label54.TextAlign = ContentAlignment.MiddleCenter;
+            lblMotorSettingsEstPosVel.AutoSize = true;
+            lblMotorSettingsEstPosVel.Dock = DockStyle.Fill;
+            lblMotorSettingsEstPosVel.Location = new Point(147, 36);
+            lblMotorSettingsEstPosVel.Name = "lblMotorSettingsEstPosVel";
+            lblMotorSettingsEstPosVel.Size = new Size(156, 20);
+            lblMotorSettingsEstPosVel.TabIndex = 10;
+            lblMotorSettingsEstPosVel.Text = "Pos: 0";
+            lblMotorSettingsEstPosVel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label52
             // 
@@ -1652,21 +1681,21 @@
             label52.Dock = DockStyle.Fill;
             label52.Location = new Point(309, 0);
             label52.Name = "label52";
-            label52.Size = new Size(121, 33);
+            label52.Size = new Size(121, 36);
             label52.TabIndex = 8;
             label52.Text = "steps/s";
             label52.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // numericUpDown3
+            // numMotorSettingsVelocity
             // 
-            numericUpDown3.Anchor = AnchorStyles.None;
-            numericUpDown3.Increment = new decimal(new int[] { 5, 0, 0, 262144 });
-            numericUpDown3.Location = new Point(147, 3);
-            numericUpDown3.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
-            numericUpDown3.Minimum = new decimal(new int[] { -1, 0, 0, int.MinValue });
-            numericUpDown3.Name = "numericUpDown3";
-            numericUpDown3.Size = new Size(155, 27);
-            numericUpDown3.TabIndex = 7;
+            numMotorSettingsVelocity.Anchor = AnchorStyles.None;
+            numMotorSettingsVelocity.Location = new Point(147, 4);
+            numMotorSettingsVelocity.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
+            numMotorSettingsVelocity.Minimum = new decimal(new int[] { -1, 0, 0, int.MinValue });
+            numMotorSettingsVelocity.Name = "numMotorSettingsVelocity";
+            numMotorSettingsVelocity.Size = new Size(155, 27);
+            numMotorSettingsVelocity.TabIndex = 7;
+            numMotorSettingsVelocity.ValueChanged += numMotorSettingsVelocity_ValueChanged;
             // 
             // label17
             // 
@@ -1674,34 +1703,134 @@
             label17.Dock = DockStyle.Fill;
             label17.Location = new Point(3, 0);
             label17.Name = "label17";
-            label17.Size = new Size(138, 33);
+            label17.Size = new Size(138, 36);
             label17.TabIndex = 0;
             label17.Text = "Velocity:";
             label17.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // formsPlot1
-            // 
-            formsPlot1.DisplayScale = 1.25F;
-            formsPlot1.Location = new Point(929, 216);
-            formsPlot1.Name = "formsPlot1";
-            formsPlot1.Size = new Size(581, 501);
-            formsPlot1.TabIndex = 8;
-            // 
             // groupBox10
             // 
-            groupBox10.Location = new Point(929, 35);
+            groupBox10.Controls.Add(groupBox15);
+            groupBox10.Controls.Add(label15);
+            groupBox10.Controls.Add(btnPlotClear);
+            groupBox10.Controls.Add(numPlotInterval);
+            groupBox10.Controls.Add(label9);
+            groupBox10.Location = new Point(930, 38);
             groupBox10.Name = "groupBox10";
-            groupBox10.Size = new Size(581, 175);
+            groupBox10.Size = new Size(574, 175);
             groupBox10.TabIndex = 9;
             groupBox10.TabStop = false;
             groupBox10.Text = "Plot Settings";
+            // 
+            // groupBox15
+            // 
+            groupBox15.Controls.Add(tableLayoutPanel22);
+            groupBox15.Dock = DockStyle.Left;
+            groupBox15.Location = new Point(3, 23);
+            groupBox15.Margin = new Padding(3, 4, 3, 4);
+            groupBox15.Name = "groupBox15";
+            groupBox15.Padding = new Padding(3, 4, 3, 4);
+            groupBox15.Size = new Size(198, 149);
+            groupBox15.TabIndex = 7;
+            groupBox15.TabStop = false;
+            groupBox15.Text = "View";
+            // 
+            // tableLayoutPanel22
+            // 
+            tableLayoutPanel22.ColumnCount = 1;
+            tableLayoutPanel22.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel22.Controls.Add(checkBox3, 0, 2);
+            tableLayoutPanel22.Controls.Add(checkBox1, 0, 0);
+            tableLayoutPanel22.Controls.Add(checkBox2, 0, 1);
+            tableLayoutPanel22.Dock = DockStyle.Fill;
+            tableLayoutPanel22.Location = new Point(3, 24);
+            tableLayoutPanel22.Margin = new Padding(3, 4, 3, 4);
+            tableLayoutPanel22.Name = "tableLayoutPanel22";
+            tableLayoutPanel22.RowCount = 3;
+            tableLayoutPanel22.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel22.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel22.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel22.Size = new Size(192, 121);
+            tableLayoutPanel22.TabIndex = 0;
+            // 
+            // checkBox3
+            // 
+            checkBox3.AutoSize = true;
+            checkBox3.Dock = DockStyle.Fill;
+            checkBox3.Location = new Point(3, 84);
+            checkBox3.Margin = new Padding(3, 4, 3, 4);
+            checkBox3.Name = "checkBox3";
+            checkBox3.Size = new Size(186, 33);
+            checkBox3.TabIndex = 6;
+            checkBox3.Text = "Indicator (um)";
+            checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Dock = DockStyle.Fill;
+            checkBox1.Location = new Point(3, 4);
+            checkBox1.Margin = new Padding(3, 4, 3, 4);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(186, 32);
+            checkBox1.TabIndex = 4;
+            checkBox1.Text = "Motor Steps (steps)";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Dock = DockStyle.Fill;
+            checkBox2.Location = new Point(3, 44);
+            checkBox2.Margin = new Padding(3, 4, 3, 4);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(186, 32);
+            checkBox2.TabIndex = 5;
+            checkBox2.Text = "Motor Calibration (um)";
+            checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(447, 143);
+            label15.Name = "label15";
+            label15.Size = new Size(28, 20);
+            label15.TabIndex = 3;
+            label15.Text = "ms";
+            // 
+            // btnPlotClear
+            // 
+            btnPlotClear.Location = new Point(482, 137);
+            btnPlotClear.Margin = new Padding(3, 4, 3, 4);
+            btnPlotClear.Name = "btnPlotClear";
+            btnPlotClear.Size = new Size(86, 31);
+            btnPlotClear.TabIndex = 2;
+            btnPlotClear.Text = "Clear Plot";
+            btnPlotClear.UseVisualStyleBackColor = true;
+            // 
+            // numPlotInterval
+            // 
+            numPlotInterval.Location = new Point(304, 141);
+            numPlotInterval.Margin = new Padding(3, 4, 3, 4);
+            numPlotInterval.Name = "numPlotInterval";
+            numPlotInterval.Size = new Size(137, 27);
+            numPlotInterval.TabIndex = 1;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(207, 143);
+            label9.Name = "label9";
+            label9.Size = new Size(91, 20);
+            label9.TabIndex = 0;
+            label9.Text = "Plot Interval:";
             // 
             // groupBox12
             // 
             groupBox12.Controls.Add(tableLayoutPanel17);
             groupBox12.Location = new Point(457, 724);
             groupBox12.Name = "groupBox12";
-            groupBox12.Size = new Size(770, 201);
+            groupBox12.Size = new Size(770, 189);
             groupBox12.TabIndex = 10;
             groupBox12.TabStop = false;
             groupBox12.Text = "Data Collection";
@@ -1709,7 +1838,7 @@
             // tableLayoutPanel17
             // 
             tableLayoutPanel17.ColumnCount = 1;
-            tableLayoutPanel17.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel17.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel17.Controls.Add(tableLayoutPanel20, 0, 2);
             tableLayoutPanel17.Controls.Add(tableLayoutPanel19, 0, 1);
             tableLayoutPanel17.Controls.Add(tableLayoutPanel18, 0, 0);
@@ -1717,50 +1846,50 @@
             tableLayoutPanel17.Location = new Point(3, 23);
             tableLayoutPanel17.Name = "tableLayoutPanel17";
             tableLayoutPanel17.RowCount = 3;
-            tableLayoutPanel17.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel17.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel17.RowStyles.Add(new RowStyle(SizeType.Absolute, 75F));
-            tableLayoutPanel17.Size = new Size(764, 175);
+            tableLayoutPanel17.RowStyles.Add(new RowStyle(SizeType.Absolute, 51F));
+            tableLayoutPanel17.RowStyles.Add(new RowStyle());
+            tableLayoutPanel17.RowStyles.Add(new RowStyle(SizeType.Absolute, 51F));
+            tableLayoutPanel17.Size = new Size(764, 163);
             tableLayoutPanel17.TabIndex = 0;
             // 
             // tableLayoutPanel20
             // 
             tableLayoutPanel20.ColumnCount = 4;
-            tableLayoutPanel20.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.1030922F));
-            tableLayoutPanel20.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 79.896904F));
-            tableLayoutPanel20.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 78F));
+            tableLayoutPanel20.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel20.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel20.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel20.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 294F));
-            tableLayoutPanel20.Controls.Add(button12, 3, 0);
+            tableLayoutPanel20.Controls.Add(btnDataCollect, 3, 0);
             tableLayoutPanel20.Controls.Add(label62, 2, 0);
             tableLayoutPanel20.Controls.Add(label61, 0, 0);
-            tableLayoutPanel20.Controls.Add(numericUpDown5, 1, 0);
+            tableLayoutPanel20.Controls.Add(numDataCollectionRate, 1, 0);
             tableLayoutPanel20.Dock = DockStyle.Fill;
-            tableLayoutPanel20.Location = new Point(3, 103);
+            tableLayoutPanel20.Location = new Point(3, 104);
             tableLayoutPanel20.Name = "tableLayoutPanel20";
             tableLayoutPanel20.RowCount = 1;
-            tableLayoutPanel20.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel20.Size = new Size(758, 69);
+            tableLayoutPanel20.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel20.Size = new Size(758, 56);
             tableLayoutPanel20.TabIndex = 2;
             // 
-            // button12
+            // btnDataCollect
             // 
-            button12.Dock = DockStyle.Fill;
-            button12.Location = new Point(466, 3);
-            button12.Name = "button12";
-            button12.Size = new Size(289, 63);
-            button12.TabIndex = 8;
-            button12.Text = "Go!";
-            button12.UseVisualStyleBackColor = true;
+            btnDataCollect.Dock = DockStyle.Fill;
+            btnDataCollect.Location = new Point(467, 3);
+            btnDataCollect.Name = "btnDataCollect";
+            btnDataCollect.Size = new Size(288, 50);
+            btnDataCollect.TabIndex = 8;
+            btnDataCollect.Text = "Collect";
+            btnDataCollect.UseVisualStyleBackColor = true;
             // 
             // label62
             // 
             label62.AutoSize = true;
             label62.Dock = DockStyle.Fill;
-            label62.Location = new Point(388, 0);
+            label62.Location = new Point(433, 0);
             label62.Name = "label62";
-            label62.Size = new Size(72, 69);
+            label62.Size = new Size(28, 56);
             label62.TabIndex = 7;
-            label62.Text = "Distance:";
+            label62.Text = "ms";
             label62.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label61
@@ -1769,42 +1898,42 @@
             label61.Dock = DockStyle.Fill;
             label61.Location = new Point(3, 0);
             label61.Name = "label61";
-            label61.Size = new Size(71, 69);
+            label61.Size = new Size(113, 56);
             label61.TabIndex = 5;
-            label61.Text = "Distance:";
+            label61.Text = "Collection Rate:";
             label61.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // numericUpDown5
+            // numDataCollectionRate
             // 
-            numericUpDown5.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            numericUpDown5.Location = new Point(80, 25);
-            numericUpDown5.Margin = new Padding(3, 11, 3, 3);
-            numericUpDown5.Name = "numericUpDown5";
-            numericUpDown5.Size = new Size(302, 27);
-            numericUpDown5.TabIndex = 6;
+            numDataCollectionRate.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            numDataCollectionRate.Location = new Point(122, 18);
+            numDataCollectionRate.Margin = new Padding(3, 11, 3, 3);
+            numDataCollectionRate.Name = "numDataCollectionRate";
+            numDataCollectionRate.Size = new Size(305, 27);
+            numDataCollectionRate.TabIndex = 6;
             // 
             // tableLayoutPanel19
             // 
             tableLayoutPanel19.ColumnCount = 2;
-            tableLayoutPanel19.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10.422164F));
-            tableLayoutPanel19.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 89.5778351F));
-            tableLayoutPanel19.Controls.Add(textBox2, 1, 0);
+            tableLayoutPanel19.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel19.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel19.Controls.Add(txtDataFileName, 1, 0);
             tableLayoutPanel19.Controls.Add(label58, 0, 0);
             tableLayoutPanel19.Dock = DockStyle.Fill;
-            tableLayoutPanel19.Location = new Point(3, 53);
+            tableLayoutPanel19.Location = new Point(3, 54);
             tableLayoutPanel19.Name = "tableLayoutPanel19";
             tableLayoutPanel19.RowCount = 1;
-            tableLayoutPanel19.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel19.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel19.Size = new Size(758, 44);
             tableLayoutPanel19.TabIndex = 1;
             // 
-            // textBox2
+            // txtDataFileName
             // 
-            textBox2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            textBox2.Location = new Point(82, 8);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(673, 27);
-            textBox2.TabIndex = 5;
+            txtDataFileName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            txtDataFileName.Location = new Point(88, 8);
+            txtDataFileName.Name = "txtDataFileName";
+            txtDataFileName.Size = new Size(667, 27);
+            txtDataFileName.TabIndex = 5;
             // 
             // label58
             // 
@@ -1812,36 +1941,36 @@
             label58.Dock = DockStyle.Fill;
             label58.Location = new Point(3, 0);
             label58.Name = "label58";
-            label58.Size = new Size(73, 44);
+            label58.Size = new Size(79, 44);
             label58.TabIndex = 4;
-            label58.Text = "Distance:";
+            label58.Text = "File Name:";
             label58.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tableLayoutPanel18
             // 
             tableLayoutPanel18.ColumnCount = 3;
-            tableLayoutPanel18.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.1313133F));
-            tableLayoutPanel18.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 86.86869F));
-            tableLayoutPanel18.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 166F));
+            tableLayoutPanel18.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel18.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel18.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 45F));
             tableLayoutPanel18.Controls.Add(button11, 2, 0);
             tableLayoutPanel18.Controls.Add(label53, 0, 0);
-            tableLayoutPanel18.Controls.Add(textBox1, 1, 0);
+            tableLayoutPanel18.Controls.Add(txtDataDirectory, 1, 0);
             tableLayoutPanel18.Dock = DockStyle.Fill;
             tableLayoutPanel18.Location = new Point(3, 3);
             tableLayoutPanel18.Name = "tableLayoutPanel18";
             tableLayoutPanel18.RowCount = 1;
-            tableLayoutPanel18.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel18.Size = new Size(758, 44);
+            tableLayoutPanel18.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel18.Size = new Size(758, 45);
             tableLayoutPanel18.TabIndex = 0;
             // 
             // button11
             // 
             button11.Dock = DockStyle.Fill;
-            button11.Location = new Point(594, 3);
+            button11.Location = new Point(716, 3);
             button11.Name = "button11";
-            button11.Size = new Size(161, 38);
+            button11.Size = new Size(39, 39);
             button11.TabIndex = 5;
-            button11.Text = "Go!";
+            button11.Text = "...";
             button11.UseVisualStyleBackColor = true;
             // 
             // label53
@@ -1850,25 +1979,25 @@
             label53.Dock = DockStyle.Fill;
             label53.Location = new Point(3, 0);
             label53.Name = "label53";
-            label53.Size = new Size(71, 44);
+            label53.Size = new Size(73, 45);
             label53.TabIndex = 3;
-            label53.Text = "Distance:";
+            label53.Text = "Directory:";
             label53.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // textBox1
+            // txtDataDirectory
             // 
-            textBox1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            textBox1.Location = new Point(80, 8);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(508, 27);
-            textBox1.TabIndex = 4;
+            txtDataDirectory.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            txtDataDirectory.Location = new Point(82, 9);
+            txtDataDirectory.Name = "txtDataDirectory";
+            txtDataDirectory.Size = new Size(628, 27);
+            txtDataDirectory.TabIndex = 4;
             // 
             // groupBox14
             // 
             groupBox14.Controls.Add(tableLayoutPanel21);
-            groupBox14.Location = new Point(1233, 724);
+            groupBox14.Location = new Point(1233, 828);
             groupBox14.Name = "groupBox14";
-            groupBox14.Size = new Size(277, 201);
+            groupBox14.Size = new Size(277, 85);
             groupBox14.TabIndex = 13;
             groupBox14.TabStop = false;
             groupBox14.Text = "Other Controls";
@@ -1877,42 +2006,20 @@
             // 
             tableLayoutPanel21.ColumnCount = 1;
             tableLayoutPanel21.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel21.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel21.Controls.Add(btnConnectStage, 0, 1);
-            tableLayoutPanel21.Controls.Add(btnConnectIndicator, 0, 0);
-            tableLayoutPanel21.Controls.Add(btnOpenSequenceEditor, 0, 2);
+            tableLayoutPanel21.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 21F));
+            tableLayoutPanel21.Controls.Add(btnOpenSequenceEditor, 0, 0);
             tableLayoutPanel21.Dock = DockStyle.Fill;
             tableLayoutPanel21.Location = new Point(3, 23);
             tableLayoutPanel21.Name = "tableLayoutPanel21";
-            tableLayoutPanel21.RowCount = 3;
+            tableLayoutPanel21.RowCount = 1;
             tableLayoutPanel21.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel21.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel21.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel21.Size = new Size(271, 175);
+            tableLayoutPanel21.Size = new Size(271, 59);
             tableLayoutPanel21.TabIndex = 0;
-            // 
-            // btnConnectStage
-            // 
-            btnConnectStage.Location = new Point(3, 61);
-            btnConnectStage.Name = "btnConnectStage";
-            btnConnectStage.Size = new Size(265, 52);
-            btnConnectStage.TabIndex = 13;
-            btnConnectStage.Text = "Connect to Stage";
-            btnConnectStage.UseVisualStyleBackColor = true;
-            // 
-            // btnConnectIndicator
-            // 
-            btnConnectIndicator.Location = new Point(3, 3);
-            btnConnectIndicator.Name = "btnConnectIndicator";
-            btnConnectIndicator.Size = new Size(265, 52);
-            btnConnectIndicator.TabIndex = 12;
-            btnConnectIndicator.Text = "Connect to Indicator";
-            btnConnectIndicator.UseVisualStyleBackColor = true;
-            btnConnectIndicator.Click += btnConnectIndicator_Click;
             // 
             // btnOpenSequenceEditor
             // 
-            btnOpenSequenceEditor.Location = new Point(3, 119);
+            btnOpenSequenceEditor.Dock = DockStyle.Fill;
+            btnOpenSequenceEditor.Location = new Point(3, 3);
             btnOpenSequenceEditor.Name = "btnOpenSequenceEditor";
             btnOpenSequenceEditor.Size = new Size(265, 53);
             btnOpenSequenceEditor.TabIndex = 11;
@@ -1920,34 +2027,53 @@
             btnOpenSequenceEditor.UseVisualStyleBackColor = true;
             btnOpenSequenceEditor.Click += btnOpenSequenceEditor_Click;
             // 
-            // connectToolStripMenuItem
+            // formsPlot2
             // 
-            connectToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { stageToolStripMenuItem, indicatorToolStripMenuItem });
-            connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            connectToolStripMenuItem.Size = new Size(77, 24);
-            connectToolStripMenuItem.Text = "Connect";
+            formsPlot2.DisplayScale = 1.25F;
+            formsPlot2.Location = new Point(929, 216);
+            formsPlot2.Name = "formsPlot2";
+            formsPlot2.Size = new Size(581, 501);
+            formsPlot2.TabIndex = 14;
             // 
-            // stageToolStripMenuItem
+            // tmrIndicatorDisplayUpdate
             // 
-            stageToolStripMenuItem.Name = "stageToolStripMenuItem";
-            stageToolStripMenuItem.Size = new Size(224, 26);
-            stageToolStripMenuItem.Text = "Stage";
+            tmrIndicatorDisplayUpdate.Interval = 1;
+            tmrIndicatorDisplayUpdate.Tick += tmrIndicatorDisplayUpdate_Tick;
             // 
-            // indicatorToolStripMenuItem
+            // tmrMotorDisplayUpdate
             // 
-            indicatorToolStripMenuItem.Name = "indicatorToolStripMenuItem";
-            indicatorToolStripMenuItem.Size = new Size(224, 26);
-            indicatorToolStripMenuItem.Text = "Indicator";
+            tmrMotorDisplayUpdate.Interval = 1;
+            tmrMotorDisplayUpdate.Tick += tmrMotorDisplayUpdate_Tick;
+            // 
+            // lblMotorSettingsEstNegVel
+            // 
+            lblMotorSettingsEstNegVel.AutoSize = true;
+            lblMotorSettingsEstNegVel.Dock = DockStyle.Fill;
+            lblMotorSettingsEstNegVel.Location = new Point(3, 36);
+            lblMotorSettingsEstNegVel.Name = "lblMotorSettingsEstNegVel";
+            lblMotorSettingsEstNegVel.Size = new Size(138, 20);
+            lblMotorSettingsEstNegVel.TabIndex = 21;
+            lblMotorSettingsEstNegVel.Text = "Neg: 0";
+            // 
+            // lblMotorSettingsEstNegAccel
+            // 
+            lblMotorSettingsEstNegAccel.AutoSize = true;
+            lblMotorSettingsEstNegAccel.Dock = DockStyle.Fill;
+            lblMotorSettingsEstNegAccel.Location = new Point(3, 91);
+            lblMotorSettingsEstNegAccel.Name = "lblMotorSettingsEstNegAccel";
+            lblMotorSettingsEstNegAccel.Size = new Size(138, 20);
+            lblMotorSettingsEstNegAccel.TabIndex = 22;
+            lblMotorSettingsEstNegAccel.Text = "Neg: 0";
             // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1522, 969);
+            ClientSize = new Size(1522, 942);
+            Controls.Add(formsPlot2);
             Controls.Add(groupBox14);
             Controls.Add(groupBox12);
             Controls.Add(groupBox10);
-            Controls.Add(formsPlot1);
             Controls.Add(groupBox9);
             Controls.Add(groupBox2);
             Controls.Add(statusStrip1);
@@ -1987,13 +2113,13 @@
             tableLayoutPanel9.PerformLayout();
             tableLayoutPanel15.ResumeLayout(false);
             tableLayoutPanel15.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numGoTo).EndInit();
             groupBox5.ResumeLayout(false);
             tableLayoutPanel5.ResumeLayout(false);
             tableLayoutPanel5.PerformLayout();
             tableLayoutPanel4.ResumeLayout(false);
             tableLayoutPanel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numMoveDistance).EndInit();
             groupBox7.ResumeLayout(false);
             tableLayoutPanel7.ResumeLayout(false);
             tableLayoutPanel7.PerformLayout();
@@ -2002,13 +2128,19 @@
             groupBox9.ResumeLayout(false);
             tableLayoutPanel16.ResumeLayout(false);
             tableLayoutPanel16.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numMotorSettingsAcceleration).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numMotorSettingsVelocity).EndInit();
+            groupBox10.ResumeLayout(false);
+            groupBox10.PerformLayout();
+            groupBox15.ResumeLayout(false);
+            tableLayoutPanel22.ResumeLayout(false);
+            tableLayoutPanel22.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numPlotInterval).EndInit();
             groupBox12.ResumeLayout(false);
             tableLayoutPanel17.ResumeLayout(false);
             tableLayoutPanel20.ResumeLayout(false);
             tableLayoutPanel20.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numDataCollectionRate).EndInit();
             tableLayoutPanel19.ResumeLayout(false);
             tableLayoutPanel19.PerformLayout();
             tableLayoutPanel18.ResumeLayout(false);
@@ -2030,52 +2162,52 @@
         private TableLayoutPanel tableLayoutPanel13;
         private TableLayoutPanel tableLayoutPanel10;
         private Label label26;
-        private Label label25;
+        private Label lblCalPositionEstMicronPosition;
         private Label label24;
         private Label label23;
-        private Label label22;
+        private Label lblCalPositionPosSteps;
         private Label label20;
         private Label label19;
-        private Label label18;
+        private Label lblCalPositionNegSteps;
         private Label label14;
         private Label label13;
-        private Label label12;
+        private Label lblCalPositionTotalSteps;
         private Label label8;
         private TableLayoutPanel tableLayoutPanel12;
         private Label label30;
-        private Label label31;
+        private Label lblCalVelPos;
         private Label label32;
         private Label label33;
-        private Label label34;
+        private Label lblCalVelNeg;
         private Label label35;
         private Label label36;
-        private Label label37;
+        private Label lblCalVelRaw;
         private Label label38;
         private TableLayoutPanel tableLayoutPanel14;
         private Label label42;
-        private Label label43;
+        private Label lblCalAccelPos;
         private Label label44;
         private Label label45;
-        private Label label46;
+        private Label lblCalAccelNeg;
         private Label label47;
         private Label label48;
-        private Label label49;
+        private Label lblCalAccelRaw;
         private Label label50;
-        private Button button2;
+        private Button btnCalZeroPosition;
         private TableLayoutPanel tableLayoutPanel1;
         private Label label6;
-        private Label label5;
+        private Label lblCalPosStepSize;
         private Label label4;
         private Label label3;
-        private Label label2;
+        private Label lblCalNegStepSize;
         private Label label1;
         private GroupBox groupBox1;
         private TableLayoutPanel tableLayoutPanel2;
         private Label label16;
-        private Label label15;
+        private Label lblIndicatorDisplayVelocity;
         private Label label11;
         private Label label10;
-        private Label label9;
+        private Label lblIndicatorDisplayPosition;
         private Label label7;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel toolStripStatusLabel1;
@@ -2087,53 +2219,51 @@
         private ToolStripStatusLabel toolStripStatusLabel7;
         private ToolStripStatusLabel toolStripStatusLabel8;
         private MenuStrip menuStrip1;
-        private ToolStripMenuItem settingsToolStripMenuItem;
-        private ToolStripMenuItem aboutToolStripMenuItem;
+        private ToolStripMenuItem stripSettings;
+        private ToolStripMenuItem stripAbout;
         private GroupBox groupBox2;
         private GroupBox groupBox3;
         private TableLayoutPanel tableLayoutPanel3;
-        private Button button3;
-        private Button button1;
-        private Button button5;
-        private RadioButton radioButton1;
-        private RadioButton radioButton2;
-        private RadioButton radioButton3;
+        private Button btnActiveControlsDown;
+        private Button btnActiveControlsUp;
+        private Button btnLockReference;
+        private RadioButton radRefIndicator;
+        private RadioButton radRefCalibration;
+        private RadioButton radRefSteps;
         private GroupBox groupBox5;
         private GroupBox groupBox7;
         private TableLayoutPanel tableLayoutPanel7;
         private TableLayoutPanel tableLayoutPanel5;
         private TableLayoutPanel tableLayoutPanel4;
-        private Label label21;
-        private Label label27;
-        private Button button7;
+        private Label lblMoveDistanceEstDistance;
+        private Button btnStopAllMotion;
         private GroupBox groupBox4;
         private TableLayoutPanel tableLayoutPanel9;
-        private Label label28;
-        private Button button6;
+        private Button btnGoTo;
         private TableLayoutPanel tableLayoutPanel15;
-        private NumericUpDown numericUpDown2;
+        private NumericUpDown numGoTo;
         private Label label29;
-        private Label label40;
-        private Label label39;
-        private Button button4;
-        private NumericUpDown numericUpDown1;
-        private Label label51;
+        private Label lblGoToUnits;
+        private Label lblGoToEstDistance;
+        private Button btnMoveDistance;
+        private NumericUpDown numMoveDistance;
+        private Label lblMoveDistanceUnits;
         private Label label41;
         private GroupBox groupBox9;
         private TableLayoutPanel tableLayoutPanel16;
         private Label label52;
-        private NumericUpDown numericUpDown3;
+        private NumericUpDown numMotorSettingsVelocity;
         private Label label17;
-        private Button button10;
-        private Button button9;
-        private Button button8;
-        private Label label60;
-        private Label label59;
+        private Button btnMotorSettingsApply;
+        private Button btnMotorSettingsCancel;
+        private Button btnMotorSettingsApplyDefault;
+        private Label lblMotorSettingsAccelerationUnits;
+        private Label lblMotorSettingsEstPosAccel;
         private Label label57;
-        private NumericUpDown numericUpDown4;
+        private NumericUpDown numMotorSettingsAcceleration;
         private Label label56;
-        private Label label55;
-        private Label label54;
+        private Label lblMotorSettingsVelocityUnits;
+        private Label lblMotorSettingsEstPosVel;
         private ScottPlot.WinForms.FormsPlot formsPlot1;
         private GroupBox groupBox10;
         private GroupBox groupBox12;
@@ -2141,28 +2271,40 @@
         private TableLayoutPanel tableLayoutPanel20;
         private Label label61;
         private TableLayoutPanel tableLayoutPanel19;
-        private TextBox textBox2;
+        private TextBox txtDataFileName;
         private Label label58;
         private TableLayoutPanel tableLayoutPanel18;
         private Button button11;
         private Label label53;
-        private TextBox textBox1;
+        private TextBox txtDataDirectory;
         private ToolStripStatusLabel toolStripStatusLabel9;
         private ToolStripStatusLabel toolStripStatusLabel10;
         private ToolStripStatusLabel toolStripStatusLabel11;
         private ToolStripStatusLabel toolStripStatusLabel12;
         private ToolStripStatusLabel toolStripStatusLabel13;
         private ToolStripStatusLabel toolStripStatusLabel14;
-        private Button button12;
+        private Button btnDataCollect;
         private Label label62;
-        private NumericUpDown numericUpDown5;
+        private NumericUpDown numDataCollectionRate;
         private GroupBox groupBox14;
         private TableLayoutPanel tableLayoutPanel21;
-        private Button btnConnectStage;
-        private Button btnConnectIndicator;
         private Button btnOpenSequenceEditor;
         private ToolStripMenuItem connectToolStripMenuItem;
-        private ToolStripMenuItem stageToolStripMenuItem;
-        private ToolStripMenuItem indicatorToolStripMenuItem;
+        private ToolStripMenuItem stripConnectStage;
+        private ToolStripMenuItem stripConnectIndicator;
+        private ScottPlot.WinForms.FormsPlot formsPlot2;
+        private System.Windows.Forms.Timer tmrIndicatorDisplayUpdate;
+        private Label label15;
+        private Button btnPlotClear;
+        private NumericUpDown numPlotInterval;
+        private Label label9;
+        private GroupBox groupBox15;
+        private TableLayoutPanel tableLayoutPanel22;
+        private CheckBox checkBox3;
+        private CheckBox checkBox1;
+        private CheckBox checkBox2;
+        private System.Windows.Forms.Timer tmrMotorDisplayUpdate;
+        private Label lblMotorSettingsEstNegAccel;
+        private Label lblMotorSettingsEstNegVel;
     }
 }

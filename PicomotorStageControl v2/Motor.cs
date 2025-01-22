@@ -74,7 +74,7 @@ namespace PicomotorStageControl_v2
             // Keep track of positions for negative and positive directions of movement.
             // Update total position from data on the device.
             // Update move state.
-            // TO DO: Add error checking?
+            // TO DO: Add error checking? There is no clear error indication. /Could/ do a complicated logical setup, but is it reaaally worth it?
             int pos = 0;
             bool isMotionDone = false;
             while (!isMotionDone)
