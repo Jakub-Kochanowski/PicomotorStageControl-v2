@@ -51,6 +51,15 @@ namespace PicomotorStageControl_v2
             this.cmbIndicatorPorts.Text = Settings.Default.IndicatorCOMPort;
             this.numAvgNegStepSizeUm.Value = Settings.Default.AvgNegativeStepSize_um;
             this.numAvgPosStepSizeUm.Value = Settings.Default.AvgPositiveStepSize_um;
+
+            this.chkStageMovementCreepUp.Checked = Settings.Default.StageMovementCreepUp;
+            this.numStageMovementSlowDownDistance.Value = (decimal)Settings.Default.StageMovementSlowDownDistance;
+            this.numStageMovementSlowDownVelocity.Value = (decimal)Settings.Default.StageMovementSlowDownVelocity;
+            if (this.chkStageMovementCreepUp.Checked == true)
+            {
+                this.numStageMovementSlowDownVelocity.Enabled = true;
+                this.numStageMovementSlowDownDistance.Enabled = true;
+            }
         }
 
         private void ApplySettings()
@@ -58,6 +67,10 @@ namespace PicomotorStageControl_v2
             Settings.Default.IndicatorCOMPort = this.cmbIndicatorPorts.Text.Split(" ")[0];
             Settings.Default.AvgNegativeStepSize_um = this.numAvgNegStepSizeUm.Value;
             Settings.Default.AvgPositiveStepSize_um = this.numAvgPosStepSizeUm.Value;
+            Settings.Default.StageMovementCreepUp = this.chkStageMovementCreepUp.Checked;
+            Settings.Default.StageMovementSlowDownDistance = (int)this.numStageMovementSlowDownDistance.Value;
+            Settings.Default.StageMovementSlowDownVelocity = (int)this.numStageMovementSlowDownVelocity.Value;
+
 
             Settings.Default.Save();
         }
@@ -72,6 +85,20 @@ namespace PicomotorStageControl_v2
             ApplySettings();
             MainForm.UpdateCalibrationValues();
             this.Close();
+        }
+
+        private void chkStageMovementCreepUp_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.chkStageMovementCreepUp.Checked == true)
+            {
+                this.numStageMovementSlowDownVelocity.Enabled = true;
+                this.numStageMovementSlowDownDistance.Enabled = true;
+            }
+            else
+            {
+                this.numStageMovementSlowDownVelocity.Enabled = false;
+                this.numStageMovementSlowDownDistance.Enabled = false;
+            }
         }
     }
 }

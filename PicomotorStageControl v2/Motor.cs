@@ -176,6 +176,7 @@ namespace PicomotorStageControl_v2
             {
                 MessageBox.Show("Error stopping motion!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            this.MoveState = MoveState.Stationary;
         }
 
         public void ZeroDevicePosition()

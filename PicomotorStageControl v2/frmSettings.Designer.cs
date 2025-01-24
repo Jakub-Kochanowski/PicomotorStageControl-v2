@@ -42,12 +42,23 @@
             numAvgNegStepSizeUm = new NumericUpDown();
             label4 = new Label();
             label5 = new Label();
+            groupBox3 = new GroupBox();
+            label9 = new Label();
+            label8 = new Label();
+            numStageMovementSlowDownVelocity = new NumericUpDown();
+            label7 = new Label();
+            numStageMovementSlowDownDistance = new NumericUpDown();
+            label6 = new Label();
+            chkStageMovementCreepUp = new CheckBox();
             groupBox1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             groupBox2.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numAvgPosStepSizeUm).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numAvgNegStepSizeUm).BeginInit();
+            groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numStageMovementSlowDownVelocity).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numStageMovementSlowDownDistance).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
@@ -98,7 +109,7 @@
             // btnCancel
             // 
             btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnCancel.Location = new Point(302, 183);
+            btnCancel.Location = new Point(302, 308);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(94, 29);
             btnCancel.TabIndex = 4;
@@ -109,7 +120,7 @@
             // btnApply
             // 
             btnApply.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnApply.Location = new Point(202, 183);
+            btnApply.Location = new Point(202, 308);
             btnApply.Name = "btnApply";
             btnApply.Size = new Size(94, 29);
             btnApply.TabIndex = 3;
@@ -212,11 +223,97 @@
             label5.Text = "um";
             label5.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(label9);
+            groupBox3.Controls.Add(label8);
+            groupBox3.Controls.Add(numStageMovementSlowDownVelocity);
+            groupBox3.Controls.Add(label7);
+            groupBox3.Controls.Add(numStageMovementSlowDownDistance);
+            groupBox3.Controls.Add(label6);
+            groupBox3.Controls.Add(chkStageMovementCreepUp);
+            groupBox3.Location = new Point(14, 177);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(384, 125);
+            groupBox3.TabIndex = 5;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Stage Movement";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(323, 86);
+            label9.Name = "label9";
+            label9.Size = new Size(55, 20);
+            label9.TabIndex = 6;
+            label9.Text = "steps/s";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(348, 53);
+            label8.Name = "label8";
+            label8.Size = new Size(30, 20);
+            label8.TabIndex = 5;
+            label8.Text = "um";
+            // 
+            // numStageMovementSlowDownVelocity
+            // 
+            numStageMovementSlowDownVelocity.Enabled = false;
+            numStageMovementSlowDownVelocity.Location = new Point(159, 84);
+            numStageMovementSlowDownVelocity.Maximum = new decimal(new int[] { 2000, 0, 0, 0 });
+            numStageMovementSlowDownVelocity.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numStageMovementSlowDownVelocity.Name = "numStageMovementSlowDownVelocity";
+            numStageMovementSlowDownVelocity.Size = new Size(158, 27);
+            numStageMovementSlowDownVelocity.TabIndex = 4;
+            numStageMovementSlowDownVelocity.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(6, 86);
+            label7.Name = "label7";
+            label7.Size = new Size(145, 20);
+            label7.TabIndex = 3;
+            label7.Text = "Slow-Down Velocity:";
+            // 
+            // numStageMovementSlowDownDistance
+            // 
+            numStageMovementSlowDownDistance.Enabled = false;
+            numStageMovementSlowDownDistance.Location = new Point(159, 51);
+            numStageMovementSlowDownDistance.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            numStageMovementSlowDownDistance.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numStageMovementSlowDownDistance.Name = "numStageMovementSlowDownDistance";
+            numStageMovementSlowDownDistance.Size = new Size(183, 27);
+            numStageMovementSlowDownDistance.TabIndex = 2;
+            numStageMovementSlowDownDistance.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(6, 53);
+            label6.Name = "label6";
+            label6.Size = new Size(150, 20);
+            label6.TabIndex = 1;
+            label6.Text = "Slow-Down Distance:";
+            // 
+            // chkStageMovementCreepUp
+            // 
+            chkStageMovementCreepUp.AutoSize = true;
+            chkStageMovementCreepUp.Location = new Point(6, 26);
+            chkStageMovementCreepUp.Name = "chkStageMovementCreepUp";
+            chkStageMovementCreepUp.Size = new Size(200, 24);
+            chkStageMovementCreepUp.TabIndex = 0;
+            chkStageMovementCreepUp.Text = "Creep up to final position";
+            chkStageMovementCreepUp.UseVisualStyleBackColor = true;
+            chkStageMovementCreepUp.CheckedChanged += chkStageMovementCreepUp_CheckedChanged;
+            // 
             // frmSettings
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(408, 224);
+            ClientSize = new Size(408, 349);
+            Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(btnApply);
             Controls.Add(btnCancel);
@@ -232,6 +329,10 @@
             tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numAvgPosStepSizeUm).EndInit();
             ((System.ComponentModel.ISupportInitialize)numAvgNegStepSizeUm).EndInit();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numStageMovementSlowDownVelocity).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numStageMovementSlowDownDistance).EndInit();
             ResumeLayout(false);
         }
 
@@ -251,5 +352,13 @@
         private NumericUpDown numAvgNegStepSizeUm;
         private Label label4;
         private Label label5;
+        private GroupBox groupBox3;
+        private NumericUpDown numStageMovementSlowDownVelocity;
+        private Label label7;
+        private NumericUpDown numStageMovementSlowDownDistance;
+        private Label label6;
+        private CheckBox chkStageMovementCreepUp;
+        private Label label9;
+        private Label label8;
     }
 }

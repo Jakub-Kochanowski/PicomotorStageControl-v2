@@ -58,5 +58,41 @@ namespace PicomotorStageControl_v2.Properties {
                 this["AvgPositiveStepSize_um"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool StageMovementCreepUp {
+            get {
+                return ((bool)(this["StageMovementCreepUp"]));
+            }
+            set {
+                this["StageMovementCreepUp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int StageMovementSlowDownVelocity {
+            get {
+                return ((int)(this["StageMovementSlowDownVelocity"]));
+            }
+            set {
+                this["StageMovementSlowDownVelocity"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int StageMovementSlowDownDistance {
+            get {
+                return ((int)(this["StageMovementSlowDownDistance"]));
+            }
+            set {
+                this["StageMovementSlowDownDistance"] = value;
+            }
+        }
     }
 }

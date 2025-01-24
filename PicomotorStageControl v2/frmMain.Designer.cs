@@ -137,6 +137,7 @@
             btnActiveControlsUp = new Button();
             groupBox9 = new GroupBox();
             tableLayoutPanel16 = new TableLayoutPanel();
+            lblMotorSettingsEstNegAccel = new Label();
             btnMotorSettingsApply = new Button();
             btnMotorSettingsCancel = new Button();
             btnMotorSettingsApplyDefault = new Button();
@@ -150,6 +151,7 @@
             label52 = new Label();
             numMotorSettingsVelocity = new NumericUpDown();
             label17 = new Label();
+            lblMotorSettingsEstNegVel = new Label();
             groupBox10 = new GroupBox();
             groupBox15 = new GroupBox();
             tableLayoutPanel22 = new TableLayoutPanel();
@@ -171,17 +173,16 @@
             txtDataFileName = new TextBox();
             label58 = new Label();
             tableLayoutPanel18 = new TableLayoutPanel();
-            button11 = new Button();
+            btnDataSelectDirectory = new Button();
             label53 = new Label();
             txtDataDirectory = new TextBox();
             groupBox14 = new GroupBox();
             tableLayoutPanel21 = new TableLayoutPanel();
             btnOpenSequenceEditor = new Button();
-            formsPlot2 = new ScottPlot.WinForms.FormsPlot();
+            Plot = new ScottPlot.WinForms.FormsPlot();
             tmrIndicatorDisplayUpdate = new System.Windows.Forms.Timer(components);
             tmrMotorDisplayUpdate = new System.Windows.Forms.Timer(components);
-            lblMotorSettingsEstNegVel = new Label();
-            lblMotorSettingsEstNegAccel = new Label();
+            tmrPlotUpdate = new System.Windows.Forms.Timer(components);
             groupBox6.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
             groupBox8.SuspendLayout();
@@ -264,12 +265,14 @@
             // btnCalZeroPosition
             // 
             btnCalZeroPosition.Dock = DockStyle.Fill;
+            btnCalZeroPosition.Enabled = false;
             btnCalZeroPosition.Location = new Point(3, 608);
             btnCalZeroPosition.Name = "btnCalZeroPosition";
             btnCalZeroPosition.Size = new Size(431, 46);
             btnCalZeroPosition.TabIndex = 4;
             btnCalZeroPosition.Text = "Zero Position";
             btnCalZeroPosition.UseVisualStyleBackColor = true;
+            btnCalZeroPosition.Click += btnCalZeroPosition_Click;
             // 
             // groupBox8
             // 
@@ -1184,6 +1187,7 @@
             // 
             // btnStopAllMotion
             // 
+            btnStopAllMotion.Enabled = false;
             btnStopAllMotion.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold);
             btnStopAllMotion.Location = new Point(305, 36);
             btnStopAllMotion.Name = "btnStopAllMotion";
@@ -1224,6 +1228,7 @@
             // btnGoTo
             // 
             btnGoTo.Dock = DockStyle.Fill;
+            btnGoTo.Enabled = false;
             btnGoTo.Location = new Point(3, 84);
             btnGoTo.Name = "btnGoTo";
             btnGoTo.Size = new Size(437, 60);
@@ -1324,6 +1329,7 @@
             // btnMoveDistance
             // 
             btnMoveDistance.Dock = DockStyle.Fill;
+            btnMoveDistance.Enabled = false;
             btnMoveDistance.Location = new Point(3, 84);
             btnMoveDistance.Name = "btnMoveDistance";
             btnMoveDistance.Size = new Size(437, 60);
@@ -1448,13 +1454,12 @@
             // radRefIndicator
             // 
             radRefIndicator.AutoSize = true;
-            radRefIndicator.Checked = true;
             radRefIndicator.Dock = DockStyle.Fill;
+            radRefIndicator.Enabled = false;
             radRefIndicator.Location = new Point(3, 3);
             radRefIndicator.Name = "radRefIndicator";
             radRefIndicator.Size = new Size(153, 24);
             radRefIndicator.TabIndex = 8;
-            radRefIndicator.TabStop = true;
             radRefIndicator.Text = "Indicator";
             radRefIndicator.UseVisualStyleBackColor = true;
             radRefIndicator.CheckedChanged += radRefIndicator_CheckedChanged;
@@ -1462,11 +1467,13 @@
             // radRefCalibration
             // 
             radRefCalibration.AutoSize = true;
+            radRefCalibration.Checked = true;
             radRefCalibration.Dock = DockStyle.Fill;
             radRefCalibration.Location = new Point(3, 33);
             radRefCalibration.Name = "radRefCalibration";
             radRefCalibration.Size = new Size(153, 24);
             radRefCalibration.TabIndex = 9;
+            radRefCalibration.TabStop = true;
             radRefCalibration.Text = "Calibration";
             radRefCalibration.UseVisualStyleBackColor = true;
             radRefCalibration.CheckedChanged += radRefCalibration_CheckedChanged;
@@ -1499,6 +1506,7 @@
             // btnActiveControlsDown
             // 
             btnActiveControlsDown.Dock = DockStyle.Fill;
+            btnActiveControlsDown.Enabled = false;
             btnActiveControlsDown.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             btnActiveControlsDown.Location = new Point(3, 76);
             btnActiveControlsDown.Name = "btnActiveControlsDown";
@@ -1513,6 +1521,7 @@
             // btnActiveControlsUp
             // 
             btnActiveControlsUp.Dock = DockStyle.Fill;
+            btnActiveControlsUp.Enabled = false;
             btnActiveControlsUp.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             btnActiveControlsUp.Location = new Point(3, 3);
             btnActiveControlsUp.Name = "btnActiveControlsUp";
@@ -1567,9 +1576,20 @@
             tableLayoutPanel16.Size = new Size(433, 163);
             tableLayoutPanel16.TabIndex = 0;
             // 
+            // lblMotorSettingsEstNegAccel
+            // 
+            lblMotorSettingsEstNegAccel.AutoSize = true;
+            lblMotorSettingsEstNegAccel.Dock = DockStyle.Fill;
+            lblMotorSettingsEstNegAccel.Location = new Point(3, 91);
+            lblMotorSettingsEstNegAccel.Name = "lblMotorSettingsEstNegAccel";
+            lblMotorSettingsEstNegAccel.Size = new Size(138, 20);
+            lblMotorSettingsEstNegAccel.TabIndex = 22;
+            lblMotorSettingsEstNegAccel.Text = "Neg: 0";
+            // 
             // btnMotorSettingsApply
             // 
             btnMotorSettingsApply.Dock = DockStyle.Fill;
+            btnMotorSettingsApply.Enabled = false;
             btnMotorSettingsApply.Location = new Point(309, 114);
             btnMotorSettingsApply.Name = "btnMotorSettingsApply";
             btnMotorSettingsApply.Size = new Size(121, 46);
@@ -1581,6 +1601,7 @@
             // btnMotorSettingsCancel
             // 
             btnMotorSettingsCancel.Dock = DockStyle.Fill;
+            btnMotorSettingsCancel.Enabled = false;
             btnMotorSettingsCancel.Location = new Point(147, 114);
             btnMotorSettingsCancel.Name = "btnMotorSettingsCancel";
             btnMotorSettingsCancel.Size = new Size(156, 46);
@@ -1591,6 +1612,7 @@
             // btnMotorSettingsApplyDefault
             // 
             btnMotorSettingsApplyDefault.Dock = DockStyle.Fill;
+            btnMotorSettingsApplyDefault.Enabled = false;
             btnMotorSettingsApplyDefault.Location = new Point(3, 114);
             btnMotorSettingsApplyDefault.Name = "btnMotorSettingsApplyDefault";
             btnMotorSettingsApplyDefault.Size = new Size(138, 46);
@@ -1707,6 +1729,16 @@
             label17.TabIndex = 0;
             label17.Text = "Velocity:";
             label17.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblMotorSettingsEstNegVel
+            // 
+            lblMotorSettingsEstNegVel.AutoSize = true;
+            lblMotorSettingsEstNegVel.Dock = DockStyle.Fill;
+            lblMotorSettingsEstNegVel.Location = new Point(3, 36);
+            lblMotorSettingsEstNegVel.Name = "lblMotorSettingsEstNegVel";
+            lblMotorSettingsEstNegVel.Size = new Size(138, 20);
+            lblMotorSettingsEstNegVel.TabIndex = 21;
+            lblMotorSettingsEstNegVel.Text = "Neg: 0";
             // 
             // groupBox10
             // 
@@ -1874,12 +1906,14 @@
             // btnDataCollect
             // 
             btnDataCollect.Dock = DockStyle.Fill;
+            btnDataCollect.Enabled = false;
             btnDataCollect.Location = new Point(467, 3);
             btnDataCollect.Name = "btnDataCollect";
             btnDataCollect.Size = new Size(288, 50);
             btnDataCollect.TabIndex = 8;
             btnDataCollect.Text = "Collect";
             btnDataCollect.UseVisualStyleBackColor = true;
+            btnDataCollect.Click += btnDataCollect_Click;
             // 
             // label62
             // 
@@ -1952,7 +1986,7 @@
             tableLayoutPanel18.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel18.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel18.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 45F));
-            tableLayoutPanel18.Controls.Add(button11, 2, 0);
+            tableLayoutPanel18.Controls.Add(btnDataSelectDirectory, 2, 0);
             tableLayoutPanel18.Controls.Add(label53, 0, 0);
             tableLayoutPanel18.Controls.Add(txtDataDirectory, 1, 0);
             tableLayoutPanel18.Dock = DockStyle.Fill;
@@ -1963,15 +1997,16 @@
             tableLayoutPanel18.Size = new Size(758, 45);
             tableLayoutPanel18.TabIndex = 0;
             // 
-            // button11
+            // btnDataSelectDirectory
             // 
-            button11.Dock = DockStyle.Fill;
-            button11.Location = new Point(716, 3);
-            button11.Name = "button11";
-            button11.Size = new Size(39, 39);
-            button11.TabIndex = 5;
-            button11.Text = "...";
-            button11.UseVisualStyleBackColor = true;
+            btnDataSelectDirectory.Dock = DockStyle.Fill;
+            btnDataSelectDirectory.Location = new Point(716, 3);
+            btnDataSelectDirectory.Name = "btnDataSelectDirectory";
+            btnDataSelectDirectory.Size = new Size(39, 39);
+            btnDataSelectDirectory.TabIndex = 5;
+            btnDataSelectDirectory.Text = "...";
+            btnDataSelectDirectory.UseVisualStyleBackColor = true;
+            btnDataSelectDirectory.Click += btnDataSelectDirectory_Click;
             // 
             // label53
             // 
@@ -1989,6 +2024,7 @@
             txtDataDirectory.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtDataDirectory.Location = new Point(82, 9);
             txtDataDirectory.Name = "txtDataDirectory";
+            txtDataDirectory.ReadOnly = true;
             txtDataDirectory.Size = new Size(628, 27);
             txtDataDirectory.TabIndex = 4;
             // 
@@ -2027,13 +2063,13 @@
             btnOpenSequenceEditor.UseVisualStyleBackColor = true;
             btnOpenSequenceEditor.Click += btnOpenSequenceEditor_Click;
             // 
-            // formsPlot2
+            // Plot
             // 
-            formsPlot2.DisplayScale = 1.25F;
-            formsPlot2.Location = new Point(929, 216);
-            formsPlot2.Name = "formsPlot2";
-            formsPlot2.Size = new Size(581, 501);
-            formsPlot2.TabIndex = 14;
+            Plot.DisplayScale = 1.25F;
+            Plot.Location = new Point(929, 216);
+            Plot.Name = "Plot";
+            Plot.Size = new Size(581, 501);
+            Plot.TabIndex = 14;
             // 
             // tmrIndicatorDisplayUpdate
             // 
@@ -2045,32 +2081,16 @@
             tmrMotorDisplayUpdate.Interval = 1;
             tmrMotorDisplayUpdate.Tick += tmrMotorDisplayUpdate_Tick;
             // 
-            // lblMotorSettingsEstNegVel
+            // tmrPlotUpdate
             // 
-            lblMotorSettingsEstNegVel.AutoSize = true;
-            lblMotorSettingsEstNegVel.Dock = DockStyle.Fill;
-            lblMotorSettingsEstNegVel.Location = new Point(3, 36);
-            lblMotorSettingsEstNegVel.Name = "lblMotorSettingsEstNegVel";
-            lblMotorSettingsEstNegVel.Size = new Size(138, 20);
-            lblMotorSettingsEstNegVel.TabIndex = 21;
-            lblMotorSettingsEstNegVel.Text = "Neg: 0";
-            // 
-            // lblMotorSettingsEstNegAccel
-            // 
-            lblMotorSettingsEstNegAccel.AutoSize = true;
-            lblMotorSettingsEstNegAccel.Dock = DockStyle.Fill;
-            lblMotorSettingsEstNegAccel.Location = new Point(3, 91);
-            lblMotorSettingsEstNegAccel.Name = "lblMotorSettingsEstNegAccel";
-            lblMotorSettingsEstNegAccel.Size = new Size(138, 20);
-            lblMotorSettingsEstNegAccel.TabIndex = 22;
-            lblMotorSettingsEstNegAccel.Text = "Neg: 0";
+            tmrPlotUpdate.Tick += tmrPlotUpdate_Tick;
             // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1522, 942);
-            Controls.Add(formsPlot2);
+            Controls.Add(Plot);
             Controls.Add(groupBox14);
             Controls.Add(groupBox12);
             Controls.Add(groupBox10);
@@ -2274,7 +2294,7 @@
         private TextBox txtDataFileName;
         private Label label58;
         private TableLayoutPanel tableLayoutPanel18;
-        private Button button11;
+        private Button btnDataSelectDirectory;
         private Label label53;
         private TextBox txtDataDirectory;
         private ToolStripStatusLabel toolStripStatusLabel9;
@@ -2292,7 +2312,7 @@
         private ToolStripMenuItem connectToolStripMenuItem;
         private ToolStripMenuItem stripConnectStage;
         private ToolStripMenuItem stripConnectIndicator;
-        private ScottPlot.WinForms.FormsPlot formsPlot2;
+        private ScottPlot.WinForms.FormsPlot Plot;
         private System.Windows.Forms.Timer tmrIndicatorDisplayUpdate;
         private Label label15;
         private Button btnPlotClear;
@@ -2306,5 +2326,6 @@
         private System.Windows.Forms.Timer tmrMotorDisplayUpdate;
         private Label lblMotorSettingsEstNegAccel;
         private Label lblMotorSettingsEstNegVel;
+        private System.Windows.Forms.Timer tmrPlotUpdate;
     }
 }

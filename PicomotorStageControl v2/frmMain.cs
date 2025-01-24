@@ -1,5 +1,7 @@
 using NewFocus.Picomotor;
 using PicomotorStageControl_v2.Properties;
+using ScottPlot.Plottables;
+using System.ComponentModel;
 using System.Text;
 
 namespace PicomotorStageControl_v2
@@ -13,27 +15,95 @@ namespace PicomotorStageControl_v2
             Steps
         }
 
-        public CmdLib8742 StageCMD;
+        public CmdLib8742? StageCMD;
         public string DeviceID { get; private set; } = String.Empty;
         public Motor? Motor { get; private set; } // Bad name?
 
         public Indicator? Indicator { get; private set; } = null;
 
         public string IndicatorPosition = "";
-        private MovementReferenceType MovementReference = MovementReferenceType.Indicator; // Hard-coded, whatever. Same with initial labels. Cleaner code.
+        private MovementReferenceType MovementReference = MovementReferenceType.Calibration; // Hard-coded, whatever. Same with initial labels. Cleaner code.
         private bool ReferenceLocked = false;
 
+        BackgroundWorker IndicatorJogWorker;
+        float IndicatorMoveToPosition = 0.0f;
+        bool IndicatorJogWorkerShouldRun = false;
+
+        private DataLogger LoggerMotorSteps;
+        private DataLogger LoggerMotorCalibrationMicrons;
+        private DataLogger LoggerIndicatorMicrons;
 
         public frmMain()
         {
             InitializeComponent();
         }
 
-
         #region Handlers
         private void frmMain_Load(object sender, EventArgs e)
         {
             UpdateCalibrationValues();
+            IndicatorJogWorker = new BackgroundWorker();
+            IndicatorJogWorker.WorkerSupportsCancellation = true;
+            IndicatorJogWorker.DoWork += IndicatorJogWorker_DoWork;
+
+            InitializePlot();
+
+            this.tmrPlotUpdate.Enabled = true;
+            this.tmrPlotUpdate.Start();
+        }
+
+        private void InitializePlot()
+        {
+            LoggerMotorSteps = Plot.Plot.Add.DataLogger();
+            LoggerMotorCalibrationMicrons = Plot.Plot.Add.DataLogger();
+            LoggerIndicatorMicrons = Plot.Plot.Add.DataLogger();
+        }
+
+        private void IndicatorJogWorker_DoWork(object? sender, DoWorkEventArgs e)
+        {
+            if (Motor == null || Indicator == null)
+            {
+                return;
+            }
+
+            bool up = (float)Indicator.Position > IndicatorMoveToPosition;
+            int prevVel = Motor.Velocity_step;
+
+            while ((float)Indicator.Position > IndicatorMoveToPosition && up == true && IndicatorJogWorkerShouldRun)
+            {
+                float dist = Math.Abs(IndicatorMoveToPosition - (float)Indicator.Position);
+
+                if (Settings.Default.StageMovementCreepUp)
+                {
+                    if (dist < Settings.Default.StageMovementSlowDownDistance && this.Motor.Velocity_step > Settings.Default.StageMovementSlowDownVelocity)
+                    {
+                        this.Motor.SetVelocity(100);
+                    }
+                }
+
+                Motor.JogNegative();
+            }
+
+            while ((float)this.Indicator.Position < IndicatorMoveToPosition && up == false && IndicatorJogWorkerShouldRun)
+            {
+                float dist = Math.Abs(IndicatorMoveToPosition - (float)Indicator.Position);
+
+                if (Settings.Default.StageMovementCreepUp)
+                {
+                    if (dist < Settings.Default.StageMovementSlowDownDistance && this.Motor.Velocity_step > Settings.Default.StageMovementSlowDownVelocity)
+                    {
+                        this.Motor.SetVelocity(100);
+                    }
+                }
+
+                Motor.JogPositive();
+            }
+
+            Motor.StopMotion();
+            if (Settings.Default.StageMovementCreepUp)
+            {
+                Motor.SetVelocity(prevVel);
+            }
         }
 
         // Could use this for detecting usb device disconnection
@@ -68,6 +138,7 @@ namespace PicomotorStageControl_v2
             frmAbout aboutForm = new frmAbout();
             aboutForm.Show();
         }
+
         private void stripSettings_Click(object sender, EventArgs e)
         {
             if ((Application.OpenForms["frmSettings"] as frmSettings) != null)
@@ -76,6 +147,7 @@ namespace PicomotorStageControl_v2
             frmSettings settingsForm = new frmSettings(this);
             settingsForm.Show();
         }
+
         private void btnLockReference_Click(object sender, EventArgs e)
         {
             if (ReferenceLocked == false)
@@ -97,6 +169,7 @@ namespace PicomotorStageControl_v2
                 this.ReferenceLocked = false;
             }
         }
+
         private void stripConnectIndicator_Click(object sender, EventArgs e)
         {
             if (Indicator == null || !Indicator.Connected)
@@ -123,8 +196,12 @@ namespace PicomotorStageControl_v2
                 statusIndicatorConnected.ForeColor = Color.Green;
                 tmrIndicatorDisplayUpdate.Enabled = true;
                 tmrIndicatorDisplayUpdate.Start();
+
+                // Enable Indicator Controls
+                radRefIndicator.Enabled = true;
             }
         }
+
         private void stripConnectStage_Click(object sender, EventArgs e)
         {
             string dID = "";
@@ -139,7 +216,7 @@ namespace PicomotorStageControl_v2
             this.DeviceID = dID;
 
             string returnStr = "";
-            StageCMD.Query(this.DeviceID, "MC", ref returnStr); // What does this do? I forgot. Haha.
+            StageCMD.Query(this.DeviceID, "MC", ref returnStr); // What does this do? I forgot. Haha. Likely motor check.
 
             Motor = new Motor(this, 1, (float)Settings.Default.AvgNegativeStepSize_um, (float)Settings.Default.AvgPositiveStepSize_um); // TO DO: Change decimal to float in settings, maybe. Think about it.
 
@@ -151,7 +228,20 @@ namespace PicomotorStageControl_v2
 
             numMotorSettingsVelocity.Value = Motor.Velocity_step;
             numMotorSettingsAcceleration.Value = Motor.Acceleration_step;
+
+            // Enable Stage Controls
+            btnActiveControlsUp.Enabled = true;
+            btnActiveControlsDown.Enabled = true;
+            btnMoveDistance.Enabled = true;
+            btnGoTo.Enabled = true;
+            btnMotorSettingsApply.Enabled = true;
+            btnStopAllMotion.Enabled = true;
+            btnMotorSettingsCancel.Enabled = true;
+            btnMotorSettingsApplyDefault.Enabled = true;
+            btnCalZeroPosition.Enabled = true;
+            btnDataCollect.Enabled = true;
         }
+
         private void tmrIndicatorDisplayUpdate_Tick(object sender, EventArgs e)
         {
             if (Indicator != null && Indicator.Connected)
@@ -186,24 +276,18 @@ namespace PicomotorStageControl_v2
                 MovementReference = MovementReferenceType.Indicator;
                 lblGoToUnits.Text = "um";
                 lblMoveDistanceUnits.Text = "um";
-                lblMotorSettingsVelocityUnits.Text = "um/s";
-                lblMotorSettingsAccelerationUnits.Text = "um/s^2";
             }
             else if (radRefCalibration.Checked)
             {
                 MovementReference = MovementReferenceType.Calibration;
                 lblGoToUnits.Text = "um";
                 lblMoveDistanceUnits.Text = "um";
-                lblMotorSettingsVelocityUnits.Text = "um/s";
-                lblMotorSettingsAccelerationUnits.Text = "um/s^2";
             }
             else if (radRefSteps.Checked)
             {
                 MovementReference = MovementReferenceType.Steps;
                 lblGoToUnits.Text = "steps";
                 lblMoveDistanceUnits.Text = "steps";
-                lblMotorSettingsVelocityUnits.Text = "steps/s";
-                lblMotorSettingsAccelerationUnits.Text = "steps/s^2";
             }
         }
         #endregion
@@ -232,6 +316,7 @@ namespace PicomotorStageControl_v2
                 this.Motor.SetAcceleration((int)numMotorSettingsAcceleration.Value);
             }
         }
+
         public void UpdateCalibrationValues()
         {
             float neg = (float)Settings.Default.AvgNegativeStepSize_um;
@@ -257,6 +342,7 @@ namespace PicomotorStageControl_v2
         {
             if (this.Motor != null)
             {
+                this.IndicatorJogWorkerShouldRun = false;
                 this.Motor.StopMotion();
             }
         }
@@ -285,10 +371,19 @@ namespace PicomotorStageControl_v2
                 {
                     this.Motor.RelativeMove_step((int)numMoveDistance.Value);
                 }
-                else if (this.MovementReference == MovementReferenceType.Indicator)
+                else if (this.MovementReference == MovementReferenceType.Indicator && this.Indicator != null)
                 {
-                    // TO DO: IMPLEMENT
-                    // TO DO: Modify numeric input settings based upon mode used
+                    if (numMoveDistance.Value > 0)
+                    {
+                        IndicatorMoveToPosition = Math.Abs((float)numMoveDistance.Value - (float)this.Indicator.Position);
+                    }
+                    else
+                    {
+                        IndicatorMoveToPosition = -Math.Abs((float)numMoveDistance.Value - (float)this.Indicator.Position);
+                    }
+
+                    IndicatorJogWorkerShouldRun = true;
+                    IndicatorJogWorker.RunWorkerAsync();
                 }
                 else if (this.MovementReference == MovementReferenceType.Calibration)
                 {
@@ -299,15 +394,17 @@ namespace PicomotorStageControl_v2
 
         private void btnGoTo_Click(object sender, EventArgs e)
         {
-            if (this.Motor != null)
+            if (this.Motor != null && this.Indicator != null)
             {
                 if (this.MovementReference == MovementReferenceType.Steps)
                 {
                     this.Motor.MoveToRelativePosition_step((int)numGoTo.Value);
                 }
-                else if (this.MovementReference == MovementReferenceType.Indicator)
+                else if (this.MovementReference == MovementReferenceType.Indicator && this.Indicator != null)
                 {
-                    // TO DO: IMPLEMENT
+                    IndicatorMoveToPosition = (float)numGoTo.Value;
+                    IndicatorJogWorkerShouldRun = true;
+                    IndicatorJogWorker.RunWorkerAsync();
                 }
                 else if (this.MovementReference == MovementReferenceType.Calibration)
                 {
@@ -364,6 +461,61 @@ namespace PicomotorStageControl_v2
                 lblMotorSettingsEstNegAccel.Text = Motor.NegativeAccelerationFromCalibration_um.ToString();
                 lblMotorSettingsEstPosAccel.Text = Motor.PositiveAccelerationFromCalibration_um.ToString();
             }
+        }
+
+        private void btnCalZeroPosition_Click(object sender, EventArgs e)
+        {
+            if (this.Motor != null)
+            {
+                this.Motor.ZeroDevicePosition();
+            }
+        }
+
+        private void btnDataSelectDirectory_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            folderBrowserDialog.ShowNewFolderButton = true;
+            DialogResult result = folderBrowserDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                txtDataDirectory.Text = folderBrowserDialog.SelectedPath;
+            }
+        }
+
+        private void btnDataCollect_Click(object sender, EventArgs e)
+        {
+            string dir = txtDataDirectory.Text;
+            string name = txtDataFileName.Text;
+            string path = Path.Combine(dir, name);
+
+            // From https://stackoverflow.com/questions/4650462/easiest-way-to-check-if-an-arbitrary-string-is-a-valid-filename
+            if (this.txtDataFileName.Text.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
+            {
+                return;
+            }
+            if (File.Exists(path))
+            {
+                DialogResult fileExistsResult = MessageBox.Show("File already exists! Would you like to override?", "File Exists!", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                if (fileExistsResult == DialogResult.No)
+                {
+                    return;
+                }
+            }
+        }
+
+        private void tmrPlotUpdate_Tick(object sender, EventArgs e)
+        {
+            if (Motor != null)
+            {
+                LoggerMotorSteps.Add(this.Motor.Position_step);
+                LoggerMotorCalibrationMicrons.Add(this.Motor.PositionFromCalibration_um);
+            }
+            if (Indicator != null)
+            {
+                LoggerIndicatorMicrons.Add((float)this.Indicator.Position);
+            }
+            
+            Plot.Refresh();
         }
     }
 }

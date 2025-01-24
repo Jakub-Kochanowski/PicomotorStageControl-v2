@@ -101,7 +101,7 @@ namespace PicomotorStageControl_v2
                             previousPosition = num;
                         }
                     }
-                    Thread.Sleep(150);
+                    Thread.Sleep(10);
 
                     // TO DO: Handle disconnections
                 }
