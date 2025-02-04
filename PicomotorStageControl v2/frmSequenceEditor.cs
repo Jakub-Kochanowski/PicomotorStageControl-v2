@@ -21,6 +21,7 @@ namespace PicomotorStageControl_v2
 
         BackgroundWorker SequenceBackgroundWorker = new BackgroundWorker();
         public bool SequenceRunning { get; private set; } = false;
+        public bool StopSequence { get; private set; } = false;
         frmMain MainForm;
 
         public frmSequenceEditor(frmMain mainForm)
@@ -226,6 +227,7 @@ namespace PicomotorStageControl_v2
                 btnRun.Enabled = false;
                 btnStop.Enabled = true;
 
+                StopSequence = false;
                 SequenceRunning = true;
                 SequenceBackgroundWorker.RunWorkerAsync();
                 statusScriptRunStatus.Text = "Running";
@@ -234,63 +236,70 @@ namespace PicomotorStageControl_v2
 
         private void SequenceBackgroundWorker_DoWork(object? sender, DoWorkEventArgs e)
         {
-            while (SequenceRunning)
+            foreach (Command cmd in Commands)
             {
-                foreach (Command cmd in Commands)
+                if (StopSequence)
                 {
-
-                        this.Invoke(delegate
-                        {
-                            int currentIndex = Commands.IndexOf(cmd);
-                            this.lstCommands.Items[currentIndex].BackColor = Color.Green;
-                            if (currentIndex > 0)
-                            {
-                                this.lstCommands.Items[currentIndex - 1].BackColor = Color.Transparent;
-                            }
-                            this.statusCurrentTask.Text = cmd.DisplayText;
-                        });
-
-                    if (SequenceRunning)
-                    {
-                        cmd.Execute();
-
-                        while (cmd.Running == true)
-                        {
-                            this.Invoke(delegate
-                            {
-                                this.statusCurrentTask.Text = cmd.DisplayText + " (" + cmd.Progress + ")";
-                            });
-
-                            if (!SequenceRunning)
-                            {
-                                cmd.Stop();
-                            }
-                            Thread.Yield();
-                        }
-
-                        this.Invoke(delegate
-                        {
-                            this.txtLog.Text += cmd.LogMessage + Environment.NewLine;
-                        });
-                    }
+                    cmd.Stop();
+                    SequenceRunning = false;
+                    break;
+                }
+                if (SequenceRunning == false)
+                {
+                    break;
                 }
 
                 this.Invoke(delegate
                 {
-                    this.lstCommands.Items[lstCommands.Items.Count - 1].BackColor = Color.Transparent;
+                    int currentIndex = Commands.IndexOf(cmd);
+                    this.lstCommands.Items[currentIndex].BackColor = Color.Green;
+                    if (currentIndex > 0)
+                    {
+                        this.lstCommands.Items[currentIndex - 1].BackColor = Color.Transparent;
+                    }
+                    this.statusCurrentTask.Text = cmd.DisplayText;
                 });
-                this.SequenceRunning = false;
+
+                cmd.Execute();
+
+                while (cmd.Running == true)
+                {
+                    this.Invoke(delegate
+                    {
+                        this.statusCurrentTask.Text = cmd.DisplayText + " (" + cmd.Progress + ")";
+                    });
+                    System.Diagnostics.Debug.WriteLine(cmd.DisplayText);
+                    if (StopSequence)
+                    {
+                        cmd.Stop();
+                    }
+                    Thread.Yield();
+                }
+
+                this.Invoke(delegate
+                {
+                    this.txtLog.Text += cmd.LogMessage + Environment.NewLine;
+                });
             }
 
             this.Invoke(delegate
             {
-                this.EnableAllControlButtons();
+                this.lstCommands.Items[lstCommands.Items.Count - 1].BackColor = Color.Transparent;
+            });
+
+            this.SequenceRunning = false;
+            
+
+            this.Invoke(delegate
+            {
+                this.ClearListboxColors();
                 this.btnRun.Enabled = true;
                 this.btnStop.Enabled = false;
                 this.SequenceRunning = false;
                 this.statusCurrentTask.Text = "N/A";
                 this.statusScriptRunStatus.Text = "Complete";
-            });
+                this.EnableAllControlButtons();
+            });         
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -298,7 +307,7 @@ namespace PicomotorStageControl_v2
             EnableAllControlButtons();
             btnRun.Enabled = true;
             btnStop.Enabled = false;
-            this.SequenceRunning = false;
+            StopSequence = true;
         }
 
         private void frmSequenceEditor_Load(object sender, EventArgs e)
@@ -322,6 +331,14 @@ namespace PicomotorStageControl_v2
             btnMngDeleteItem.Enabled = false;
             btnMngEnableItem.Enabled = false;
             btnMngDisableItem.Enabled = false;
+        }
+
+        private void ClearListboxColors()
+        {
+            for (int i = 0; i < lstCommands.Items.Count - 1; i++)
+            {
+                lstCommands.Items[i].BackColor = Color.Transparent;
+            }
         }
 
         private void EnableAllControlButtons()

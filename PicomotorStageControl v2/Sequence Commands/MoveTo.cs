@@ -1,4 +1,5 @@
-﻿using PicomotorStageControl_v2.SequenceCommands;
+﻿using PicomotorStageControl_v2.Properties;
+using PicomotorStageControl_v2.SequenceCommands;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,10 +12,14 @@ namespace PicomotorStageControl_v2.SequenceCommands
 {
     internal class MoveTo : Command
     {
-        public decimal Position { get; private set; }
         private frmMain MainForm;
+
+        public decimal Position { get; private set; }
         MovementReferenceType MovementReference;
         BackgroundWorker MoveToBackgroundWorker;
+        BackgroundWorker MoveToIndicatorJogWorker;
+        bool IndicatorJogWorkerShouldRun;
+        float IndicatorMoveToPosition;
 
         public MoveTo(frmMain mainForm, decimal position, MovementReferenceType movementReference) : base()
         {
@@ -27,10 +32,66 @@ namespace PicomotorStageControl_v2.SequenceCommands
 
             MoveToBackgroundWorker = new BackgroundWorker();
             MoveToBackgroundWorker.DoWork += MoveToBackgroundWorker_DoWork;
+
+            MoveToIndicatorJogWorker = new BackgroundWorker();
+            MoveToIndicatorJogWorker.DoWork += MoveToIndicatorJogWorker_DoWork;
+        }
+
+        private void MoveToIndicatorJogWorker_DoWork(object? sender, DoWorkEventArgs e)
+        {
+            bool up = (float)this.MainForm.Indicator.Position > (float)this.IndicatorMoveToPosition;
+            int prevVel = this.MainForm.Motor.Velocity_step;
+
+            while ((float)this.MainForm.Indicator.Position > IndicatorMoveToPosition && up == true && IndicatorJogWorkerShouldRun)
+            {
+                float dist = Math.Abs(IndicatorMoveToPosition - (float)this.MainForm.Indicator.Position);
+
+                if (Settings.Default.StageMovementCreepUp)
+                {
+                    if (dist < Settings.Default.StageMovementSlowDownDistance && this.MainForm.Motor.Velocity_step > Settings.Default.StageMovementSlowDownVelocity)
+                    {
+                        this.MainForm.Motor.SetVelocity(Settings.Default.StageMovementSlowDownVelocity);
+                    }
+                }
+
+                this.MainForm.Motor.JogNegative();
+                this.Running = true;
+                MoveState a = this.MainForm.Motor.MoveState;
+            }
+
+            while ((float)this.MainForm.Indicator.Position < IndicatorMoveToPosition && up == false && IndicatorJogWorkerShouldRun)
+            {
+                float dist = Math.Abs(IndicatorMoveToPosition - (float)this.MainForm.Indicator.Position);
+
+                if (Settings.Default.StageMovementCreepUp)
+                {
+                    if (dist < Settings.Default.StageMovementSlowDownDistance && this.MainForm.Motor.Velocity_step > Settings.Default.StageMovementSlowDownVelocity)
+                    {
+                        this.MainForm.Motor.SetVelocity(Settings.Default.StageMovementSlowDownVelocity);
+                    }
+                }
+
+                this.MainForm.Motor.JogPositive();
+                this.Running = true;
+                MoveState a = this.MainForm.Motor.MoveState;
+            }
+
+            this.MainForm.Motor.StopMotion();
+            if (Settings.Default.StageMovementCreepUp)
+            {
+                this.MainForm.Motor.SetVelocity(prevVel);
+            }
+            this.IndicatorJogWorkerShouldRun = false;
+
+            this.Running = false;
         }
 
         private void MoveToBackgroundWorker_DoWork(object? sender, DoWorkEventArgs e)
         {
+            if (this.MainForm.Motor == null)
+            {
+                return;
+            }
 
             if (this.MovementReference == MovementReferenceType.Steps)
             {
@@ -48,35 +109,24 @@ namespace PicomotorStageControl_v2.SequenceCommands
                     return;
                 }
                 
-                this.MainForm.IndicatorMoveToPosition = (float)this.Position;
-                this.MainForm.IndicatorJogWorkerShouldRun = true;
-                this.MainForm.IndicatorJogWorker.RunWorkerAsync();
-            }
+                IndicatorMoveToPosition = (float)this.Position;
 
-            // Not sure why the stationary thing doesn't work here for the indicator. Might be a timing issue due to not synchronized threads.
-            // This could cause problems in a weird way, but it works for now, so let's stick with it.
-            while (this.MainForm.Motor.MoveState != MoveState.Stationary || this.MainForm.IndicatorJogWorkerShouldRun == true)
-            {
-                this.Running = true;
-                Thread.Yield();
+                IndicatorJogWorkerShouldRun = true;
+                MoveToIndicatorJogWorker.RunWorkerAsync();
             }
-            this.Running = false;
         }
 
         public override void Execute()
         {
-            if (this.MainForm.Motor == null)
-            {
-                return;
-            }
-
             this.Running = true;
             MoveToBackgroundWorker.RunWorkerAsync();
         }
 
         public override void Stop()
         {
-            this.MainForm.IndicatorJogWorkerShouldRun = false; // ugh
+            base.Stop();
+
+            IndicatorJogWorkerShouldRun = false; // ugh
 
             if (this.MainForm.Motor != null)
             {

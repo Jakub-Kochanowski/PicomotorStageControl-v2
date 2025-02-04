@@ -47,6 +47,9 @@ namespace PicomotorStageControl_v2
 
             this.tmrPlotUpdate.Enabled = true;
             this.tmrPlotUpdate.Start();
+
+            this.stripConnectStage_Click(sender, e); // TODO: TEMP
+            this.stripConnectIndicator_Click(sender, e);
         }
 
         private void InitializePlot()
@@ -74,7 +77,7 @@ namespace PicomotorStageControl_v2
                 {
                     if (dist < Settings.Default.StageMovementSlowDownDistance && this.Motor.Velocity_step > Settings.Default.StageMovementSlowDownVelocity)
                     {
-                        this.Motor.SetVelocity(100);
+                        this.Motor.SetVelocity(Settings.Default.StageMovementSlowDownVelocity);
                     }
                 }
 
@@ -89,7 +92,7 @@ namespace PicomotorStageControl_v2
                 {
                     if (dist < Settings.Default.StageMovementSlowDownDistance && this.Motor.Velocity_step > Settings.Default.StageMovementSlowDownVelocity)
                     {
-                        this.Motor.SetVelocity(100);
+                        this.Motor.SetVelocity(Settings.Default.StageMovementSlowDownVelocity);
                     }
                 }
 
@@ -371,14 +374,7 @@ namespace PicomotorStageControl_v2
                 }
                 else if (this.MovementReference == MovementReferenceType.Indicator && this.Indicator != null)
                 {
-                    if (numMoveDistance.Value > 0)
-                    {
-                        IndicatorMoveToPosition = Math.Abs((float)numMoveDistance.Value - (float)this.Indicator.Position);
-                    }
-                    else
-                    {
-                        IndicatorMoveToPosition = -Math.Abs((float)numMoveDistance.Value - (float)this.Indicator.Position);
-                    }
+                    IndicatorMoveToPosition = (float)this.Indicator.Position + (float)numMoveDistance.Value;
 
                     IndicatorJogWorkerShouldRun = true;
                     IndicatorJogWorker.RunWorkerAsync();
