@@ -155,9 +155,9 @@
             groupBox10 = new GroupBox();
             groupBox15 = new GroupBox();
             tableLayoutPanel22 = new TableLayoutPanel();
-            checkBox3 = new CheckBox();
-            checkBox1 = new CheckBox();
-            checkBox2 = new CheckBox();
+            chkPlotViewIndicator = new CheckBox();
+            chkPlotViewMotorSteps = new CheckBox();
+            chkPlotViewMotorCalibration = new CheckBox();
             label15 = new Label();
             btnPlotClear = new Button();
             numPlotInterval = new NumericUpDown();
@@ -1771,9 +1771,9 @@
             // 
             tableLayoutPanel22.ColumnCount = 1;
             tableLayoutPanel22.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel22.Controls.Add(checkBox3, 0, 2);
-            tableLayoutPanel22.Controls.Add(checkBox1, 0, 0);
-            tableLayoutPanel22.Controls.Add(checkBox2, 0, 1);
+            tableLayoutPanel22.Controls.Add(chkPlotViewIndicator, 0, 2);
+            tableLayoutPanel22.Controls.Add(chkPlotViewMotorSteps, 0, 0);
+            tableLayoutPanel22.Controls.Add(chkPlotViewMotorCalibration, 0, 1);
             tableLayoutPanel22.Dock = DockStyle.Fill;
             tableLayoutPanel22.Location = new Point(3, 24);
             tableLayoutPanel22.Margin = new Padding(3, 4, 3, 4);
@@ -1785,41 +1785,50 @@
             tableLayoutPanel22.Size = new Size(192, 121);
             tableLayoutPanel22.TabIndex = 0;
             // 
-            // checkBox3
+            // chkPlotViewIndicator
             // 
-            checkBox3.AutoSize = true;
-            checkBox3.Dock = DockStyle.Fill;
-            checkBox3.Location = new Point(3, 84);
-            checkBox3.Margin = new Padding(3, 4, 3, 4);
-            checkBox3.Name = "checkBox3";
-            checkBox3.Size = new Size(186, 33);
-            checkBox3.TabIndex = 6;
-            checkBox3.Text = "Indicator (um)";
-            checkBox3.UseVisualStyleBackColor = true;
+            chkPlotViewIndicator.AutoSize = true;
+            chkPlotViewIndicator.Checked = true;
+            chkPlotViewIndicator.CheckState = CheckState.Checked;
+            chkPlotViewIndicator.Dock = DockStyle.Fill;
+            chkPlotViewIndicator.Location = new Point(3, 84);
+            chkPlotViewIndicator.Margin = new Padding(3, 4, 3, 4);
+            chkPlotViewIndicator.Name = "chkPlotViewIndicator";
+            chkPlotViewIndicator.Size = new Size(186, 33);
+            chkPlotViewIndicator.TabIndex = 6;
+            chkPlotViewIndicator.Text = "Indicator (um)";
+            chkPlotViewIndicator.UseVisualStyleBackColor = true;
+            chkPlotViewIndicator.CheckedChanged += chkPlotViewIndicator_CheckedChanged;
             // 
-            // checkBox1
+            // chkPlotViewMotorSteps
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Dock = DockStyle.Fill;
-            checkBox1.Location = new Point(3, 4);
-            checkBox1.Margin = new Padding(3, 4, 3, 4);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(186, 32);
-            checkBox1.TabIndex = 4;
-            checkBox1.Text = "Motor Steps (steps)";
-            checkBox1.UseVisualStyleBackColor = true;
+            chkPlotViewMotorSteps.AutoSize = true;
+            chkPlotViewMotorSteps.Checked = true;
+            chkPlotViewMotorSteps.CheckState = CheckState.Checked;
+            chkPlotViewMotorSteps.Dock = DockStyle.Fill;
+            chkPlotViewMotorSteps.Location = new Point(3, 4);
+            chkPlotViewMotorSteps.Margin = new Padding(3, 4, 3, 4);
+            chkPlotViewMotorSteps.Name = "chkPlotViewMotorSteps";
+            chkPlotViewMotorSteps.Size = new Size(186, 32);
+            chkPlotViewMotorSteps.TabIndex = 4;
+            chkPlotViewMotorSteps.Text = "Motor Steps (steps)";
+            chkPlotViewMotorSteps.UseVisualStyleBackColor = true;
+            chkPlotViewMotorSteps.CheckedChanged += chkPlotViewMotorSteps_CheckedChanged;
             // 
-            // checkBox2
+            // chkPlotViewMotorCalibration
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.Dock = DockStyle.Fill;
-            checkBox2.Location = new Point(3, 44);
-            checkBox2.Margin = new Padding(3, 4, 3, 4);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(186, 32);
-            checkBox2.TabIndex = 5;
-            checkBox2.Text = "Motor Calibration (um)";
-            checkBox2.UseVisualStyleBackColor = true;
+            chkPlotViewMotorCalibration.AutoSize = true;
+            chkPlotViewMotorCalibration.Checked = true;
+            chkPlotViewMotorCalibration.CheckState = CheckState.Checked;
+            chkPlotViewMotorCalibration.Dock = DockStyle.Fill;
+            chkPlotViewMotorCalibration.Location = new Point(3, 44);
+            chkPlotViewMotorCalibration.Margin = new Padding(3, 4, 3, 4);
+            chkPlotViewMotorCalibration.Name = "chkPlotViewMotorCalibration";
+            chkPlotViewMotorCalibration.Size = new Size(186, 32);
+            chkPlotViewMotorCalibration.TabIndex = 5;
+            chkPlotViewMotorCalibration.Text = "Motor Calibration (um)";
+            chkPlotViewMotorCalibration.UseVisualStyleBackColor = true;
+            chkPlotViewMotorCalibration.CheckedChanged += chkPlotViewMotorCalibration_CheckedChanged;
             // 
             // label15
             // 
@@ -1839,14 +1848,19 @@
             btnPlotClear.TabIndex = 2;
             btnPlotClear.Text = "Clear Plot";
             btnPlotClear.UseVisualStyleBackColor = true;
+            btnPlotClear.Click += btnPlotClear_Click;
             // 
             // numPlotInterval
             // 
             numPlotInterval.Location = new Point(304, 141);
             numPlotInterval.Margin = new Padding(3, 4, 3, 4);
+            numPlotInterval.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
+            numPlotInterval.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numPlotInterval.Name = "numPlotInterval";
             numPlotInterval.Size = new Size(137, 27);
             numPlotInterval.TabIndex = 1;
+            numPlotInterval.Value = new decimal(new int[] { 10, 0, 0, 0 });
+            numPlotInterval.ValueChanged += numPlotInterval_ValueChanged;
             // 
             // label9
             // 
@@ -2083,6 +2097,7 @@
             // 
             // tmrPlotUpdate
             // 
+            tmrPlotUpdate.Interval = 10;
             tmrPlotUpdate.Tick += tmrPlotUpdate_Tick;
             // 
             // frmMain
@@ -2320,9 +2335,9 @@
         private Label label9;
         private GroupBox groupBox15;
         private TableLayoutPanel tableLayoutPanel22;
-        private CheckBox checkBox3;
-        private CheckBox checkBox1;
-        private CheckBox checkBox2;
+        private CheckBox chkPlotViewIndicator;
+        private CheckBox chkPlotViewMotorSteps;
+        private CheckBox chkPlotViewMotorCalibration;
         private System.Windows.Forms.Timer tmrMotorDisplayUpdate;
         private Label lblMotorSettingsEstNegAccel;
         private Label lblMotorSettingsEstNegVel;

@@ -21,6 +21,7 @@ namespace PicomotorStageControl_v2.SequenceCommands
             waitWorker = new BackgroundWorker();
             waitWorker.DoWork += WaitWorker_DoWork;
             this.Progress = "0ms/" + time_ms.ToString() + "ms";
+            this.LogMessage = "Waited " + time_ms.ToString() + " ms";
         }
 
         private void WaitWorker_DoWork(object? sender, DoWorkEventArgs e)

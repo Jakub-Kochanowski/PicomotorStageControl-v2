@@ -67,6 +67,8 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             btnStop = new Button();
             lstCommands = new ListView();
+            groupBox4 = new GroupBox();
+            txtLog = new RichTextBox();
             menuStrip1.SuspendLayout();
             statusStrip1.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -75,6 +77,7 @@
             flowLayoutPanel2.SuspendLayout();
             groupBox3.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
+            groupBox4.SuspendLayout();
             SuspendLayout();
             // 
             // btnRun
@@ -127,7 +130,7 @@
             // 
             statusStrip1.ImageScalingSize = new Size(20, 20);
             statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1, statusScriptRunStatus, toolStripStatusLabel3, toolStripStatusLabel4, statusCurrentTask, toolStripStatusLabel6, toolStripStatusLabel9, statusTimeRemainingCurrent, toolStripStatusLabel11, statusTimeRemainingMax });
-            statusStrip1.Location = new Point(0, 582);
+            statusStrip1.Location = new Point(0, 814);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Size = new Size(825, 26);
             statusStrip1.TabIndex = 5;
@@ -225,7 +228,7 @@
             btnCmdTimeWait.Name = "btnCmdTimeWait";
             btnCmdTimeWait.Size = new Size(164, 29);
             btnCmdTimeWait.TabIndex = 0;
-            btnCmdTimeWait.Text = "Wait (Time)";
+            btnCmdTimeWait.Text = "&Wait (Time)";
             btnCmdTimeWait.UseVisualStyleBackColor = true;
             btnCmdTimeWait.Click += btnCmdTimeWait_Click;
             // 
@@ -235,7 +238,7 @@
             btnCmdTimeUser.Name = "btnCmdTimeUser";
             btnCmdTimeUser.Size = new Size(164, 29);
             btnCmdTimeUser.TabIndex = 1;
-            btnCmdTimeUser.Text = "Wait (User Input)";
+            btnCmdTimeUser.Text = "Wait (User &Input)";
             btnCmdTimeUser.UseVisualStyleBackColor = true;
             btnCmdTimeUser.Click += btnCmdTimeUser_Click;
             // 
@@ -245,7 +248,7 @@
             btnCmdMoveDistance.Name = "btnCmdMoveDistance";
             btnCmdMoveDistance.Size = new Size(164, 29);
             btnCmdMoveDistance.TabIndex = 2;
-            btnCmdMoveDistance.Text = "Move Distance";
+            btnCmdMoveDistance.Text = "Move &Distance";
             btnCmdMoveDistance.UseVisualStyleBackColor = true;
             btnCmdMoveDistance.Click += btnCmdMoveDistance_Click;
             // 
@@ -255,7 +258,7 @@
             btnCmdMoveTo.Name = "btnCmdMoveTo";
             btnCmdMoveTo.Size = new Size(164, 29);
             btnCmdMoveTo.TabIndex = 3;
-            btnCmdMoveTo.Text = "Move To";
+            btnCmdMoveTo.Text = "Move &To";
             btnCmdMoveTo.UseVisualStyleBackColor = true;
             btnCmdMoveTo.Click += btnCmdMoveTo_Click;
             // 
@@ -265,7 +268,7 @@
             btnCmdSetVelocity.Name = "btnCmdSetVelocity";
             btnCmdSetVelocity.Size = new Size(164, 29);
             btnCmdSetVelocity.TabIndex = 4;
-            btnCmdSetVelocity.Text = "Set Velocity";
+            btnCmdSetVelocity.Text = "Set &Velocity";
             btnCmdSetVelocity.UseVisualStyleBackColor = true;
             btnCmdSetVelocity.Click += btnCmdSetVelocity_Click;
             // 
@@ -275,7 +278,7 @@
             btnCmdSetAcceleration.Name = "btnCmdSetAcceleration";
             btnCmdSetAcceleration.Size = new Size(164, 29);
             btnCmdSetAcceleration.TabIndex = 5;
-            btnCmdSetAcceleration.Text = "Set Acceleration";
+            btnCmdSetAcceleration.Text = "Set &Acceleration";
             btnCmdSetAcceleration.UseVisualStyleBackColor = true;
             btnCmdSetAcceleration.Click += btnCmdSetAcceleration_Click;
             // 
@@ -285,7 +288,7 @@
             btnCmdStartDataCollection.Name = "btnCmdStartDataCollection";
             btnCmdStartDataCollection.Size = new Size(164, 29);
             btnCmdStartDataCollection.TabIndex = 6;
-            btnCmdStartDataCollection.Text = "Start Data Collection";
+            btnCmdStartDataCollection.Text = "&Start Data Collection";
             btnCmdStartDataCollection.UseVisualStyleBackColor = true;
             btnCmdStartDataCollection.Click += btnCmdStartDataCollection_Click;
             // 
@@ -295,7 +298,7 @@
             btnCmdStopDataCollection.Name = "btnCmdStopDataCollection";
             btnCmdStopDataCollection.Size = new Size(164, 29);
             btnCmdStopDataCollection.TabIndex = 7;
-            btnCmdStopDataCollection.Text = "Stop Data Collection";
+            btnCmdStopDataCollection.Text = "Stop &Data Collection";
             btnCmdStopDataCollection.UseVisualStyleBackColor = true;
             btnCmdStopDataCollection.Click += btnCmdStopDataCollection_Click;
             // 
@@ -329,7 +332,7 @@
             btnMngMoveUp.Name = "btnMngMoveUp";
             btnMngMoveUp.Size = new Size(164, 29);
             btnMngMoveUp.TabIndex = 1;
-            btnMngMoveUp.Text = "Move Up";
+            btnMngMoveUp.Text = "Move &Up";
             btnMngMoveUp.UseVisualStyleBackColor = true;
             btnMngMoveUp.Click += btnMngMoveUp_Click;
             // 
@@ -339,7 +342,7 @@
             btnMngClear.Name = "btnMngClear";
             btnMngClear.Size = new Size(164, 29);
             btnMngClear.TabIndex = 2;
-            btnMngClear.Text = "Clear Sequence";
+            btnMngClear.Text = "&Clear Sequence";
             btnMngClear.UseVisualStyleBackColor = true;
             btnMngClear.Click += btnMngClear_Click;
             // 
@@ -349,7 +352,7 @@
             btnMngMoveDown.Name = "btnMngMoveDown";
             btnMngMoveDown.Size = new Size(164, 29);
             btnMngMoveDown.TabIndex = 3;
-            btnMngMoveDown.Text = "Move Down";
+            btnMngMoveDown.Text = "Move D&own";
             btnMngMoveDown.UseVisualStyleBackColor = true;
             btnMngMoveDown.Click += btnMngMoveDown_Click;
             // 
@@ -359,7 +362,7 @@
             btnMngDeleteItem.Name = "btnMngDeleteItem";
             btnMngDeleteItem.Size = new Size(164, 29);
             btnMngDeleteItem.TabIndex = 4;
-            btnMngDeleteItem.Text = "Delete Item";
+            btnMngDeleteItem.Text = "Delete &Item";
             btnMngDeleteItem.UseVisualStyleBackColor = true;
             btnMngDeleteItem.Click += btnMngDeleteItem_Click;
             // 
@@ -369,7 +372,7 @@
             btnMngEnableItem.Name = "btnMngEnableItem";
             btnMngEnableItem.Size = new Size(164, 29);
             btnMngEnableItem.TabIndex = 5;
-            btnMngEnableItem.Text = "Enable Item";
+            btnMngEnableItem.Text = "&Enable Item";
             btnMngEnableItem.UseVisualStyleBackColor = true;
             btnMngEnableItem.Click += btnMngEnableItem_Click;
             // 
@@ -379,7 +382,7 @@
             btnMngDisableItem.Name = "btnMngDisableItem";
             btnMngDisableItem.Size = new Size(164, 29);
             btnMngDisableItem.TabIndex = 6;
-            btnMngDisableItem.Text = "Disable Item";
+            btnMngDisableItem.Text = "Di&sable Item";
             btnMngDisableItem.UseVisualStyleBackColor = true;
             btnMngDisableItem.Click += btnMngDisableItem_Click;
             // 
@@ -411,6 +414,7 @@
             // btnStop
             // 
             btnStop.Dock = DockStyle.Fill;
+            btnStop.Enabled = false;
             btnStop.Location = new Point(3, 71);
             btnStop.Name = "btnStop";
             btnStop.Size = new Size(334, 63);
@@ -425,16 +429,37 @@
             lstCommands.Location = new Point(12, 31);
             lstCommands.MultiSelect = false;
             lstCommands.Name = "lstCommands";
-            lstCommands.Size = new Size(449, 548);
+            lstCommands.Size = new Size(449, 780);
             lstCommands.TabIndex = 9;
             lstCommands.UseCompatibleStateImageBehavior = false;
             lstCommands.View = View.List;
+            // 
+            // groupBox4
+            // 
+            groupBox4.Controls.Add(txtLog);
+            groupBox4.Location = new Point(467, 515);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Size = new Size(346, 296);
+            groupBox4.TabIndex = 10;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Log";
+            // 
+            // txtLog
+            // 
+            txtLog.Dock = DockStyle.Fill;
+            txtLog.Location = new Point(3, 23);
+            txtLog.Name = "txtLog";
+            txtLog.ReadOnly = true;
+            txtLog.Size = new Size(340, 270);
+            txtLog.TabIndex = 0;
+            txtLog.Text = "";
             // 
             // frmSequenceEditor
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(825, 608);
+            ClientSize = new Size(825, 840);
+            Controls.Add(groupBox4);
             Controls.Add(lstCommands);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
@@ -444,6 +469,7 @@
             MainMenuStrip = menuStrip1;
             Name = "frmSequenceEditor";
             Text = "Picomotor Stage Control - Sequence Editor";
+            Load += frmSequenceEditor_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             statusStrip1.ResumeLayout(false);
@@ -454,6 +480,7 @@
             flowLayoutPanel2.ResumeLayout(false);
             groupBox3.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
+            groupBox4.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -498,5 +525,7 @@
         private ToolStripStatusLabel statusTimeRemainingCurrent;
         private ToolStripStatusLabel toolStripStatusLabel11;
         private ToolStripStatusLabel statusTimeRemainingMax;
+        private GroupBox groupBox4;
+        private RichTextBox txtLog;
     }
 }

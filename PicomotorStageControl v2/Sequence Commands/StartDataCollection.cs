@@ -12,6 +12,7 @@ namespace PicomotorStageControl_v2.SequenceCommands
         {
             this.Type = CommandTypes.StartDataCollection;
             this.DisplayText = "Start Data Collection";
+            this.LogMessage = "Start Data Collection";
         }
 
         public override void Execute()

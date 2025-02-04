@@ -1,6 +1,6 @@
 ﻿namespace PicomotorStageControl_v2
 {
-    partial class frmNumericInputBox
+    partial class frmNumericInputBoxReference
     {
         /// <summary>
         /// Required designer variable.
@@ -32,13 +32,14 @@
             btnCancel = new Button();
             numValue = new NumericUpDown();
             lblDescription = new Label();
+            cmbReference = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)numValue).BeginInit();
             SuspendLayout();
             // 
             // btnOK
             // 
             btnOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnOK.Location = new Point(79, 65);
+            btnOK.Location = new Point(234, 65);
             btnOK.Name = "btnOK";
             btnOK.Size = new Size(94, 29);
             btnOK.TabIndex = 1;
@@ -49,7 +50,7 @@
             // btnCancel
             // 
             btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnCancel.Location = new Point(179, 65);
+            btnCancel.Location = new Point(334, 65);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(94, 29);
             btnCancel.TabIndex = 2;
@@ -62,7 +63,7 @@
             numValue.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             numValue.Location = new Point(12, 32);
             numValue.Name = "numValue";
-            numValue.Size = new Size(261, 27);
+            numValue.Size = new Size(273, 27);
             numValue.TabIndex = 0;
             // 
             // lblDescription
@@ -74,13 +75,25 @@
             lblDescription.TabIndex = 100;
             lblDescription.Text = "Input";
             // 
+            // cmbReference
+            // 
+            cmbReference.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cmbReference.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbReference.FormattingEnabled = true;
+            cmbReference.Items.AddRange(new object[] { "um (Indicator)", "Steps", "um (Calibration)" });
+            cmbReference.Location = new Point(291, 31);
+            cmbReference.Name = "cmbReference";
+            cmbReference.Size = new Size(137, 28);
+            cmbReference.TabIndex = 101;
+            // 
             // frmNumericInputBox
             // 
             AcceptButton = btnOK;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancel;
-            ClientSize = new Size(285, 106);
+            ClientSize = new Size(440, 106);
+            Controls.Add(cmbReference);
             Controls.Add(lblDescription);
             Controls.Add(numValue);
             Controls.Add(btnCancel);
@@ -104,5 +117,6 @@
         private Button btnCancel;
         private NumericUpDown numValue;
         private Label lblDescription;
+        private ComboBox cmbReference;
     }
 }

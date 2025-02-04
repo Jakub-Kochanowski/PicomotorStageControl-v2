@@ -21,10 +21,14 @@ namespace PicomotorStageControl_v2
 
         BackgroundWorker SequenceBackgroundWorker = new BackgroundWorker();
         public bool SequenceRunning { get; private set; } = false;
+        frmMain MainForm;
 
-        public frmSequenceEditor()
+        public frmSequenceEditor(frmMain mainForm)
         {
             InitializeComponent();
+
+            this.MainForm = mainForm;
+
             Commands.CollectionChanged += Commands_CollectionChanged;
             SequenceBackgroundWorker.WorkerReportsProgress = true;
             SequenceBackgroundWorker.WorkerSupportsCancellation = true;
@@ -136,52 +140,53 @@ namespace PicomotorStageControl_v2
 
         private void btnCmdMoveDistance_Click(object sender, EventArgs e)
         {
-            if ((Application.OpenForms["frmNumericInputBox"] as frmNumericInputBox) != null)
+            if ((Application.OpenForms["frmNumericInputBox"] as frmNumericInputBoxReference) != null)
                 return;
 
-            frmNumericInputBox numInput = new("Move Distance", "Distance (um)", Decimal.MinValue, Decimal.MaxValue, 0.0005M);
+            frmNumericInputBoxReference numInput = new("Move Distance", "Distance (um)", Decimal.MinValue, Decimal.MaxValue, 0.0005M, this.MainForm.MovementReference);
             numInput.ShowDialog();
 
             if (numInput.DialogResult == DialogResult.OK)
             {
-                SequenceCommands.MoveDistance md = new(numInput.Value);
+                SequenceCommands.MoveDistance md = new(this.MainForm, numInput.Value, numInput.MovementReference);
                 Commands.Add(md);
             }
         }
 
         private void btnCmdMoveTo_Click(object sender, EventArgs e)
         {
-            if ((Application.OpenForms["frmNumericInputBox"] as frmNumericInputBox) != null)
+            if ((Application.OpenForms["frmNumericInputBox"] as frmNumericInputBoxReference) != null)
                 return;
 
-            frmNumericInputBox numInput = new("Move To", "Position (um)", Decimal.MinValue, Decimal.MaxValue, 0.0005M);
+            frmNumericInputBoxReference numInput = new("Move To", "Position (um)", Decimal.MinValue, Decimal.MaxValue, 0.0005M, this.MainForm.MovementReference);
             numInput.ShowDialog();
 
             if (numInput.DialogResult == DialogResult.OK)
-            {
-                SequenceCommands.MoveTo mt = new(numInput.Value);
+            { 
+                SequenceCommands.MoveTo mt = new(this.MainForm, numInput.Value, numInput.MovementReference);
                 Commands.Add(mt);
             }
         }
 
         private void btnCmdSetVelocity_Click(object sender, EventArgs e)
         {
-            if ((Application.OpenForms["frmNumericInputBox"] as frmNumericInputBox) != null)
+            if ((Application.OpenForms["frmNumericInputBox"] as frmNumericInputBoxReference) != null)
                 return;
 
+            // TO DO: CREATE A NEW NUMERIC INPUT FORM WITHOUT MOVEMENT REFERENCE.
             frmNumericInputBox numInput = new("Set Velocity", "Velocity (steps/s)", 0, Decimal.MaxValue, 1M); // TO DO: Find Max Value
             numInput.ShowDialog();
 
             if (numInput.DialogResult == DialogResult.OK)
             {
-                SequenceCommands.SetVelocity sv = new(numInput.Value);
+                SequenceCommands.SetVelocity sv = new(this.MainForm, (int)numInput.Value);
                 Commands.Add(sv);
             }
         }
 
         private void btnCmdSetAcceleration_Click(object sender, EventArgs e)
         {
-            if ((Application.OpenForms["frmNumericInputBox"] as frmNumericInputBox) != null)
+            if ((Application.OpenForms["frmNumericInputBox"] as frmNumericInputBoxReference) != null)
                 return;
 
             frmNumericInputBox numInput = new("Set Acceleration", "Acceleration (steps/s^2)", 0, Decimal.MaxValue, 1M); // TO DO: Find Max Value
@@ -189,7 +194,7 @@ namespace PicomotorStageControl_v2
 
             if (numInput.DialogResult == DialogResult.OK)
             {
-                SequenceCommands.SetAcceleration sa = new(numInput.Value);
+                SequenceCommands.SetAcceleration sa = new(this.MainForm, (int)numInput.Value);
                 Commands.Add(sa);
             }
         }
@@ -216,6 +221,11 @@ namespace PicomotorStageControl_v2
         {
             if (!SequenceRunning)
             {
+                DisableAllControlButtons();
+                
+                btnRun.Enabled = false;
+                btnStop.Enabled = true;
+
                 SequenceRunning = true;
                 SequenceBackgroundWorker.RunWorkerAsync();
                 statusScriptRunStatus.Text = "Running";
@@ -228,45 +238,56 @@ namespace PicomotorStageControl_v2
             {
                 foreach (Command cmd in Commands)
                 {
-                    this.Invoke(delegate
-                    {
-                        int currentIndex = Commands.IndexOf(cmd);
-                        this.lstCommands.Items[currentIndex].BackColor = Color.Green;
-                        if (currentIndex > 0)
-                        {
-                            this.lstCommands.Items[currentIndex - 1].BackColor = Color.Transparent;
-                        }
-                        this.statusCurrentTask.Text = cmd.DisplayText;
-                    });
 
-
-
-                    cmd.Execute();
-                    while (cmd.Running == true)
-                    {
                         this.Invoke(delegate
                         {
-                            this.statusCurrentTask.Text = cmd.DisplayText + " (" + cmd.Progress + ")";
+                            int currentIndex = Commands.IndexOf(cmd);
+                            this.lstCommands.Items[currentIndex].BackColor = Color.Green;
+                            if (currentIndex > 0)
+                            {
+                                this.lstCommands.Items[currentIndex - 1].BackColor = Color.Transparent;
+                            }
+                            this.statusCurrentTask.Text = cmd.DisplayText;
                         });
 
-                        if (!SequenceRunning)
+                    if (SequenceRunning)
+                    {
+                        cmd.Execute();
+
+                        while (cmd.Running == true)
                         {
-                            cmd.Stop();
+                            this.Invoke(delegate
+                            {
+                                this.statusCurrentTask.Text = cmd.DisplayText + " (" + cmd.Progress + ")";
+                            });
+
+                            if (!SequenceRunning)
+                            {
+                                cmd.Stop();
+                            }
+                            Thread.Yield();
                         }
-                        Thread.Yield();
+
+                        this.Invoke(delegate
+                        {
+                            this.txtLog.Text += cmd.LogMessage + Environment.NewLine;
+                        });
                     }
-
-
-
                 }
+
                 this.Invoke(delegate
                 {
                     this.lstCommands.Items[lstCommands.Items.Count - 1].BackColor = Color.Transparent;
                 });
                 this.SequenceRunning = false;
             }
+
             this.Invoke(delegate
             {
+                this.EnableAllControlButtons();
+                this.btnRun.Enabled = true;
+                this.btnStop.Enabled = false;
+                this.SequenceRunning = false;
                 this.statusCurrentTask.Text = "N/A";
                 this.statusScriptRunStatus.Text = "Complete";
             });
@@ -274,7 +295,51 @@ namespace PicomotorStageControl_v2
 
         private void btnStop_Click(object sender, EventArgs e)
         {
+            EnableAllControlButtons();
+            btnRun.Enabled = true;
+            btnStop.Enabled = false;
             this.SequenceRunning = false;
+        }
+
+        private void frmSequenceEditor_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DisableAllControlButtons()
+        {
+            btnCmdTimeWait.Enabled = false;
+            btnCmdTimeUser.Enabled = false;
+            btnCmdMoveDistance.Enabled = false;
+            btnCmdMoveTo.Enabled = false;
+            btnCmdSetVelocity.Enabled = false;
+            btnCmdSetAcceleration.Enabled = false;
+            btnCmdStartDataCollection.Enabled = false;
+            btnCmdStopDataCollection.Enabled = false;
+            btnMngMoveUp.Enabled = false;
+            btnMngClear.Enabled = false;
+            btnMngMoveDown.Enabled = false;
+            btnMngDeleteItem.Enabled = false;
+            btnMngEnableItem.Enabled = false;
+            btnMngDisableItem.Enabled = false;
+        }
+
+        private void EnableAllControlButtons()
+        {
+            btnCmdTimeWait.Enabled = true;
+            btnCmdTimeUser.Enabled = true;
+            btnCmdMoveDistance.Enabled = true;
+            btnCmdMoveTo.Enabled = true;
+            btnCmdSetVelocity.Enabled = true;
+            btnCmdSetAcceleration.Enabled = true;
+            btnCmdStartDataCollection.Enabled = true;
+            btnCmdStopDataCollection.Enabled = true;
+            btnMngMoveUp.Enabled = true;
+            btnMngClear.Enabled = true;
+            btnMngMoveDown.Enabled = true;
+            btnMngDeleteItem.Enabled = true;
+            btnMngEnableItem.Enabled = true;
+            btnMngDisableItem.Enabled = true;
         }
     }
 }

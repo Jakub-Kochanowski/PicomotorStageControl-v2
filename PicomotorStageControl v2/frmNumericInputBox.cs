@@ -27,6 +27,7 @@ namespace PicomotorStageControl_v2
         private void btnOK_Click(object sender, EventArgs e)
         {
             this.Value = numValue.Value;
+
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

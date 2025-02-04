@@ -2,19 +2,13 @@ using NewFocus.Picomotor;
 using PicomotorStageControl_v2.Properties;
 using ScottPlot.Plottables;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Text;
 
 namespace PicomotorStageControl_v2
 {
     public partial class frmMain : Form
     {
-        private enum MovementReferenceType
-        {
-            Calibration,
-            Indicator,
-            Steps
-        }
-
         public CmdLib8742? StageCMD;
         public string DeviceID { get; private set; } = String.Empty;
         public Motor? Motor { get; private set; } // Bad name?
@@ -22,16 +16,17 @@ namespace PicomotorStageControl_v2
         public Indicator? Indicator { get; private set; } = null;
 
         public string IndicatorPosition = "";
-        private MovementReferenceType MovementReference = MovementReferenceType.Calibration; // Hard-coded, whatever. Same with initial labels. Cleaner code.
+        public MovementReferenceType MovementReference { get; private set; } = MovementReferenceType.Calibration; // Hard-coded, whatever. Same with initial labels. Cleaner code.
         private bool ReferenceLocked = false;
 
-        BackgroundWorker IndicatorJogWorker;
-        float IndicatorMoveToPosition = 0.0f;
-        bool IndicatorJogWorkerShouldRun = false;
+        public BackgroundWorker IndicatorJogWorker;
+        public float IndicatorMoveToPosition = 0.0f;
+        public bool IndicatorJogWorkerShouldRun = false;
 
         private DataLogger LoggerMotorSteps;
         private DataLogger LoggerMotorCalibrationMicrons;
         private DataLogger LoggerIndicatorMicrons;
+        Stopwatch StopwatchTimeElapsed;
 
         public frmMain()
         {
@@ -46,6 +41,8 @@ namespace PicomotorStageControl_v2
             IndicatorJogWorker.WorkerSupportsCancellation = true;
             IndicatorJogWorker.DoWork += IndicatorJogWorker_DoWork;
 
+            StopwatchTimeElapsed = new Stopwatch();
+            StopwatchTimeElapsed.Start();
             InitializePlot();
 
             this.tmrPlotUpdate.Enabled = true;
@@ -104,6 +101,7 @@ namespace PicomotorStageControl_v2
             {
                 Motor.SetVelocity(prevVel);
             }
+            this.IndicatorJogWorkerShouldRun = false;
         }
 
         // Could use this for detecting usb device disconnection
@@ -126,7 +124,7 @@ namespace PicomotorStageControl_v2
             if ((Application.OpenForms["frmSequenceEditor"] as frmSequenceEditor) != null)
                 return;
 
-            frmSequenceEditor calibrationForm = new frmSequenceEditor();
+            frmSequenceEditor calibrationForm = new frmSequenceEditor(this);
             calibrationForm.Show();
         }
 
@@ -505,17 +503,55 @@ namespace PicomotorStageControl_v2
 
         private void tmrPlotUpdate_Tick(object sender, EventArgs e)
         {
+            float currentTime = StopwatchTimeElapsed.ElapsedMilliseconds / 1000.0f;
+
             if (Motor != null)
             {
-                LoggerMotorSteps.Add(this.Motor.Position_step);
-                LoggerMotorCalibrationMicrons.Add(this.Motor.PositionFromCalibration_um);
+                LoggerMotorSteps.Add(currentTime, Motor.Position_step);
+                LoggerMotorCalibrationMicrons.Add(currentTime, Motor.PositionFromCalibration_um);
+            }
+            else
+            {
+                LoggerMotorSteps.Add(currentTime, 0);
+                LoggerMotorCalibrationMicrons.Add(currentTime, 0);
             }
             if (Indicator != null)
             {
-                LoggerIndicatorMicrons.Add((float)this.Indicator.Position);
+                LoggerIndicatorMicrons.Add(currentTime, (float)Indicator.Position);
             }
-            
+            else
+            {
+                LoggerIndicatorMicrons.Add(currentTime, 0);
+            }
+
             Plot.Refresh();
+        }
+
+        private void numPlotInterval_ValueChanged(object sender, EventArgs e)
+        {
+            tmrPlotUpdate.Interval = (int)numPlotInterval.Value;
+        }
+
+        private void btnPlotClear_Click(object sender, EventArgs e)
+        {
+            LoggerMotorSteps.Clear();
+            LoggerMotorCalibrationMicrons.Clear();
+            LoggerIndicatorMicrons.Clear();
+        }
+
+        private void chkPlotViewMotorSteps_CheckedChanged(object sender, EventArgs e)
+        {
+            LoggerMotorSteps.IsVisible = chkPlotViewMotorSteps.Checked;
+        }
+
+        private void chkPlotViewMotorCalibration_CheckedChanged(object sender, EventArgs e)
+        {
+            LoggerMotorCalibrationMicrons.IsVisible = chkPlotViewMotorCalibration.Checked;
+        }
+
+        private void chkPlotViewIndicator_CheckedChanged(object sender, EventArgs e)
+        {
+            LoggerIndicatorMicrons.IsVisible= chkPlotViewIndicator.Checked;
         }
     }
 }

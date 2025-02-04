@@ -15,6 +15,8 @@ namespace PicomotorStageControl_v2.SequenceCommands
         public string Progress { get; protected set; } = string.Empty; // TODO: Figure out if to use virtual or not.
         public bool Running { get; protected set; } = false;
 
+        public string LogMessage { get; protected set; } = string.Empty;
+
         public Command()
         {
 

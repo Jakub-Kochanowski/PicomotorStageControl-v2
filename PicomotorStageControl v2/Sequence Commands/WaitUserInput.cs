@@ -12,6 +12,7 @@ namespace PicomotorStageControl_v2.SequenceCommands
         {
             this.Type = CommandTypes.WaitUserInput;
             this.DisplayText = "Wait For User Input";
+            this.LogMessage = "Obtained User Input";
         }
 
         public override void Execute()
@@ -21,7 +22,5 @@ namespace PicomotorStageControl_v2.SequenceCommands
             MessageBox.Show("Press OK to continue.", "Wait (User Input)", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Running = false;
         }
-
-        
     }
 }
