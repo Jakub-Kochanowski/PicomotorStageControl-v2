@@ -37,6 +37,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="frmTextInputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="frmNumericInputBox.cs">
       <SubType>Form</SubType>
     </Compile>

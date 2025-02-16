@@ -8,8 +8,11 @@ namespace PicomotorStageControl_v2.SequenceCommands
 {
     internal class StartDataCollection : Command
     {
-        public StartDataCollection() : base()
+        private frmMain MainForm;
+
+        public StartDataCollection(frmMain mainForm) : base()
         {
+            this.MainForm = mainForm;
             this.Type = CommandTypes.StartDataCollection;
             this.DisplayText = "Start Data Collection";
             this.LogMessage = "Start Data Collection";
@@ -17,7 +20,7 @@ namespace PicomotorStageControl_v2.SequenceCommands
 
         public override void Execute()
         {
-
+            this.MainForm.StartDataCollection(false);
         }
     }
 }

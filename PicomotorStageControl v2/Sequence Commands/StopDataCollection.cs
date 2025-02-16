@@ -8,8 +8,10 @@ namespace PicomotorStageControl_v2.SequenceCommands
 {
     internal class StopDataCollection : Command
     {
-        public StopDataCollection() : base()
+        private frmMain MainForm;
+        public StopDataCollection(frmMain mainForm) : base()
         {
+            this.MainForm = mainForm;
             this.Type = CommandTypes.StopDataCollection;
             this.DisplayText = "Stop Data Collection";
             this.LogMessage = "Stop Data Collection";
@@ -17,11 +19,7 @@ namespace PicomotorStageControl_v2.SequenceCommands
 
         public override void Execute()
         {
-            int x = 1;
-            for (int i = 0; i < 100000000; i++)
-            {
-                x += i;
-            }
+            this.MainForm.StopDataCollection();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace PicomotorStageControl_v2.SequenceCommands
         frmMain MainForm;
 
         public decimal Distance { get; private set; }
-        private MovementReferenceType MovementReference;
+        public MovementReferenceType MovementReference { get; private set; }
         BackgroundWorker MoveDistanceBackgroundWorker;
         BackgroundWorker MoveDistanceIndicatorJogWorker;
         bool IndicatorJogWorkerShouldRun;

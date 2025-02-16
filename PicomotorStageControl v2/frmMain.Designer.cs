@@ -1032,10 +1032,11 @@
             // 
             statusStrip1.ImageScalingSize = new Size(20, 20);
             statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1, statusStageConnected, toolStripStatusLabel3, toolStripStatusLabel4, statusIndicatorConnected, toolStripStatusLabel6, toolStripStatusLabel7, toolStripStatusLabel8, toolStripStatusLabel9, toolStripStatusLabel10, toolStripStatusLabel11, toolStripStatusLabel12, toolStripStatusLabel13, toolStripStatusLabel14 });
-            statusStrip1.Location = new Point(0, 916);
+            statusStrip1.Location = new Point(0, 915);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.RenderMode = ToolStripRenderMode.Professional;
             statusStrip1.Size = new Size(1522, 26);
+            statusStrip1.SizingGrip = false;
             statusStrip1.TabIndex = 4;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -1619,6 +1620,7 @@
             btnMotorSettingsApplyDefault.TabIndex = 18;
             btnMotorSettingsApplyDefault.Text = "Apply Default";
             btnMotorSettingsApplyDefault.UseVisualStyleBackColor = true;
+            btnMotorSettingsApplyDefault.Click += btnMotorSettingsApplyDefault_Click;
             // 
             // lblMotorSettingsAccelerationUnits
             // 
@@ -1747,7 +1749,7 @@
             groupBox10.Controls.Add(btnPlotClear);
             groupBox10.Controls.Add(numPlotInterval);
             groupBox10.Controls.Add(label9);
-            groupBox10.Location = new Point(930, 38);
+            groupBox10.Location = new Point(930, 37);
             groupBox10.Name = "groupBox10";
             groupBox10.Size = new Size(574, 175);
             groupBox10.TabIndex = 9;
@@ -2104,7 +2106,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1522, 942);
+            ClientSize = new Size(1522, 941);
             Controls.Add(Plot);
             Controls.Add(groupBox14);
             Controls.Add(groupBox12);
@@ -2115,7 +2117,9 @@
             Controls.Add(menuStrip1);
             Controls.Add(groupBox1);
             Controls.Add(groupBox6);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             MainMenuStrip = menuStrip1;
+            MaximizeBox = false;
             Name = "frmMain";
             Text = "Picomotor Stage Control";
             Load += frmMain_Load;

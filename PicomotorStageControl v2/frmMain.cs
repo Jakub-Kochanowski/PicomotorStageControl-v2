@@ -28,6 +28,9 @@ namespace PicomotorStageControl_v2
         private DataLogger LoggerIndicatorMicrons;
         Stopwatch StopwatchTimeElapsed;
 
+        BackgroundWorker DataCollectionWorker;
+        public bool CollectingData { get; private set; } = false;
+
         public frmMain()
         {
             InitializeComponent();
@@ -48,8 +51,58 @@ namespace PicomotorStageControl_v2
             this.tmrPlotUpdate.Enabled = true;
             this.tmrPlotUpdate.Start();
 
-            this.stripConnectStage_Click(sender, e); // TODO: TEMP
-            this.stripConnectIndicator_Click(sender, e);
+            DataCollectionWorker = new BackgroundWorker();
+            DataCollectionWorker.DoWork += DataCollectionWorker_DoWork;
+
+            //this.stripConnectStage_Click(sender, e); // TODO: TEMP
+            //this.stripConnectIndicator_Click(sender, e);
+        }
+
+        private void DataCollectionWorker_DoWork(object? sender, DoWorkEventArgs e)
+        {
+            string fileLocation = txtDataDirectory.Text + "/" + txtDataFileName.Text + ".csv";
+            StreamWriter streamWriter = File.AppendText(fileLocation);
+
+            int index = 0;
+            string line = "";
+            int collectionInterval = (int)numDataCollectionRate.Value;
+
+            // TO DO: There is definitely a better way to do this, but for now...
+
+            while (CollectingData)
+            {
+                line = index.ToString() + "," +
+                    (DateTime.Now.Ticks / (decimal)TimeSpan.TicksPerMillisecond).ToString();
+                if (Motor != null)
+                {
+                    line += Motor.Position_step.ToString() + "," +
+                        Motor.PositionFromCalibration_um.ToString() + "," +
+                        Motor.PositionNegative_step.ToString() + "," +
+                        Motor.PositionPositive_step.ToString() + "," +
+                        Motor.PositionFromCalibration_um.ToString() + "," +
+                        Motor.NegativeVelocityFromCalibration_um.ToString() + "," +
+                        Motor.PositiveVelocityFromCalibration_um.ToString() + "," +
+                        Motor.NegativeAccelerationFromCalibration_um.ToString() + "," +
+                        Motor.PositiveAccelerationFromCalibration_um.ToString() + "," +
+                        Motor.CalibrationNegativeStepSize_um.ToString() + "," +
+                        Motor.CalibrationPositiveStepSize_um.ToString() + "," +
+                        Motor.Velocity_step.ToString() + "," +
+                        Motor.Acceleration_step.ToString() + "," +
+                        Motor.MoveState.ToString();
+                }
+                if (Indicator != null)
+                {
+                    line += Indicator.Position.ToString() + "," +
+                        Indicator.Velocity.ToString() + ",";
+                }
+
+                streamWriter.WriteLine(line);
+                index++;
+                Thread.Sleep(collectionInterval);
+            }
+
+            streamWriter.Flush();
+            streamWriter.Close();
         }
 
         private void InitializePlot()
@@ -478,22 +531,19 @@ namespace PicomotorStageControl_v2
 
         private void btnDataCollect_Click(object sender, EventArgs e)
         {
-            string dir = txtDataDirectory.Text;
-            string name = txtDataFileName.Text;
-            string path = Path.Combine(dir, name);
-
-            // From https://stackoverflow.com/questions/4650462/easiest-way-to-check-if-an-arbitrary-string-is-a-valid-filename
-            if (this.txtDataFileName.Text.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
+            if (!CollectingData)
             {
-                return;
+                StartDataCollection(true);
+                this.btnDataCollect.Text = "Stop Data Collection";
+                this.btnDataSelectDirectory.Enabled = false;
+                this.txtDataFileName.Enabled = false;
             }
-            if (File.Exists(path))
+            else
             {
-                DialogResult fileExistsResult = MessageBox.Show("File already exists! Would you like to override?", "File Exists!", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-                if (fileExistsResult == DialogResult.No)
-                {
-                    return;
-                }
+                StopDataCollection();
+                this.btnDataCollect.Text = "Collect";
+                this.btnDataSelectDirectory.Enabled = true;
+                this.txtDataFileName.Enabled = true;
             }
         }
 
@@ -547,7 +597,59 @@ namespace PicomotorStageControl_v2
 
         private void chkPlotViewIndicator_CheckedChanged(object sender, EventArgs e)
         {
-            LoggerIndicatorMicrons.IsVisible= chkPlotViewIndicator.Checked;
+            LoggerIndicatorMicrons.IsVisible = chkPlotViewIndicator.Checked;
+        }
+
+        public void StartDataCollection(bool checkFileAlreadyExists)
+        {
+            string dir = txtDataDirectory.Text;
+            string name = txtDataFileName.Text;
+            string path = Path.Combine(dir, name);
+
+            // From https://stackoverflow.com/questions/4650462/easiest-way-to-check-if-an-arbitrary-string-is-a-valid-filename
+            if (this.txtDataFileName.Text.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
+            {
+                return;
+            }
+            if (File.Exists(path))
+            {
+                DialogResult fileExistsResult = MessageBox.Show("File already exists! Would you like to override?", "File Exists!", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                if (fileExistsResult == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
+            CollectingData = true;
+            DataCollectionWorker.RunWorkerAsync();
+        }
+
+        public void StopDataCollection()
+        {
+            CollectingData = false;
+        }
+
+        public void SetDataDirectory(string directory)
+        {
+            this.txtDataDirectory.Text = directory;
+        }
+
+        public void SetDataFileName(string fileName)
+        {
+            this.txtDataFileName.Text = fileName;
+        }
+
+        private void btnMotorSettingsApplyDefault_Click(object sender, EventArgs e)
+        {
+            if (this.Motor == null)
+            {
+                return;
+            }
+
+            numMotorSettingsAcceleration.Value = 10000; // TO DO: Check values
+            numMotorSettingsVelocity.Value = 2000;
+            this.Motor.SetVelocity((int)numMotorSettingsVelocity.Value);
+            this.Motor.SetAcceleration((int)numMotorSettingsAcceleration.Value);
         }
     }
 }

@@ -163,7 +163,7 @@ namespace PicomotorStageControl_v2
             numInput.ShowDialog();
 
             if (numInput.DialogResult == DialogResult.OK)
-            { 
+            {
                 SequenceCommands.MoveTo mt = new(this.MainForm, numInput.Value, numInput.MovementReference);
                 Commands.Add(mt);
             }
@@ -208,13 +208,13 @@ namespace PicomotorStageControl_v2
 
         private void btnCmdStartDataCollection_Click(object sender, EventArgs e)
         {
-            SequenceCommands.StartDataCollection sdc = new();
+            SequenceCommands.StartDataCollection sdc = new StartDataCollection(this.MainForm);
             Commands.Add(sdc);
         }
 
         private void btnCmdStopDataCollection_Click(object sender, EventArgs e)
         {
-            SequenceCommands.StopDataCollection sdc = new();
+            SequenceCommands.StopDataCollection sdc = new StopDataCollection(this.MainForm);
             Commands.Add(sdc);
         }
 
@@ -223,7 +223,7 @@ namespace PicomotorStageControl_v2
             if (!SequenceRunning)
             {
                 DisableAllControlButtons();
-                
+
                 btnRun.Enabled = false;
                 btnStop.Enabled = true;
 
@@ -288,7 +288,7 @@ namespace PicomotorStageControl_v2
             });
 
             this.SequenceRunning = false;
-            
+
 
             this.Invoke(delegate
             {
@@ -299,7 +299,7 @@ namespace PicomotorStageControl_v2
                 this.statusCurrentTask.Text = "N/A";
                 this.statusScriptRunStatus.Text = "Complete";
                 this.EnableAllControlButtons();
-            });         
+            });
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -357,6 +357,179 @@ namespace PicomotorStageControl_v2
             btnMngDeleteItem.Enabled = true;
             btnMngEnableItem.Enabled = true;
             btnMngDisableItem.Enabled = true;
+        }
+
+        private void btnCmdSetDataDirectory_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            folderBrowserDialog.ShowNewFolderButton = true;
+            DialogResult result = folderBrowserDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                SequenceCommands.SetDataDirectory setDataDirectory = new(this.MainForm, folderBrowserDialog.SelectedPath);
+                Commands.Add(setDataDirectory);
+            }
+        }
+
+        private void btnCmdSetDataFilename_Click(object sender, EventArgs e)
+        {
+            if ((Application.OpenForms["frmTextInputBox"] as frmTextInputBox) != null)
+                return;
+
+            frmTextInputBox textInput = new("Set File Name", "CSV Data File Name"); // TO DO: Find Max Value
+            textInput.ShowDialog();
+
+            if (textInput.DialogResult == DialogResult.OK)
+            {
+                SequenceCommands.SetDataFileName setDataFileName = new(this.MainForm, textInput.TextInput);
+                Commands.Add(setDataFileName);
+                // TO DO: Check if it is a valid name for a file
+                // TO DO: Check if there is overwriting (will just append for now)
+            }
+        }
+
+        private void toolStripSave_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripSaveAs_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Sequence File (*.seq)|*.seq";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamWriter sw = new StreamWriter(saveFileDialog.FileName))
+                {
+                    foreach (Command cmd in Commands)
+                    {
+                        string line = "";
+                        line += cmd.Type.ToString() + "|";
+                        switch (cmd.Type)
+                        {
+                            case CommandTypes.WaitTime:
+                                WaitTime wt = (WaitTime)cmd;
+                                line += wt.Time_ms.ToString();
+                                break;
+                            case CommandTypes.WaitUserInput:
+                                break;
+                            case CommandTypes.MoveDistance:
+                                MoveDistance md = (MoveDistance)cmd;
+                                line += md.Distance.ToString() + "|" + md.MovementReference.ToString();
+                                break;
+                            case CommandTypes.MoveTo:
+                                MoveTo mt = (MoveTo)cmd;
+                                line += mt.Position.ToString() + "|" + mt.MovementReference.ToString();
+                                break;
+                            case CommandTypes.SetVelocity:
+                                SetVelocity sv = (SetVelocity)cmd;
+                                line += sv.Velocity_steps_s.ToString();
+                                break;
+                            case CommandTypes.SetAcceleration:
+                                SetAcceleration sa = (SetAcceleration)cmd;
+                                line += sa.Acceleration_steps_s2.ToString();
+                                break;
+                            case CommandTypes.StartDataCollection:
+                                break;
+                            case CommandTypes.StopDataCollection:
+                                break;
+                            case CommandTypes.SetDataDirectory:
+                                SetDataDirectory sdd = (SetDataDirectory)cmd;
+                                line += sdd.DataDirectory; // TO DO: Reading could be fucked up. Using a pipe will be fine.
+                                break;
+                            case CommandTypes.SetDataFileName:
+                                SetDataFileName sdf = (SetDataFileName)cmd;
+                                line += sdf.DataFileName; // TO DO: Reading could be fucked up. Using a pipe as separator will be fine.
+                                break;
+                        }
+                        if (Commands.IndexOf(cmd) < Commands.Count - 1)
+                        {
+                            line += Environment.NewLine;
+                        }
+                        sw.Write(line);
+                    }
+                }
+            }
+        }
+
+        private void toolStripOpen_Click(object sender, EventArgs e)
+        {
+            Commands.Clear();
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Sequence File (*.seq)|*.seq";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                IEnumerable<string> fileLines = File.ReadLines(openFileDialog.FileName);
+
+                try
+                {
+                    foreach (string line in fileLines)
+                    {
+                        string cmd = "";
+                        string param = ""; // there is probably a better way to do this
+                        string param2 = "";
+                        if (line.Contains("|"))
+                        {
+                            cmd = line.Split('|')[0];
+                            param = line.Split('|')[1];
+                            if (line.Split('|').Length > 2)
+                                param2 = line.Split('|')[2];
+                        }
+                        else
+                        {
+                            cmd = line;
+                        }
+
+                        object parsedCommand = Enum.Parse(typeof(SequenceCommands.CommandTypes), cmd);
+
+                        if (parsedCommand == null)
+                        {
+                            MessageBox.Show("File is corrupted and could not be opened!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        switch (parsedCommand)
+                        {
+                            case CommandTypes.WaitTime: // GitHub co-pilot did this on its own. I was about to do it. That's impressive.
+                                Commands.Add(new WaitTime(Convert.ToInt32(param)));
+                                break;
+                            case CommandTypes.WaitUserInput:
+                                Commands.Add(new WaitUserInput());
+                                break;
+                            case CommandTypes.MoveDistance:
+                                Commands.Add(new MoveDistance(this.MainForm, Convert.ToDecimal(param), (MovementReferenceType)Enum.Parse(typeof(MovementReferenceType), param2)));
+                                break;
+                            case CommandTypes.MoveTo:
+                                Commands.Add(new MoveTo(this.MainForm, Convert.ToDecimal(param), (MovementReferenceType)Enum.Parse(typeof(MovementReferenceType), param2)));
+                                break;
+                            case CommandTypes.SetVelocity:
+                                Commands.Add(new SetVelocity(this.MainForm, Convert.ToInt32(param)));
+                                break;
+                            case CommandTypes.SetAcceleration:
+                                Commands.Add(new SetAcceleration(this.MainForm, Convert.ToInt32(param)));
+                                break;
+                            case CommandTypes.StartDataCollection:
+                                Commands.Add(new StartDataCollection(this.MainForm));
+                                break;
+                            case CommandTypes.StopDataCollection:
+                                Commands.Add(new StopDataCollection(this.MainForm));
+                                break;
+                            case CommandTypes.SetDataDirectory:
+                                Commands.Add(new SetDataDirectory(this.MainForm, param));
+                                break;
+                            case CommandTypes.SetDataFileName:
+                                Commands.Add(new SetDataFileName(this.MainForm, param));
+                                break;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Could not open file! " + ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

@@ -15,6 +15,8 @@ namespace PicomotorStageControl_v2.SequenceCommands
         SetVelocity,
         SetAcceleration,
         StartDataCollection,
-        StopDataCollection
+        StopDataCollection,
+        SetDataDirectory,
+        SetDataFileName
     }
 }

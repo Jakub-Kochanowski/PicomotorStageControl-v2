@@ -15,7 +15,8 @@ namespace PicomotorStageControl_v2.SequenceCommands
         private frmMain MainForm;
 
         public decimal Position { get; private set; }
-        MovementReferenceType MovementReference;
+        public MovementReferenceType MovementReference { get; private set; }
+
         BackgroundWorker MoveToBackgroundWorker;
         BackgroundWorker MoveToIndicatorJogWorker;
         bool IndicatorJogWorkerShouldRun;

@@ -9,7 +9,8 @@ namespace PicomotorStageControl_v2.SequenceCommands
 {
     internal class WaitTime : Command
     {
-        private decimal Time_ms;
+        public decimal Time_ms { get; private set; }
+
         private BackgroundWorker waitWorker;
 
         public WaitTime(decimal time_ms) : base()
