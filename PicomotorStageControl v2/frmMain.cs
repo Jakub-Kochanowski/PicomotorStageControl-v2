@@ -31,6 +31,10 @@ namespace PicomotorStageControl_v2
         BackgroundWorker DataCollectionWorker;
         public bool CollectingData { get; private set; } = false;
 
+        public bool IsSequenceRunning { get; set; } = false;
+
+        frmSequenceEditor SequenceEditorForm;
+
         public frmMain()
         {
             InitializeComponent();
@@ -53,6 +57,8 @@ namespace PicomotorStageControl_v2
 
             DataCollectionWorker = new BackgroundWorker();
             DataCollectionWorker.DoWork += DataCollectionWorker_DoWork;
+
+            SequenceEditorForm = new frmSequenceEditor(this);
 
             //this.stripConnectStage_Click(sender, e); // TODO: TEMP
             //this.stripConnectIndicator_Click(sender, e);
@@ -180,8 +186,8 @@ namespace PicomotorStageControl_v2
             if ((Application.OpenForms["frmSequenceEditor"] as frmSequenceEditor) != null)
                 return;
 
-            frmSequenceEditor calibrationForm = new frmSequenceEditor(this);
-            calibrationForm.Show();
+            SequenceEditorForm = new frmSequenceEditor(this);
+            SequenceEditorForm.Show();
         }
 
         private void stripAbout_Click(object sender, EventArgs e)
@@ -364,7 +370,7 @@ namespace PicomotorStageControl_v2
 
         private void btnMotorSettingsApply_Click(object sender, EventArgs e)
         {
-            if (this.Motor != null)
+            if (this.Motor != null && this.IsSequenceRunning == false)
             {
                 this.Motor.SetVelocity((int)numMotorSettingsVelocity.Value);
                 this.Motor.SetAcceleration((int)numMotorSettingsAcceleration.Value);
@@ -394,6 +400,11 @@ namespace PicomotorStageControl_v2
 
         private void btnStopAllMotion_Click(object sender, EventArgs e)
         {
+            if (this.SequenceEditorForm != null)
+            {
+                this.SequenceEditorForm.StopSequence = true; // TO DO: Is this good?
+            }
+
             if (this.Motor != null)
             {
                 this.IndicatorJogWorkerShouldRun = false;
@@ -403,7 +414,7 @@ namespace PicomotorStageControl_v2
 
         private void btnActiveControlsUp_Click(object sender, EventArgs e)
         {
-            if (this.Motor != null)
+            if (this.Motor != null && this.IsSequenceRunning == false) // TO DO: Should I do is sequence running directly from the form? Probably.
             {
                 this.Motor.JogPositive();
             }
@@ -411,7 +422,7 @@ namespace PicomotorStageControl_v2
 
         private void btnActiveControlsDown_Click(object sender, EventArgs e)
         {
-            if (this.Motor != null)
+            if (this.Motor != null && this.IsSequenceRunning == false)
             {
                 this.Motor.JogNegative();
             }
@@ -419,7 +430,7 @@ namespace PicomotorStageControl_v2
 
         private void btnMoveDistance_Click(object sender, EventArgs e)
         {
-            if (this.Motor != null)
+            if (this.Motor != null && this.IsSequenceRunning == false)
             {
                 if (this.MovementReference == MovementReferenceType.Steps)
                 {
@@ -441,7 +452,7 @@ namespace PicomotorStageControl_v2
 
         private void btnGoTo_Click(object sender, EventArgs e)
         {
-            if (this.Motor != null && this.Indicator != null)
+            if (this.Motor != null && this.IsSequenceRunning == false)
             {
                 if (this.MovementReference == MovementReferenceType.Steps)
                 {
@@ -512,7 +523,7 @@ namespace PicomotorStageControl_v2
 
         private void btnCalZeroPosition_Click(object sender, EventArgs e)
         {
-            if (this.Motor != null)
+            if (this.Motor != null && this.IsSequenceRunning == false)
             {
                 this.Motor.ZeroDevicePosition();
             }
@@ -531,19 +542,22 @@ namespace PicomotorStageControl_v2
 
         private void btnDataCollect_Click(object sender, EventArgs e)
         {
-            if (!CollectingData)
+            if (this.IsSequenceRunning == false)
             {
-                StartDataCollection(true);
-                this.btnDataCollect.Text = "Stop Data Collection";
-                this.btnDataSelectDirectory.Enabled = false;
-                this.txtDataFileName.Enabled = false;
-            }
-            else
-            {
-                StopDataCollection();
-                this.btnDataCollect.Text = "Collect";
-                this.btnDataSelectDirectory.Enabled = true;
-                this.txtDataFileName.Enabled = true;
+                if (!CollectingData)
+                {
+                    StartDataCollection(true);
+                    this.btnDataCollect.Text = "Stop Data Collection";
+                    this.btnDataSelectDirectory.Enabled = false;
+                    this.txtDataFileName.Enabled = false;
+                }
+                else
+                {
+                    StopDataCollection();
+                    this.btnDataCollect.Text = "Collect";
+                    this.btnDataSelectDirectory.Enabled = true;
+                    this.txtDataFileName.Enabled = true;
+                }
             }
         }
 
@@ -641,7 +655,7 @@ namespace PicomotorStageControl_v2
 
         private void btnMotorSettingsApplyDefault_Click(object sender, EventArgs e)
         {
-            if (this.Motor == null)
+            if (this.Motor == null || this.IsSequenceRunning == true)
             {
                 return;
             }

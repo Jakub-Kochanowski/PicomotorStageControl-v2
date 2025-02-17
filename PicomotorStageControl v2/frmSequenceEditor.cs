@@ -20,8 +20,8 @@ namespace PicomotorStageControl_v2
         ObservableCollection<Command> Commands = new ObservableCollection<Command>();
 
         BackgroundWorker SequenceBackgroundWorker = new BackgroundWorker();
-        public bool SequenceRunning { get; private set; } = false;
-        public bool StopSequence { get; private set; } = false;
+        public bool SequenceRunning { get; set; } = false;
+        public bool StopSequence { get; set; } = false;
         frmMain MainForm;
 
         public frmSequenceEditor(frmMain mainForm)
@@ -238,6 +238,8 @@ namespace PicomotorStageControl_v2
         {
             foreach (Command cmd in Commands)
             {
+                this.MainForm.IsSequenceRunning = this.SequenceRunning; // TO DO: Is this the best place to put it?
+
                 if (StopSequence)
                 {
                     cmd.Stop();
