@@ -14,7 +14,7 @@ namespace PicomotorStageControl_v2.SequenceCommands
             this.MainForm = mainForm;
             this.Type = CommandTypes.StopDataCollection;
             this.DisplayText = "Stop Data Collection";
-            this.LogMessage = "Stop Data Collection";
+            this.LogMessage = "Stopped Data Collection";
         }
 
         public override void Execute()

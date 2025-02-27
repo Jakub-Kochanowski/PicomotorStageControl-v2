@@ -12,7 +12,7 @@ namespace PicomotorStageControl_v2.SequenceCommands
         {
             this.Type = CommandTypes.WaitUserInput;
             this.DisplayText = "Wait For User Input";
-            this.LogMessage = "Obtained User Input";
+            this.LogMessage = "Waited For User Input";
         }
 
         public override void Execute()

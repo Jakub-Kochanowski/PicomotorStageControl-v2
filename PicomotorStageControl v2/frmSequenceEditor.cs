@@ -1,16 +1,6 @@
 ﻿using PicomotorStageControl_v2.SequenceCommands;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Drawing;
 using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
 
 namespace PicomotorStageControl_v2
 {
@@ -174,7 +164,6 @@ namespace PicomotorStageControl_v2
             if ((Application.OpenForms["frmNumericInputBox"] as frmNumericInputBoxReference) != null)
                 return;
 
-            // TO DO: CREATE A NEW NUMERIC INPUT FORM WITHOUT MOVEMENT REFERENCE.
             frmNumericInputBox numInput = new("Set Velocity", "Velocity (steps/s)", 0, Decimal.MaxValue, 1M); // TO DO: Find Max Value
             numInput.ShowDialog();
 
@@ -220,6 +209,11 @@ namespace PicomotorStageControl_v2
 
         private void btnRunPause_Click(object sender, EventArgs e)
         {
+            if (this.Commands.Count == 0)
+            {
+                return;
+            }
+
             if (!SequenceRunning)
             {
                 DisableAllControlButtons();
@@ -236,6 +230,15 @@ namespace PicomotorStageControl_v2
 
         private void SequenceBackgroundWorker_DoWork(object? sender, DoWorkEventArgs e)
         {
+            this.Invoke(delegate
+            {
+                this.txtLog.SelectionStart = this.txtLog.TextLength;
+                this.txtLog.SelectionLength = 0;
+                this.txtLog.SelectionColor = Color.Green;
+                this.txtLog.AppendText(DateTime.Now.ToString("d/M/yyyy HH:mm:ss") + ": " + "Started Sequence" + Environment.NewLine);
+                this.txtLog.SelectionColor = this.txtLog.ForeColor;
+            });
+
             foreach (Command cmd in Commands)
             {
                 this.MainForm.IsSequenceRunning = this.SequenceRunning; // TO DO: Is this the best place to put it?
@@ -244,10 +247,29 @@ namespace PicomotorStageControl_v2
                 {
                     cmd.Stop();
                     SequenceRunning = false;
+
+                    this.Invoke(delegate
+                    {
+                        this.txtLog.SelectionStart = this.txtLog.TextLength;
+                        this.txtLog.SelectionLength = 0;
+                        this.txtLog.SelectionColor = Color.Red;
+                        this.txtLog.AppendText(DateTime.Now.ToString("d/M/yyyy HH:mm:ss") + ": " + "Sequence Stopped Early" + Environment.NewLine);
+                        this.txtLog.SelectionColor = this.txtLog.ForeColor;
+                    });
+
                     break;
                 }
                 if (SequenceRunning == false)
                 {
+                    this.Invoke(delegate
+                    {
+                        this.txtLog.SelectionStart = this.txtLog.TextLength;
+                        this.txtLog.SelectionLength = 0;
+                        this.txtLog.SelectionColor = Color.Red;
+                        this.txtLog.AppendText(DateTime.Now.ToString("d/M/yyyy HH:mm:ss") + ": " + "Sequence Stopped Early" + Environment.NewLine);
+                        this.txtLog.SelectionColor = this.txtLog.ForeColor;
+                    });
+
                     break;
                 }
 
@@ -280,7 +302,7 @@ namespace PicomotorStageControl_v2
 
                 this.Invoke(delegate
                 {
-                    this.txtLog.Text += cmd.LogMessage + Environment.NewLine;
+                    this.txtLog.AppendText(DateTime.Now.ToString("d/M/yyyy HH:mm:ss") + ": " + cmd.LogMessage + Environment.NewLine);
                 });
             }
 
@@ -289,8 +311,15 @@ namespace PicomotorStageControl_v2
                 this.lstCommands.Items[lstCommands.Items.Count - 1].BackColor = Color.Transparent;
             });
 
-            this.SequenceRunning = false;
+            if (!StopSequence && SequenceRunning)
+            {
+                this.Invoke(delegate
+                {
+                    this.txtLog.AppendText(DateTime.Now.ToString("d/M/yyyy HH:mm:ss") + ": " + "Ended Sequence" + Environment.NewLine);
+                });
+            }
 
+            this.SequenceRunning = false;
 
             this.Invoke(delegate
             {
@@ -532,6 +561,33 @@ namespace PicomotorStageControl_v2
                     MessageBox.Show("Error: Could not open file! " + ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void frmSequenceEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // No.:
+            
+            //DialogResult result = MessageBox.Show("Closing the sequence editor will stop the sequence. Are you sure you want to close it?", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            //if (result == DialogResult.No)
+            //{
+            //    e.Cancel = true;
+            //}
+            //else
+            //{
+            //    this.MainForm.IsSequenceRunning = false;
+            //    this.StopSequence = true;
+            //    // TO DO: Should wait for worker to stop?
+            //    while (this.SequenceBackgroundWorker.IsBusy)
+            //    {
+            //        Thread.Yield();
+            //    }
+            //}
+
+            if (SequenceBackgroundWorker.IsBusy)
+            {
+
+            }
+
         }
     }
 }

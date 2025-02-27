@@ -318,6 +318,9 @@
             Controls.Add(btnApply);
             Controls.Add(btnCancel);
             Controls.Add(groupBox1);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "frmSettings";
             Text = "Picomotor Stage Control - Settings";
             Load += frmSettings_Load;

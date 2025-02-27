@@ -18,8 +18,8 @@ namespace PicomotorStageControl_v2.SequenceCommands
             this.MainForm = mainForm;
             this.DataFileName = dataFileName;
             this.Type = CommandTypes.SetDataFileName;
-            this.DisplayText = "Set Data File Name To " + DataFileName;
-            this.LogMessage = "Set Data File Name To " + DataFileName;
+            this.DisplayText = "Set Data File Name To: " + DataFileName;
+            this.LogMessage = "Set Data File Name To: " + DataFileName;
         }
 
         public override void Execute()

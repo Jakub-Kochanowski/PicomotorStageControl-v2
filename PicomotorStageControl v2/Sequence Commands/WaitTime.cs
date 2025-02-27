@@ -18,11 +18,11 @@ namespace PicomotorStageControl_v2.SequenceCommands
             this.Type = CommandTypes.WaitTime;
             this.Time_ms = time_ms;
 
-            this.DisplayText = "Wait " + time_ms.ToString() + " ms";
+            this.DisplayText = "Wait: " + time_ms.ToString() + " ms";
             waitWorker = new BackgroundWorker();
             waitWorker.DoWork += WaitWorker_DoWork;
             this.Progress = "0ms/" + time_ms.ToString() + "ms";
-            this.LogMessage = "Waited " + time_ms.ToString() + " ms";
+            this.LogMessage = "Waited: " + time_ms.ToString() + " ms";
         }
 
         private void WaitWorker_DoWork(object? sender, DoWorkEventArgs e)

@@ -27,9 +27,9 @@ namespace PicomotorStageControl_v2.SequenceCommands
             this.MainForm = mainForm;
             this.Type = CommandTypes.MoveTo;
             this.Position = position;
-            this.DisplayText = "Move To " + position.ToString() + " um";
+            this.DisplayText = "Move To: " + position.ToString() + " (" + movementReference.ToString() + ")";
             this.MovementReference = movementReference;
-            this.LogMessage = "Move To: " + position.ToString() + " (" + movementReference.ToString() + ")";
+            this.LogMessage = "Moved To: " + position.ToString() + " (" + movementReference.ToString() + ")";
 
             MoveToBackgroundWorker = new BackgroundWorker();
             MoveToBackgroundWorker.DoWork += MoveToBackgroundWorker_DoWork;

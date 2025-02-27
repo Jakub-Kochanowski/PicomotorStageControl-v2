@@ -85,10 +85,9 @@
             // btnRun
             // 
             btnRun.Dock = DockStyle.Fill;
-            btnRun.Location = new Point(3, 2);
-            btnRun.Margin = new Padding(3, 2, 3, 2);
+            btnRun.Location = new Point(3, 3);
             btnRun.Name = "btnRun";
-            btnRun.Size = new Size(294, 47);
+            btnRun.Size = new Size(338, 62);
             btnRun.TabIndex = 1;
             btnRun.Text = "Run";
             btnRun.UseVisualStyleBackColor = true;
@@ -100,8 +99,8 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Padding = new Padding(5, 2, 0, 2);
-            menuStrip1.Size = new Size(769, 24);
+            menuStrip1.Padding = new Padding(6, 3, 0, 3);
+            menuStrip1.Size = new Size(879, 30);
             menuStrip1.TabIndex = 4;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -109,27 +108,27 @@
             // 
             fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripSave, toolStripSaveAs, toolStripOpen });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(37, 20);
+            fileToolStripMenuItem.Size = new Size(46, 24);
             fileToolStripMenuItem.Text = "File";
             // 
             // toolStripSave
             // 
             toolStripSave.Name = "toolStripSave";
-            toolStripSave.Size = new Size(123, 22);
+            toolStripSave.Size = new Size(152, 26);
             toolStripSave.Text = "Save";
             toolStripSave.Click += toolStripSave_Click;
             // 
             // toolStripSaveAs
             // 
             toolStripSaveAs.Name = "toolStripSaveAs";
-            toolStripSaveAs.Size = new Size(123, 22);
+            toolStripSaveAs.Size = new Size(152, 26);
             toolStripSaveAs.Text = "Save As...";
             toolStripSaveAs.Click += toolStripSaveAs_Click;
             // 
             // toolStripOpen
             // 
             toolStripOpen.Name = "toolStripOpen";
-            toolStripOpen.Size = new Size(123, 22);
+            toolStripOpen.Size = new Size(152, 26);
             toolStripOpen.Text = "Open";
             toolStripOpen.Click += toolStripOpen_Click;
             // 
@@ -137,82 +136,79 @@
             // 
             statusStrip1.ImageScalingSize = new Size(20, 20);
             statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1, statusScriptRunStatus, toolStripStatusLabel3, toolStripStatusLabel4, statusCurrentTask, toolStripStatusLabel6, toolStripStatusLabel9, statusTimeRemainingCurrent, toolStripStatusLabel11, statusTimeRemainingMax });
-            statusStrip1.Location = new Point(0, 638);
+            statusStrip1.Location = new Point(0, 854);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Padding = new Padding(1, 0, 12, 0);
-            statusStrip1.Size = new Size(769, 22);
+            statusStrip1.Size = new Size(879, 26);
             statusStrip1.TabIndex = 5;
             statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            toolStripStatusLabel1.Size = new Size(99, 17);
+            toolStripStatusLabel1.Size = new Size(123, 20);
             toolStripStatusLabel1.Text = "Script Run Status:";
             // 
             // statusScriptRunStatus
             // 
             statusScriptRunStatus.Name = "statusScriptRunStatus";
-            statusScriptRunStatus.Size = new Size(29, 17);
+            statusScriptRunStatus.Size = new Size(36, 20);
             statusScriptRunStatus.Text = "N/A";
             // 
             // toolStripStatusLabel3
             // 
             toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            toolStripStatusLabel3.Size = new Size(10, 17);
+            toolStripStatusLabel3.Size = new Size(13, 20);
             toolStripStatusLabel3.Text = "|";
             // 
             // toolStripStatusLabel4
             // 
             toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            toolStripStatusLabel4.Size = new Size(76, 17);
+            toolStripStatusLabel4.Size = new Size(91, 20);
             toolStripStatusLabel4.Text = "Current Task:";
             // 
             // statusCurrentTask
             // 
             statusCurrentTask.Name = "statusCurrentTask";
-            statusCurrentTask.Size = new Size(29, 17);
+            statusCurrentTask.Size = new Size(36, 20);
             statusCurrentTask.Text = "N/A";
             // 
             // toolStripStatusLabel6
             // 
             toolStripStatusLabel6.Name = "toolStripStatusLabel6";
-            toolStripStatusLabel6.Size = new Size(10, 17);
+            toolStripStatusLabel6.Size = new Size(13, 20);
             toolStripStatusLabel6.Text = "|";
             // 
             // toolStripStatusLabel9
             // 
             toolStripStatusLabel9.Name = "toolStripStatusLabel9";
-            toolStripStatusLabel9.Size = new Size(152, 17);
+            toolStripStatusLabel9.Size = new Size(190, 20);
             toolStripStatusLabel9.Text = "Estimated Time Remaining:";
             // 
             // statusTimeRemainingCurrent
             // 
             statusTimeRemainingCurrent.Name = "statusTimeRemainingCurrent";
-            statusTimeRemainingCurrent.Size = new Size(18, 17);
+            statusTimeRemainingCurrent.Size = new Size(23, 20);
             statusTimeRemainingCurrent.Text = "0s";
             // 
             // toolStripStatusLabel11
             // 
             toolStripStatusLabel11.Name = "toolStripStatusLabel11";
-            toolStripStatusLabel11.Size = new Size(12, 17);
+            toolStripStatusLabel11.Size = new Size(15, 20);
             toolStripStatusLabel11.Text = "/";
             // 
             // statusTimeRemainingMax
             // 
             statusTimeRemainingMax.Name = "statusTimeRemainingMax";
-            statusTimeRemainingMax.Size = new Size(18, 17);
+            statusTimeRemainingMax.Size = new Size(23, 20);
             statusTimeRemainingMax.Text = "0s";
             // 
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             groupBox1.Controls.Add(flowLayoutPanel1);
-            groupBox1.Location = new Point(456, 23);
-            groupBox1.Margin = new Padding(3, 2, 3, 2);
+            groupBox1.Location = new Point(521, 31);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(3, 2, 3, 2);
-            groupBox1.Size = new Size(306, 152);
+            groupBox1.Size = new Size(350, 203);
             groupBox1.TabIndex = 6;
             groupBox1.TabStop = false;
             groupBox1.Text = "Commands";
@@ -230,18 +226,16 @@
             flowLayoutPanel1.Controls.Add(btnCmdSetDataDirectory);
             flowLayoutPanel1.Controls.Add(btnCmdSetDataFilename);
             flowLayoutPanel1.Dock = DockStyle.Fill;
-            flowLayoutPanel1.Location = new Point(3, 18);
-            flowLayoutPanel1.Margin = new Padding(3, 2, 3, 2);
+            flowLayoutPanel1.Location = new Point(3, 23);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(300, 132);
+            flowLayoutPanel1.Size = new Size(344, 177);
             flowLayoutPanel1.TabIndex = 0;
             // 
             // btnCmdTimeWait
             // 
-            btnCmdTimeWait.Location = new Point(3, 2);
-            btnCmdTimeWait.Margin = new Padding(3, 2, 3, 2);
+            btnCmdTimeWait.Location = new Point(3, 3);
             btnCmdTimeWait.Name = "btnCmdTimeWait";
-            btnCmdTimeWait.Size = new Size(144, 22);
+            btnCmdTimeWait.Size = new Size(165, 29);
             btnCmdTimeWait.TabIndex = 0;
             btnCmdTimeWait.Text = "&Wait (Time)";
             btnCmdTimeWait.UseVisualStyleBackColor = true;
@@ -249,10 +243,9 @@
             // 
             // btnCmdTimeUser
             // 
-            btnCmdTimeUser.Location = new Point(153, 2);
-            btnCmdTimeUser.Margin = new Padding(3, 2, 3, 2);
+            btnCmdTimeUser.Location = new Point(174, 3);
             btnCmdTimeUser.Name = "btnCmdTimeUser";
-            btnCmdTimeUser.Size = new Size(144, 22);
+            btnCmdTimeUser.Size = new Size(165, 29);
             btnCmdTimeUser.TabIndex = 1;
             btnCmdTimeUser.Text = "Wait (User &Input)";
             btnCmdTimeUser.UseVisualStyleBackColor = true;
@@ -260,10 +253,9 @@
             // 
             // btnCmdMoveDistance
             // 
-            btnCmdMoveDistance.Location = new Point(3, 28);
-            btnCmdMoveDistance.Margin = new Padding(3, 2, 3, 2);
+            btnCmdMoveDistance.Location = new Point(3, 38);
             btnCmdMoveDistance.Name = "btnCmdMoveDistance";
-            btnCmdMoveDistance.Size = new Size(144, 22);
+            btnCmdMoveDistance.Size = new Size(165, 29);
             btnCmdMoveDistance.TabIndex = 2;
             btnCmdMoveDistance.Text = "Move &Distance";
             btnCmdMoveDistance.UseVisualStyleBackColor = true;
@@ -271,10 +263,9 @@
             // 
             // btnCmdMoveTo
             // 
-            btnCmdMoveTo.Location = new Point(153, 28);
-            btnCmdMoveTo.Margin = new Padding(3, 2, 3, 2);
+            btnCmdMoveTo.Location = new Point(174, 38);
             btnCmdMoveTo.Name = "btnCmdMoveTo";
-            btnCmdMoveTo.Size = new Size(144, 22);
+            btnCmdMoveTo.Size = new Size(165, 29);
             btnCmdMoveTo.TabIndex = 3;
             btnCmdMoveTo.Text = "Move &To";
             btnCmdMoveTo.UseVisualStyleBackColor = true;
@@ -282,10 +273,9 @@
             // 
             // btnCmdSetVelocity
             // 
-            btnCmdSetVelocity.Location = new Point(3, 54);
-            btnCmdSetVelocity.Margin = new Padding(3, 2, 3, 2);
+            btnCmdSetVelocity.Location = new Point(3, 73);
             btnCmdSetVelocity.Name = "btnCmdSetVelocity";
-            btnCmdSetVelocity.Size = new Size(144, 22);
+            btnCmdSetVelocity.Size = new Size(165, 29);
             btnCmdSetVelocity.TabIndex = 4;
             btnCmdSetVelocity.Text = "Set &Velocity";
             btnCmdSetVelocity.UseVisualStyleBackColor = true;
@@ -293,10 +283,9 @@
             // 
             // btnCmdSetAcceleration
             // 
-            btnCmdSetAcceleration.Location = new Point(153, 54);
-            btnCmdSetAcceleration.Margin = new Padding(3, 2, 3, 2);
+            btnCmdSetAcceleration.Location = new Point(174, 73);
             btnCmdSetAcceleration.Name = "btnCmdSetAcceleration";
-            btnCmdSetAcceleration.Size = new Size(144, 22);
+            btnCmdSetAcceleration.Size = new Size(165, 29);
             btnCmdSetAcceleration.TabIndex = 5;
             btnCmdSetAcceleration.Text = "Set &Acceleration";
             btnCmdSetAcceleration.UseVisualStyleBackColor = true;
@@ -304,10 +293,9 @@
             // 
             // btnCmdStartDataCollection
             // 
-            btnCmdStartDataCollection.Location = new Point(3, 80);
-            btnCmdStartDataCollection.Margin = new Padding(3, 2, 3, 2);
+            btnCmdStartDataCollection.Location = new Point(3, 108);
             btnCmdStartDataCollection.Name = "btnCmdStartDataCollection";
-            btnCmdStartDataCollection.Size = new Size(144, 22);
+            btnCmdStartDataCollection.Size = new Size(165, 29);
             btnCmdStartDataCollection.TabIndex = 6;
             btnCmdStartDataCollection.Text = "&Start Data Collection";
             btnCmdStartDataCollection.UseVisualStyleBackColor = true;
@@ -315,10 +303,9 @@
             // 
             // btnCmdStopDataCollection
             // 
-            btnCmdStopDataCollection.Location = new Point(153, 80);
-            btnCmdStopDataCollection.Margin = new Padding(3, 2, 3, 2);
+            btnCmdStopDataCollection.Location = new Point(174, 108);
             btnCmdStopDataCollection.Name = "btnCmdStopDataCollection";
-            btnCmdStopDataCollection.Size = new Size(144, 22);
+            btnCmdStopDataCollection.Size = new Size(165, 29);
             btnCmdStopDataCollection.TabIndex = 7;
             btnCmdStopDataCollection.Text = "Stop &Data Collection";
             btnCmdStopDataCollection.UseVisualStyleBackColor = true;
@@ -326,10 +313,9 @@
             // 
             // btnCmdSetDataDirectory
             // 
-            btnCmdSetDataDirectory.Location = new Point(3, 106);
-            btnCmdSetDataDirectory.Margin = new Padding(3, 2, 3, 2);
+            btnCmdSetDataDirectory.Location = new Point(3, 143);
             btnCmdSetDataDirectory.Name = "btnCmdSetDataDirectory";
-            btnCmdSetDataDirectory.Size = new Size(144, 22);
+            btnCmdSetDataDirectory.Size = new Size(165, 29);
             btnCmdSetDataDirectory.TabIndex = 8;
             btnCmdSetDataDirectory.Text = "Set Data Directory";
             btnCmdSetDataDirectory.UseVisualStyleBackColor = true;
@@ -337,10 +323,9 @@
             // 
             // btnCmdSetDataFilename
             // 
-            btnCmdSetDataFilename.Location = new Point(153, 106);
-            btnCmdSetDataFilename.Margin = new Padding(3, 2, 3, 2);
+            btnCmdSetDataFilename.Location = new Point(174, 143);
             btnCmdSetDataFilename.Name = "btnCmdSetDataFilename";
-            btnCmdSetDataFilename.Size = new Size(144, 22);
+            btnCmdSetDataFilename.Size = new Size(165, 29);
             btnCmdSetDataFilename.TabIndex = 9;
             btnCmdSetDataFilename.Text = "Set Data File Name";
             btnCmdSetDataFilename.UseVisualStyleBackColor = true;
@@ -350,11 +335,9 @@
             // 
             groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             groupBox2.Controls.Add(flowLayoutPanel2);
-            groupBox2.Location = new Point(456, 179);
-            groupBox2.Margin = new Padding(3, 2, 3, 2);
+            groupBox2.Location = new Point(521, 239);
             groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new Padding(3, 2, 3, 2);
-            groupBox2.Size = new Size(306, 100);
+            groupBox2.Size = new Size(350, 133);
             groupBox2.TabIndex = 7;
             groupBox2.TabStop = false;
             groupBox2.Text = "Sequence Managment";
@@ -368,18 +351,16 @@
             flowLayoutPanel2.Controls.Add(btnMngEnableItem);
             flowLayoutPanel2.Controls.Add(btnMngDisableItem);
             flowLayoutPanel2.Dock = DockStyle.Fill;
-            flowLayoutPanel2.Location = new Point(3, 18);
-            flowLayoutPanel2.Margin = new Padding(3, 2, 3, 2);
+            flowLayoutPanel2.Location = new Point(3, 23);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(300, 80);
+            flowLayoutPanel2.Size = new Size(344, 107);
             flowLayoutPanel2.TabIndex = 0;
             // 
             // btnMngMoveUp
             // 
-            btnMngMoveUp.Location = new Point(3, 2);
-            btnMngMoveUp.Margin = new Padding(3, 2, 3, 2);
+            btnMngMoveUp.Location = new Point(3, 3);
             btnMngMoveUp.Name = "btnMngMoveUp";
-            btnMngMoveUp.Size = new Size(144, 22);
+            btnMngMoveUp.Size = new Size(165, 29);
             btnMngMoveUp.TabIndex = 1;
             btnMngMoveUp.Text = "Move &Up";
             btnMngMoveUp.UseVisualStyleBackColor = true;
@@ -387,10 +368,9 @@
             // 
             // btnMngClear
             // 
-            btnMngClear.Location = new Point(153, 2);
-            btnMngClear.Margin = new Padding(3, 2, 3, 2);
+            btnMngClear.Location = new Point(174, 3);
             btnMngClear.Name = "btnMngClear";
-            btnMngClear.Size = new Size(144, 22);
+            btnMngClear.Size = new Size(165, 29);
             btnMngClear.TabIndex = 2;
             btnMngClear.Text = "&Clear Sequence";
             btnMngClear.UseVisualStyleBackColor = true;
@@ -398,10 +378,9 @@
             // 
             // btnMngMoveDown
             // 
-            btnMngMoveDown.Location = new Point(3, 28);
-            btnMngMoveDown.Margin = new Padding(3, 2, 3, 2);
+            btnMngMoveDown.Location = new Point(3, 38);
             btnMngMoveDown.Name = "btnMngMoveDown";
-            btnMngMoveDown.Size = new Size(144, 22);
+            btnMngMoveDown.Size = new Size(165, 29);
             btnMngMoveDown.TabIndex = 3;
             btnMngMoveDown.Text = "Move D&own";
             btnMngMoveDown.UseVisualStyleBackColor = true;
@@ -409,10 +388,9 @@
             // 
             // btnMngDeleteItem
             // 
-            btnMngDeleteItem.Location = new Point(153, 28);
-            btnMngDeleteItem.Margin = new Padding(3, 2, 3, 2);
+            btnMngDeleteItem.Location = new Point(174, 38);
             btnMngDeleteItem.Name = "btnMngDeleteItem";
-            btnMngDeleteItem.Size = new Size(144, 22);
+            btnMngDeleteItem.Size = new Size(165, 29);
             btnMngDeleteItem.TabIndex = 4;
             btnMngDeleteItem.Text = "Delete &Item";
             btnMngDeleteItem.UseVisualStyleBackColor = true;
@@ -420,10 +398,9 @@
             // 
             // btnMngEnableItem
             // 
-            btnMngEnableItem.Location = new Point(3, 54);
-            btnMngEnableItem.Margin = new Padding(3, 2, 3, 2);
+            btnMngEnableItem.Location = new Point(3, 73);
             btnMngEnableItem.Name = "btnMngEnableItem";
-            btnMngEnableItem.Size = new Size(144, 22);
+            btnMngEnableItem.Size = new Size(165, 29);
             btnMngEnableItem.TabIndex = 5;
             btnMngEnableItem.Text = "&Enable Item";
             btnMngEnableItem.UseVisualStyleBackColor = true;
@@ -431,10 +408,9 @@
             // 
             // btnMngDisableItem
             // 
-            btnMngDisableItem.Location = new Point(153, 54);
-            btnMngDisableItem.Margin = new Padding(3, 2, 3, 2);
+            btnMngDisableItem.Location = new Point(174, 73);
             btnMngDisableItem.Name = "btnMngDisableItem";
-            btnMngDisableItem.Size = new Size(144, 22);
+            btnMngDisableItem.Size = new Size(165, 29);
             btnMngDisableItem.TabIndex = 6;
             btnMngDisableItem.Text = "Di&sable Item";
             btnMngDisableItem.UseVisualStyleBackColor = true;
@@ -444,11 +420,9 @@
             // 
             groupBox3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             groupBox3.Controls.Add(tableLayoutPanel1);
-            groupBox3.Location = new Point(456, 284);
-            groupBox3.Margin = new Padding(3, 2, 3, 2);
+            groupBox3.Location = new Point(521, 379);
             groupBox3.Name = "groupBox3";
-            groupBox3.Padding = new Padding(3, 2, 3, 2);
-            groupBox3.Size = new Size(306, 122);
+            groupBox3.Size = new Size(350, 163);
             groupBox3.TabIndex = 8;
             groupBox3.TabStop = false;
             groupBox3.Text = "Sequence Controls";
@@ -460,23 +434,21 @@
             tableLayoutPanel1.Controls.Add(btnStop, 0, 1);
             tableLayoutPanel1.Controls.Add(btnRun, 0, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(3, 18);
-            tableLayoutPanel1.Margin = new Padding(3, 2, 3, 2);
+            tableLayoutPanel1.Location = new Point(3, 23);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel1.Size = new Size(300, 102);
+            tableLayoutPanel1.Size = new Size(344, 137);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // btnStop
             // 
             btnStop.Dock = DockStyle.Fill;
             btnStop.Enabled = false;
-            btnStop.Location = new Point(3, 53);
-            btnStop.Margin = new Padding(3, 2, 3, 2);
+            btnStop.Location = new Point(3, 71);
             btnStop.Name = "btnStop";
-            btnStop.Size = new Size(294, 47);
+            btnStop.Size = new Size(338, 63);
             btnStop.TabIndex = 2;
             btnStop.Text = "Stop";
             btnStop.UseVisualStyleBackColor = true;
@@ -485,11 +457,10 @@
             // lstCommands
             // 
             lstCommands.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            lstCommands.Location = new Point(10, 23);
-            lstCommands.Margin = new Padding(3, 2, 3, 2);
+            lstCommands.Location = new Point(11, 31);
             lstCommands.MultiSelect = false;
             lstCommands.Name = "lstCommands";
-            lstCommands.Size = new Size(441, 610);
+            lstCommands.Size = new Size(503, 812);
             lstCommands.TabIndex = 9;
             lstCommands.UseCompatibleStateImageBehavior = false;
             lstCommands.View = View.List;
@@ -498,11 +469,9 @@
             // 
             groupBox4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             groupBox4.Controls.Add(txtLog);
-            groupBox4.Location = new Point(456, 411);
-            groupBox4.Margin = new Padding(3, 2, 3, 2);
+            groupBox4.Location = new Point(521, 548);
             groupBox4.Name = "groupBox4";
-            groupBox4.Padding = new Padding(3, 2, 3, 2);
-            groupBox4.Size = new Size(306, 222);
+            groupBox4.Size = new Size(350, 296);
             groupBox4.TabIndex = 10;
             groupBox4.TabStop = false;
             groupBox4.Text = "Log";
@@ -510,19 +479,18 @@
             // txtLog
             // 
             txtLog.Dock = DockStyle.Fill;
-            txtLog.Location = new Point(3, 18);
-            txtLog.Margin = new Padding(3, 2, 3, 2);
+            txtLog.Location = new Point(3, 23);
             txtLog.Name = "txtLog";
             txtLog.ReadOnly = true;
-            txtLog.Size = new Size(300, 202);
+            txtLog.Size = new Size(344, 270);
             txtLog.TabIndex = 0;
             txtLog.Text = "";
             // 
             // frmSequenceEditor
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(769, 660);
+            ClientSize = new Size(879, 880);
             Controls.Add(groupBox4);
             Controls.Add(lstCommands);
             Controls.Add(groupBox3);
@@ -531,10 +499,10 @@
             Controls.Add(statusStrip1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
-            Margin = new Padding(3, 2, 3, 2);
-            MinimumSize = new Size(604, 699);
+            MinimumSize = new Size(688, 916);
             Name = "frmSequenceEditor";
             Text = "Picomotor Stage Control - Sequence Editor";
+            FormClosing += frmSequenceEditor_FormClosing;
             Load += frmSequenceEditor_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();

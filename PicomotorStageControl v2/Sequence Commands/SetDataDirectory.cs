@@ -17,8 +17,8 @@ namespace PicomotorStageControl_v2.SequenceCommands
             this.MainForm = mainForm;
             this.Type = CommandTypes.SetDataDirectory;
             this.DataDirectory = dataDirectory;
-            this.DisplayText = "Set Data Collection Directory To " + DataDirectory;
-            this.LogMessage = "Set Data Collection Directory To " + DataDirectory;
+            this.DisplayText = "Set Data Collection Directory To: " + DataDirectory;
+            this.LogMessage = "Set Data Collection Directory To: " + DataDirectory;
         }
 
         public override void Execute()

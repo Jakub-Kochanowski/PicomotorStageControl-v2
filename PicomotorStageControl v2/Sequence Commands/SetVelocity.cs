@@ -17,7 +17,7 @@ namespace PicomotorStageControl_v2.SequenceCommands
             this.MainForm = mainForm;
             this.Type = CommandTypes.SetVelocity;
             this.Velocity_steps_s = velocity_steps_s;
-            this.DisplayText = "Set Velocity To " + velocity_steps_s.ToString() + " steps/s";
+            this.DisplayText = "Set Velocity To: " + velocity_steps_s.ToString() + " steps/s";
             this.LogMessage = "Set Velocity To: " + velocity_steps_s.ToString() + " steps/s";
         }
 
