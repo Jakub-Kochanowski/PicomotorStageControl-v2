@@ -33,6 +33,7 @@
             numValue = new NumericUpDown();
             lblDescription = new Label();
             cmbReference = new ComboBox();
+            cmbUnitType = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)numValue).BeginInit();
             SuspendLayout();
             // 
@@ -80,19 +81,30 @@
             cmbReference.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             cmbReference.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbReference.FormattingEnabled = true;
-            cmbReference.Items.AddRange(new object[] { "um (Indicator)", "Steps", "um (Calibration)" });
+            cmbReference.Items.AddRange(new object[] { "Indicator", "Motor", "Calibration" });
             cmbReference.Location = new Point(291, 31);
             cmbReference.Name = "cmbReference";
-            cmbReference.Size = new Size(137, 28);
+            cmbReference.Size = new Size(75, 28);
             cmbReference.TabIndex = 101;
             // 
-            // frmNumericInputBox
+            // cmbUnitType
+            // 
+            cmbUnitType.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cmbUnitType.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbUnitType.FormattingEnabled = true;
+            cmbUnitType.Location = new Point(372, 31);
+            cmbUnitType.Name = "cmbUnitType";
+            cmbUnitType.Size = new Size(56, 28);
+            cmbUnitType.TabIndex = 102;
+            // 
+            // frmNumericInputBoxReferenceType
             // 
             AcceptButton = btnOK;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancel;
             ClientSize = new Size(440, 106);
+            Controls.Add(cmbUnitType);
             Controls.Add(cmbReference);
             Controls.Add(lblDescription);
             Controls.Add(numValue);
@@ -102,7 +114,7 @@
             KeyPreview = true;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "frmNumericInputBox";
+            Name = "frmNumericInputBoxReferenceType";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Input";
             Load += frmNumericInputBox_Load;
@@ -118,5 +130,6 @@
         private NumericUpDown numValue;
         private Label lblDescription;
         private ComboBox cmbReference;
+        private ComboBox cmbUnitType;
     }
 }

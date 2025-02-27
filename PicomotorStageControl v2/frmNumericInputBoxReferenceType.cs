@@ -14,7 +14,9 @@ namespace PicomotorStageControl_v2
     {
         public decimal Value { get; private set; } = 0.0M;
         public MovementReferenceType MovementReference { get; private set; }
-        public frmNumericInputBoxReferenceType(string title, string label, decimal minValue, decimal maxValue, decimal numIncrement, MovementReferenceType defaultReference)
+        public UnitType UnitType { get; private set; }
+
+        public frmNumericInputBoxReferenceType(string title, string label, decimal minValue, decimal maxValue, decimal numIncrement, MovementReferenceType defaultReference, List<UnitType> unitTypes)
         {
             InitializeComponent();
             this.Text = title;
@@ -23,6 +25,7 @@ namespace PicomotorStageControl_v2
             this.numValue.Minimum = minValue;
             this.numValue.Maximum = maxValue;
             this.numValue.Increment = numIncrement;
+            this.cmbUnitType.Items.AddRange(unitTypes.Cast<object>().ToArray());
         }
 
         private void btnOK_Click(object sender, EventArgs e)
