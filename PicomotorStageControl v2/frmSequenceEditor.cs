@@ -292,7 +292,7 @@ namespace PicomotorStageControl_v2
                     {
                         this.statusCurrentTask.Text = cmd.DisplayText + " (" + cmd.Progress + ")";
                     });
-                    System.Diagnostics.Debug.WriteLine(cmd.DisplayText);
+                    //System.Diagnostics.Debug.WriteLine(cmd.DisplayText);
                     if (StopSequence)
                     {
                         cmd.Stop();
