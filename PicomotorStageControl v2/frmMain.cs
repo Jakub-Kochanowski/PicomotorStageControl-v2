@@ -15,6 +15,9 @@ namespace PicomotorStageControl_v2
 
         public Indicator? Indicator { get; private set; } = null;
 
+        public MicroscopeStageController? MicroscopeStageController { get; private set; } = null;
+        public IndenterController? IndenterController { get; private set; } = null;
+
         public string IndicatorPosition = "";
         public MovementReferenceType MovementReference { get; private set; } = MovementReferenceType.Calibration; // Hard-coded, whatever. Same with initial labels. Cleaner code.
         private bool ReferenceLocked = false;
@@ -34,6 +37,8 @@ namespace PicomotorStageControl_v2
         public bool IsSequenceRunning { get; set; } = false;
 
         frmSequenceEditor SequenceEditorForm;
+
+        public double
 
         public frmMain()
         {
@@ -665,5 +670,224 @@ namespace PicomotorStageControl_v2
             this.Motor.SetVelocity((int)numMotorSettingsVelocity.Value);
             this.Motor.SetAcceleration((int)numMotorSettingsAcceleration.Value);
         }
+
+        private void stripConnectIndenter_Click(object sender, EventArgs e)
+        {
+            ConnectIndenter();
+        }
+
+        private void stripConnectMicroscopeStage_Click(object sender, EventArgs e)
+        {
+            ConnectMicroscopeStage();
+        }
+
+        private void ConnectIndenter()
+        {
+            if (IndenterController == null || !IndenterController.Connected)
+            {
+                // Rudimentary check. Realistically, will only either be "COM__" or "".
+                if (!Settings.Default.IndicatorCOMPort.Contains("COM"))
+                {
+                    MessageBox.Show("Invalid COM port! Please check settings!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+
+                IndenterController = new IndenterController(Settings.Default.IndenterCOMPort);
+
+                IndenterController.OnForceUpdated += IndenterController_OnForceUpdated;
+            }
+        }
+
+        private void IndenterController_OnForceUpdated(double rawValue, double force_mg, double force_N)
+        {
+            lblIndenterDisplayForcemg.Text = force_mg.ToString();
+            lblIndenterDisplayForceN.Text = force_N.ToString();
+        }
+
+        private void ConnectMicroscopeStage()
+        {
+            if (IndenterController == null || !IndenterController.Connected)
+            {
+                // Rudimentary check. Realistically, will only either be "COM__" or "".
+                if (!Settings.Default.IndicatorCOMPort.Contains("COM"))
+                {
+                    MessageBox.Show("Invalid COM port! Please check settings!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+
+                MicroscopeStageController = new MicroscopeStageController(Settings.Default.MicroscopeStageCOMPort);
+
+                MicroscopeStageController.OnPositionUpdated += MicroscopeStageController_OnPositionUpdated;
+            }
+        }
+
+        private void MicroscopeStageController_OnPositionUpdated(double x, double y, double z)
+        {
+            this.lblMicroscopeStageDisplayX_mm.Text = x.ToString();
+            this.lblMicroscopeStageDisplayY_mm.Text = y.ToString();
+            this.lblMicroscopeStageDisplayZ_mm.Text = z.ToString();
+        }
+
+        #region Microscope Stage Control
+        private void btnStageCtrlRunXLeftYUp_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.StageRun(-1, 1, 0);
+        }
+
+        private void btnStageCtrlRunYUp_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.StageRun(0, 1, 0);
+        }
+
+        private void btnStageCtrlRunXRightYUp_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.StageRun(1, 1, 0);
+        }
+
+        private void btnStageCtrlRunZUp_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.StageRun(0, 0, 1);
+        }
+
+        private void btnStageCtrlRunXLeft_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.StageRun(-1, 0, 0);
+        }
+
+        private void btnStageCtrlRunXRight_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.StageRun(1, 0, 0);
+        }
+
+        private void btnStageCtrlRunXLeftYDown_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.StageRun(-1, -1, 0);
+        }
+
+        private void btnStageCtrlRunYDown_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.StageRun(0, -1, 0);
+        }
+
+        private void btnStageCtrlRunXRightYDown_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.StageRun(1, -1, 0);
+        }
+
+        private void btnStageCtrlRunZDown_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.StageRun(0, 0, -1);
+        }
+
+        private void btnStageCtrlRunXLeftYUp_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.HaltStage();
+        }
+
+        private void btnStageCtrlRunYUp_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.HaltStage();
+        }
+
+        private void btnStageCtrlRunXRightYUp_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.HaltStage();
+        }
+
+        private void btnStageCtrlRunZUp_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.HaltStage();
+        }
+
+        private void btnStageCtrlRunXLeft_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.HaltStage();
+        }
+
+        private void btnStageCtrlRunXRight_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.HaltStage();
+        }
+
+        private void btnStageCtrlRunXLeftYDown_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.HaltStage();
+        }
+
+        private void btnStageCtrlRunYDown_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.HaltStage();
+        }
+
+        private void btnStageCtrlRunXRightYDown_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.HaltStage();
+        }
+
+        private void btnStageCtrlRunZDown_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.HaltStage();
+        }
+        #endregion
     }
 }

@@ -50,6 +50,14 @@
             numStageMovementSlowDownDistance = new NumericUpDown();
             label6 = new Label();
             chkStageMovementCreepUp = new CheckBox();
+            groupBox4 = new GroupBox();
+            tableLayoutPanel3 = new TableLayoutPanel();
+            cmbIndenterCOMPorts = new ComboBox();
+            label10 = new Label();
+            groupBox5 = new GroupBox();
+            tableLayoutPanel4 = new TableLayoutPanel();
+            cmbMicroscopeStageCOMPorts = new ComboBox();
+            label11 = new Label();
             groupBox1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -59,14 +67,18 @@
             groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numStageMovementSlowDownVelocity).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numStageMovementSlowDownDistance).BeginInit();
+            groupBox4.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
+            groupBox5.SuspendLayout();
+            tableLayoutPanel4.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
             // 
             groupBox1.Controls.Add(tableLayoutPanel1);
-            groupBox1.Location = new Point(11, 12);
+            groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(387, 61);
+            groupBox1.Size = new Size(384, 61);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Indicator";
@@ -83,7 +95,7 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(381, 35);
+            tableLayoutPanel1.Size = new Size(378, 35);
             tableLayoutPanel1.TabIndex = 3;
             // 
             // cmbIndicatorPorts
@@ -92,7 +104,7 @@
             cmbIndicatorPorts.FormattingEnabled = true;
             cmbIndicatorPorts.Location = new Point(84, 3);
             cmbIndicatorPorts.Name = "cmbIndicatorPorts";
-            cmbIndicatorPorts.Size = new Size(294, 28);
+            cmbIndicatorPorts.Size = new Size(291, 28);
             cmbIndicatorPorts.TabIndex = 0;
             // 
             // label1
@@ -109,7 +121,7 @@
             // btnCancel
             // 
             btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnCancel.Location = new Point(302, 308);
+            btnCancel.Location = new Point(302, 447);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(94, 29);
             btnCancel.TabIndex = 4;
@@ -120,7 +132,7 @@
             // btnApply
             // 
             btnApply.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnApply.Location = new Point(202, 308);
+            btnApply.Location = new Point(202, 447);
             btnApply.Name = "btnApply";
             btnApply.Size = new Size(94, 29);
             btnApply.TabIndex = 3;
@@ -131,12 +143,12 @@
             // groupBox2
             // 
             groupBox2.Controls.Add(tableLayoutPanel2);
-            groupBox2.Location = new Point(11, 79);
+            groupBox2.Location = new Point(12, 213);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(387, 92);
+            groupBox2.Size = new Size(384, 92);
             groupBox2.TabIndex = 3;
             groupBox2.TabStop = false;
-            groupBox2.Text = "Calibration";
+            groupBox2.Text = "Holder Stage Calibration";
             // 
             // tableLayoutPanel2
             // 
@@ -156,7 +168,7 @@
             tableLayoutPanel2.RowCount = 2;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Size = new Size(381, 66);
+            tableLayoutPanel2.Size = new Size(378, 66);
             tableLayoutPanel2.TabIndex = 0;
             // 
             // numAvgPosStepSizeUm
@@ -166,7 +178,7 @@
             numAvgPosStepSizeUm.Increment = new decimal(new int[] { 1, 0, 0, 262144 });
             numAvgPosStepSizeUm.Location = new Point(179, 36);
             numAvgPosStepSizeUm.Name = "numAvgPosStepSizeUm";
-            numAvgPosStepSizeUm.Size = new Size(163, 27);
+            numAvgPosStepSizeUm.Size = new Size(160, 27);
             numAvgPosStepSizeUm.TabIndex = 2;
             // 
             // label3
@@ -198,14 +210,14 @@
             numAvgNegStepSizeUm.Increment = new decimal(new int[] { 1, 0, 0, 262144 });
             numAvgNegStepSizeUm.Location = new Point(179, 3);
             numAvgNegStepSizeUm.Name = "numAvgNegStepSizeUm";
-            numAvgNegStepSizeUm.Size = new Size(163, 27);
+            numAvgNegStepSizeUm.Size = new Size(160, 27);
             numAvgNegStepSizeUm.TabIndex = 1;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Dock = DockStyle.Fill;
-            label4.Location = new Point(348, 0);
+            label4.Location = new Point(345, 0);
             label4.Name = "label4";
             label4.Size = new Size(30, 33);
             label4.TabIndex = 7;
@@ -216,7 +228,7 @@
             // 
             label5.AutoSize = true;
             label5.Dock = DockStyle.Fill;
-            label5.Location = new Point(348, 33);
+            label5.Location = new Point(345, 33);
             label5.Name = "label5";
             label5.Size = new Size(30, 33);
             label5.TabIndex = 8;
@@ -232,12 +244,12 @@
             groupBox3.Controls.Add(numStageMovementSlowDownDistance);
             groupBox3.Controls.Add(label6);
             groupBox3.Controls.Add(chkStageMovementCreepUp);
-            groupBox3.Location = new Point(14, 177);
+            groupBox3.Location = new Point(12, 311);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(384, 125);
             groupBox3.TabIndex = 5;
             groupBox3.TabStop = false;
-            groupBox3.Text = "Stage Movement";
+            groupBox3.Text = "Holder Stage Movement";
             // 
             // label9
             // 
@@ -308,11 +320,103 @@
             chkStageMovementCreepUp.UseVisualStyleBackColor = true;
             chkStageMovementCreepUp.CheckedChanged += chkStageMovementCreepUp_CheckedChanged;
             // 
+            // groupBox4
+            // 
+            groupBox4.Controls.Add(tableLayoutPanel3);
+            groupBox4.Location = new Point(12, 79);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Size = new Size(384, 61);
+            groupBox4.TabIndex = 6;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Indenter";
+            // 
+            // tableLayoutPanel3
+            // 
+            tableLayoutPanel3.ColumnCount = 2;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.Controls.Add(cmbIndenterCOMPorts, 1, 0);
+            tableLayoutPanel3.Controls.Add(label10, 0, 0);
+            tableLayoutPanel3.Dock = DockStyle.Fill;
+            tableLayoutPanel3.Location = new Point(3, 23);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 1;
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.Size = new Size(378, 35);
+            tableLayoutPanel3.TabIndex = 3;
+            // 
+            // cmbIndenterCOMPorts
+            // 
+            cmbIndenterCOMPorts.Dock = DockStyle.Fill;
+            cmbIndenterCOMPorts.FormattingEnabled = true;
+            cmbIndenterCOMPorts.Location = new Point(84, 3);
+            cmbIndenterCOMPorts.Name = "cmbIndenterCOMPorts";
+            cmbIndenterCOMPorts.Size = new Size(291, 28);
+            cmbIndenterCOMPorts.TabIndex = 0;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Dock = DockStyle.Fill;
+            label10.Location = new Point(3, 0);
+            label10.Name = "label10";
+            label10.Size = new Size(75, 35);
+            label10.TabIndex = 1;
+            label10.Text = "COM Port:";
+            label10.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // groupBox5
+            // 
+            groupBox5.Controls.Add(tableLayoutPanel4);
+            groupBox5.Location = new Point(12, 146);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Size = new Size(384, 61);
+            groupBox5.TabIndex = 7;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "Microscope Stage";
+            // 
+            // tableLayoutPanel4
+            // 
+            tableLayoutPanel4.ColumnCount = 2;
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel4.Controls.Add(cmbMicroscopeStageCOMPorts, 1, 0);
+            tableLayoutPanel4.Controls.Add(label11, 0, 0);
+            tableLayoutPanel4.Dock = DockStyle.Fill;
+            tableLayoutPanel4.Location = new Point(3, 23);
+            tableLayoutPanel4.Name = "tableLayoutPanel4";
+            tableLayoutPanel4.RowCount = 1;
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel4.Size = new Size(378, 35);
+            tableLayoutPanel4.TabIndex = 3;
+            // 
+            // cmbMicroscopeStageCOMPorts
+            // 
+            cmbMicroscopeStageCOMPorts.Dock = DockStyle.Fill;
+            cmbMicroscopeStageCOMPorts.FormattingEnabled = true;
+            cmbMicroscopeStageCOMPorts.Location = new Point(84, 3);
+            cmbMicroscopeStageCOMPorts.Name = "cmbMicroscopeStageCOMPorts";
+            cmbMicroscopeStageCOMPorts.Size = new Size(291, 28);
+            cmbMicroscopeStageCOMPorts.TabIndex = 0;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Dock = DockStyle.Fill;
+            label11.Location = new Point(3, 0);
+            label11.Name = "label11";
+            label11.Size = new Size(75, 35);
+            label11.TabIndex = 1;
+            label11.Text = "COM Port:";
+            label11.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // frmSettings
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(408, 349);
+            ClientSize = new Size(408, 488);
+            Controls.Add(groupBox5);
+            Controls.Add(groupBox4);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(btnApply);
@@ -336,6 +440,12 @@
             groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numStageMovementSlowDownVelocity).EndInit();
             ((System.ComponentModel.ISupportInitialize)numStageMovementSlowDownDistance).EndInit();
+            groupBox4.ResumeLayout(false);
+            tableLayoutPanel3.ResumeLayout(false);
+            tableLayoutPanel3.PerformLayout();
+            groupBox5.ResumeLayout(false);
+            tableLayoutPanel4.ResumeLayout(false);
+            tableLayoutPanel4.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -363,5 +473,13 @@
         private CheckBox chkStageMovementCreepUp;
         private Label label9;
         private Label label8;
+        private GroupBox groupBox4;
+        private TableLayoutPanel tableLayoutPanel3;
+        private ComboBox cmbIndenterCOMPorts;
+        private Label label10;
+        private GroupBox groupBox5;
+        private TableLayoutPanel tableLayoutPanel4;
+        private ComboBox cmbMicroscopeStageCOMPorts;
+        private Label label11;
     }
 }

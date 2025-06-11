@@ -42,6 +42,8 @@ namespace PicomotorStageControl_v2
                 foreach (string s in portList)
                 {
                     cmbIndicatorPorts.Items.Add(s.ToString());
+                    cmbIndenterCOMPorts.Items.Add(s.ToString());
+                    cmbIndenterCOMPorts.Items.Add(s.ToString());
                 }
             }
         }
@@ -49,12 +51,16 @@ namespace PicomotorStageControl_v2
         private void PopulateFieldsWithCurrentSettings()
         {
             this.cmbIndicatorPorts.Text = Settings.Default.IndicatorCOMPort;
+            this.cmbIndenterCOMPorts.Text = Settings.Default.IndenterCOMPort;
+            this.cmbMicroscopeStageCOMPorts.Text = Settings.Default.MicroscopeStageCOMPort;
+
             this.numAvgNegStepSizeUm.Value = Settings.Default.AvgNegativeStepSize_um;
             this.numAvgPosStepSizeUm.Value = Settings.Default.AvgPositiveStepSize_um;
 
             this.chkStageMovementCreepUp.Checked = Settings.Default.StageMovementCreepUp;
             this.numStageMovementSlowDownDistance.Value = (decimal)Settings.Default.StageMovementSlowDownDistance;
             this.numStageMovementSlowDownVelocity.Value = (decimal)Settings.Default.StageMovementSlowDownVelocity;
+
             if (this.chkStageMovementCreepUp.Checked == true)
             {
                 this.numStageMovementSlowDownVelocity.Enabled = true;
@@ -65,6 +71,9 @@ namespace PicomotorStageControl_v2
         private void ApplySettings()
         {
             Settings.Default.IndicatorCOMPort = this.cmbIndicatorPorts.Text.Split(" ")[0];
+            Settings.Default.IndenterCOMPort = this.cmbIndenterCOMPorts.Text.Split(" ")[0];
+            Settings.Default.MicroscopeStageCOMPort = this.cmbMicroscopeStageCOMPorts.Text.Split(" ")[0];
+
             Settings.Default.AvgNegativeStepSize_um = this.numAvgNegStepSizeUm.Value;
             Settings.Default.AvgPositiveStepSize_um = this.numAvgPosStepSizeUm.Value;
             Settings.Default.StageMovementCreepUp = this.chkStageMovementCreepUp.Checked;
