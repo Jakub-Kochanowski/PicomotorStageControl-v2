@@ -13,24 +13,36 @@ public class IndenterController : IDisposable
     public bool Connected { get; private set; } = false;
     private static int baudRate = 11500;
 
-    public double IndenterCalibration { get; set; }
-    public double ProbeWeight_mg { get; set; } // Why overcomplicate with private, internal stuff
+    public double IndenterCalibrationNoProbe_mg { get; set; } = 0;
+    public double IndenterCalibrationWithProbe_mg { get; set; } = 0;
+    public double IndenterCalibrationOffset_mg { get; set; } = 0;
 
+    public double ProbeWeight_mg { get; set; } = 0; // Why overcomplicate with private, internal stuff
 
-    private double RawIndenterValue = 0.0D;
-    private double CalibratedIndenterValue { get { return RawIndenterValue - IndenterCalibration - ProbeWeight_mg; } }
-    public double IndenterForce_mg { get { return CalibratedIndenterValue / 1000.0D; } }
+    public double RawIndenterValue = 0.0D;
+
+    private double CalibratedIndenterValue { get 
+        {
+            if (IndenterCalibrationWithProbe_mg == IndenterCalibrationNoProbe_mg)
+                return RawIndenterValue - IndenterCalibrationNoProbe_mg - IndenterCalibrationOffset_mg; // No probe calibration, just return raw value
+            double scale = ProbeWeight_mg / (IndenterCalibrationWithProbe_mg - IndenterCalibrationNoProbe_mg);
+            return (RawIndenterValue - IndenterCalibrationNoProbe_mg) * scale - IndenterCalibrationOffset_mg;
+        } }
+
+    //private double CalibratedIndenterValue { get { return RawIndenterValue - IndenterCalibration * 100.0D - ProbeWeight_mg * 100.0D; } }
+    public double IndenterForce_mg { get { return CalibratedIndenterValue / 100.0D; } }
     public double IndenterForce_N { get { return (CalibratedIndenterValue / 1000.0D) * 9.81D; } }
 
     
-    public event Action<double, double, double>? OnForceUpdated;
+    //public event Action<double, double, double>? OnForceUpdated;
 
     public IndenterController(string portName)
     {
-        serialPort = new SerialPort(portName, baudRate)
+        serialPort = new SerialPort(portName)
         {
             ReadTimeout = 1000,
             WriteTimeout = 1000,
+            BaudRate = 115200
         };
 
         serialPort.Open();
@@ -63,10 +75,10 @@ public class IndenterController : IDisposable
                 {
                     ushort value = (ushort)(buffer[2] | (buffer[3] << 8));
                     this.RawIndenterValue = value;
-                    OnForceUpdated?.Invoke(value, IndenterForce_mg, IndenterForce_N); // TO DO: I dunno.
+                    //OnForceUpdated?.Invoke(value, IndenterForce_mg, IndenterForce_N); // TO DO: I dunno.
                 }
 
-                Thread.Sleep(10); // ~20 updates/sec
+                //Thread.Sleep(1); // ~20 updates/sec
             }
             catch (TimeoutException)
             {

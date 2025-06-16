@@ -3,6 +3,7 @@ using PicomotorStageControl_v2.Properties;
 using ScottPlot.Plottables;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Text;
 
 namespace PicomotorStageControl_v2
@@ -29,6 +30,7 @@ namespace PicomotorStageControl_v2
         private DataLogger LoggerMotorSteps;
         private DataLogger LoggerMotorCalibrationMicrons;
         private DataLogger LoggerIndicatorMicrons;
+        private DataLogger LoggerIndenterForce_mg;
         Stopwatch StopwatchTimeElapsed;
 
         BackgroundWorker DataCollectionWorker;
@@ -38,7 +40,10 @@ namespace PicomotorStageControl_v2
 
         frmSequenceEditor SequenceEditorForm;
 
-        public double
+        private int indenterCal_sampleCount = 0;
+        private int indenterCal_totalSamples = 200;
+        private double indenterCal_sampleSum = 0;
+        private int indenterCal_calOption = 0;
 
         public frmMain()
         {
@@ -80,14 +85,23 @@ namespace PicomotorStageControl_v2
 
             // TO DO: There is definitely a better way to do this, but for now...
 
+            line = "Index,Time(ms),Motor Position (steps),Motor Position Negative (steps),Motor Position Positive (steps)," +
+                "Motor Position From Calibration (microns),Motor Velocity Negative From Calibration (microns),Motor Velocity Positive From Calibration (microns)," +
+                "Motor Acceleration Negative From Calibration (microns),Motor Acceleration Positive From Calibration (microns)," +
+                "Motor Calibration Negative Step Size (microns),Motor Calibration Positive Step Size (microns)," +
+                "Motor Velocity (steps/s),Motor Acceleration (steps/s^2),Move State," +
+                "Indicator Position (microns),Indicator Velocity (microns/s)," +
+                "Indenter Force (mg),Indenter Force (N),Indenter Calibration No Probe (mg),Indenter Calibration With Probe (mg),Indenter Probe Weight(mg)," +
+                "Microscope Stage X Position (mm),Microscope Stage Y Position (mm),Microscope Stage Z Position (mm)";
+            streamWriter.WriteLine(line);
+
             while (CollectingData)
             {
                 line = index.ToString() + "," +
                     (DateTime.Now.Ticks / (decimal)TimeSpan.TicksPerMillisecond).ToString();
                 if (Motor != null)
                 {
-                    line += Motor.Position_step.ToString() + "," +
-                        Motor.PositionFromCalibration_um.ToString() + "," +
+                    line += "," + Motor.Position_step.ToString() + "," +
                         Motor.PositionNegative_step.ToString() + "," +
                         Motor.PositionPositive_step.ToString() + "," +
                         Motor.PositionFromCalibration_um.ToString() + "," +
@@ -103,8 +117,23 @@ namespace PicomotorStageControl_v2
                 }
                 if (Indicator != null)
                 {
-                    line += Indicator.Position.ToString() + "," +
-                        Indicator.Velocity.ToString() + ",";
+                    line += "," + Indicator.Position.ToString() + "," +
+                        Indicator.Velocity.ToString();
+                }
+                if (IndenterController != null)
+                {
+                    line += "," + IndenterController.IndenterForce_mg.ToString() + "," +
+                        IndenterController.IndenterForce_N.ToString() + "," +
+                        IndenterController.IndenterCalibrationNoProbe_mg.ToString() + "," +
+                        IndenterController.IndenterCalibrationWithProbe_mg.ToString() + "," +
+                        //IndenterController.IndenterCalibration.ToString() + "," +
+                        IndenterController.ProbeWeight_mg.ToString();
+                }
+                if (MicroscopeStageController != null)
+                {
+                    line += "," + MicroscopeStageController.CurrentPosition[0].ToString() + "," + // X
+                        MicroscopeStageController.CurrentPosition[1].ToString() + "," + // Y
+                        MicroscopeStageController.CurrentPosition[2].ToString(); // Z
                 }
 
                 streamWriter.WriteLine(line);
@@ -121,6 +150,7 @@ namespace PicomotorStageControl_v2
             LoggerMotorSteps = Plot.Plot.Add.DataLogger();
             LoggerMotorCalibrationMicrons = Plot.Plot.Add.DataLogger();
             LoggerIndicatorMicrons = Plot.Plot.Add.DataLogger();
+            LoggerIndenterForce_mg = Plot.Plot.Add.DataLogger();
         }
 
         private void IndicatorJogWorker_DoWork(object? sender, DoWorkEventArgs e)
@@ -588,6 +618,14 @@ namespace PicomotorStageControl_v2
             {
                 LoggerIndicatorMicrons.Add(currentTime, 0);
             }
+            if (IndenterController != null)
+            {
+                LoggerIndenterForce_mg.Add(currentTime, IndenterController.IndenterForce_mg);
+            }
+            else
+            {
+                LoggerIndenterForce_mg.Add(currentTime, 0);
+            }
 
             Plot.Refresh();
         }
@@ -693,16 +731,24 @@ namespace PicomotorStageControl_v2
                 }
 
                 IndenterController = new IndenterController(Settings.Default.IndenterCOMPort);
+                this.tmrIndenterDisplayUpdate.Enabled = true;
+                this.tmrIndenterDisplayUpdate.Start();
+                //IndenterController.OnForceUpdated += IndenterController_OnForceUpdated;
 
-                IndenterController.OnForceUpdated += IndenterController_OnForceUpdated;
+                this.numIndenterSettingsCalNoProbe.Enabled = true;
+                this.numIndenterSettingsCalWithProbe.Enabled = true; // TO DO: Do an "on-connect" action so that only when its connected it is enabled.
+                this.numIndenterSettingsCalProbeWeight.Enabled = true;
+                this.btnIndenterCalWithProbe.Enabled = true;
+                this.btnIndenterSettingsCalNoProbe.Enabled = true;
+                this.btnIndenterSettingsCalibrate.Enabled = true;
             }
         }
 
-        private void IndenterController_OnForceUpdated(double rawValue, double force_mg, double force_N)
-        {
-            lblIndenterDisplayForcemg.Text = force_mg.ToString();
-            lblIndenterDisplayForceN.Text = force_N.ToString();
-        }
+        //private void IndenterController_OnForceUpdated(double rawValue, double force_mg, double force_N)
+        //{
+        //    lblIndenterDisplayForcemg.Text = force_mg.ToString();
+        //    lblIndenterDisplayForceN.Text = force_N.ToString();
+        //}
 
         private void ConnectMicroscopeStage()
         {
@@ -716,16 +762,9 @@ namespace PicomotorStageControl_v2
                 }
 
                 MicroscopeStageController = new MicroscopeStageController(Settings.Default.MicroscopeStageCOMPort);
-
-                MicroscopeStageController.OnPositionUpdated += MicroscopeStageController_OnPositionUpdated;
+                this.tmrMicroscopeDisplayUpdate.Enabled = true;
+                this.tmrMicroscopeDisplayUpdate.Start();
             }
-        }
-
-        private void MicroscopeStageController_OnPositionUpdated(double x, double y, double z)
-        {
-            this.lblMicroscopeStageDisplayX_mm.Text = x.ToString();
-            this.lblMicroscopeStageDisplayY_mm.Text = y.ToString();
-            this.lblMicroscopeStageDisplayZ_mm.Text = z.ToString();
         }
 
         #region Microscope Stage Control
@@ -889,5 +928,79 @@ namespace PicomotorStageControl_v2
             this.MicroscopeStageController.HaltStage();
         }
         #endregion
+
+        private void btnMicroscopeStageHalt_Click(object sender, EventArgs e)
+        {
+            if (this.MicroscopeStageController == null || !this.MicroscopeStageController.Connected)
+                return;
+
+            this.MicroscopeStageController.HaltStage();
+        }
+
+        private void tmrMicroscopeDisplayUpdate_Tick(object sender, EventArgs e)
+        {
+            lblMicroscopeStageDisplayX_mm.Text = MicroscopeStageController?.CurrentPosition[0].ToString() ?? "N/A";
+            lblMicroscopeStageDisplayY_mm.Text = MicroscopeStageController?.CurrentPosition[1].ToString() ?? "N/A";
+            lblMicroscopeStageDisplayZ_mm.Text = MicroscopeStageController?.CurrentPosition[2].ToString() ?? "N/A";
+        }
+
+        private void tmrIndenterDisplayUpdate_Tick(object sender, EventArgs e)
+        {
+            lblIndenterDisplayForcemg.Text = Math.Round(this.IndenterController.IndenterForce_mg, 3).ToString();
+            lblIndenterDisplayForceN.Text = Math.Round(this.IndenterController.IndenterForce_N, 2).ToString();
+        }
+
+        private void btnIndenterSettingsCalibrate_Click(object sender, EventArgs e)
+        {
+            if (this.IndenterController != null)
+            {
+                this.IndenterController.IndenterCalibrationNoProbe_mg = (double)this.numIndenterSettingsCalNoProbe.Value * 100.0D;
+                this.IndenterController.IndenterCalibrationWithProbe_mg = (double)this.numIndenterSettingsCalWithProbe.Value * 100.0D;
+                this.IndenterController.ProbeWeight_mg = (double)this.numIndenterSettingsCalProbeWeight.Value * 100.0D;
+            }
+        }
+
+        private void btnIndenterSettingsCalNoProbe_Click(object sender, EventArgs e)
+        {
+            if (this.IndenterController == null)
+                return;
+
+            indenterCal_calOption = 0;
+            indenterCal_sampleCount = 0;
+            indenterCal_sampleSum = 0;
+            tmrAverageIndenterValues.Interval = 10;
+            tmrAverageIndenterValues.Enabled = true;
+            tmrAverageIndenterValues.Start();
+        }
+        private void btnIndenterCalWithProbe_Click(object sender, EventArgs e)
+        {
+            if (this.IndenterController == null)
+                return;
+
+            indenterCal_calOption = 1;
+            indenterCal_sampleCount = 0;
+            indenterCal_sampleSum = 0;
+            tmrAverageIndenterValues.Interval = 10;
+            tmrAverageIndenterValues.Enabled = true;
+            tmrAverageIndenterValues.Start();
+        }
+
+        private void tmrAverageIndenterValues_Tick(object sender, EventArgs e)
+        {
+            indenterCal_sampleSum += this.IndenterController.RawIndenterValue;
+            indenterCal_sampleCount++;
+            if (indenterCal_sampleCount >= indenterCal_totalSamples)
+            {
+                tmrAverageIndenterValues.Stop();
+                if (indenterCal_calOption == 0)
+                {
+                    this.numIndenterSettingsCalNoProbe.Value = (decimal)(indenterCal_sampleSum / indenterCal_sampleCount) / 100.0M;
+                }
+                else if (indenterCal_calOption == 1)
+                {
+                    this.numIndenterSettingsCalWithProbe.Value = (decimal)(indenterCal_sampleSum / indenterCal_sampleCount) / 100.0M;
+                }
+            }
+        }
     }
 }

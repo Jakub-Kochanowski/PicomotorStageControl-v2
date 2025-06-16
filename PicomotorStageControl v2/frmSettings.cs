@@ -43,7 +43,7 @@ namespace PicomotorStageControl_v2
                 {
                     cmbIndicatorPorts.Items.Add(s.ToString());
                     cmbIndenterCOMPorts.Items.Add(s.ToString());
-                    cmbIndenterCOMPorts.Items.Add(s.ToString());
+                    cmbMicroscopeStageCOMPorts.Items.Add(s.ToString());
                 }
             }
         }

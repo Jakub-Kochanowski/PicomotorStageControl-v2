@@ -158,6 +158,7 @@
             groupBox10 = new GroupBox();
             groupBox15 = new GroupBox();
             tableLayoutPanel22 = new TableLayoutPanel();
+            chkPlotViewIndenterForce = new CheckBox();
             chkPlotViewIndicator = new CheckBox();
             chkPlotViewMotorSteps = new CheckBox();
             chkPlotViewMotorCalibration = new CheckBox();
@@ -211,8 +212,8 @@
             numStageCtrlAbsRelYum = new NumericUpDown();
             label40 = new Label();
             numStageCtrlAbsRelXum = new NumericUpDown();
-            btnHome = new Button();
-            button1 = new Button();
+            btnMicroscopeStageHome = new Button();
+            btnMicroscopeStageHalt = new Button();
             groupBox20 = new GroupBox();
             tableLayoutPanel25 = new TableLayoutPanel();
             btnStageCtrlRunZUp = new Button();
@@ -227,12 +228,18 @@
             btnStageCtrlRunXLeft = new Button();
             groupBox18 = new GroupBox();
             tableLayoutPanel24 = new TableLayoutPanel();
-            numIndenterSettingsOffset_mg = new NumericUpDown();
-            numIndenterSettingsProbeWeight_mg = new NumericUpDown();
+            btnIndenterCalWithProbe = new Button();
+            label54 = new Label();
+            numIndenterSettingsCalProbeWeight = new NumericUpDown();
+            label46 = new Label();
+            numIndenterSettingsCalNoProbe = new NumericUpDown();
+            numIndenterSettingsCalWithProbe = new NumericUpDown();
             label5 = new Label();
             label25 = new Label();
             label27 = new Label();
             label31 = new Label();
+            btnIndenterSettingsCalibrate = new Button();
+            btnIndenterSettingsCalNoProbe = new Button();
             groupBox21 = new GroupBox();
             tableLayoutPanel26 = new TableLayoutPanel();
             label59 = new Label();
@@ -244,6 +251,9 @@
             label51 = new Label();
             lblMicroscopeStageDisplayX_mm = new Label();
             label55 = new Label();
+            tmrMicroscopeDisplayUpdate = new System.Windows.Forms.Timer(components);
+            tmrIndenterDisplayUpdate = new System.Windows.Forms.Timer(components);
+            tmrAverageIndenterValues = new System.Windows.Forms.Timer(components);
             groupBox6.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
             groupBox8.SuspendLayout();
@@ -300,8 +310,9 @@
             tableLayoutPanel25.SuspendLayout();
             groupBox18.SuspendLayout();
             tableLayoutPanel24.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numIndenterSettingsOffset_mg).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numIndenterSettingsProbeWeight_mg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numIndenterSettingsCalProbeWeight).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numIndenterSettingsCalNoProbe).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numIndenterSettingsCalWithProbe).BeginInit();
             groupBox21.SuspendLayout();
             tableLayoutPanel26.SuspendLayout();
             SuspendLayout();
@@ -1108,7 +1119,7 @@
             // 
             statusStrip1.ImageScalingSize = new Size(20, 20);
             statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1, statusStageConnected, toolStripStatusLabel3, toolStripStatusLabel4, statusIndicatorConnected, toolStripStatusLabel6, toolStripStatusLabel7, toolStripStatusLabel8, toolStripStatusLabel9, toolStripStatusLabel10, toolStripStatusLabel11, toolStripStatusLabel12, toolStripStatusLabel13, toolStripStatusLabel14 });
-            statusStrip1.Location = new Point(0, 1012);
+            statusStrip1.Location = new Point(0, 921);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.RenderMode = ToolStripRenderMode.Professional;
             statusStrip1.Size = new Size(2031, 26);
@@ -1635,7 +1646,7 @@
             groupBox9.Controls.Add(tableLayoutPanel16);
             groupBox9.Location = new Point(11, 724);
             groupBox9.Name = "groupBox9";
-            groupBox9.Size = new Size(439, 189);
+            groupBox9.Size = new Size(443, 189);
             groupBox9.TabIndex = 7;
             groupBox9.TabStop = false;
             groupBox9.Text = "Motor Settings";
@@ -1670,7 +1681,7 @@
             tableLayoutPanel16.RowStyles.Add(new RowStyle(SizeType.Percent, 49.99999F));
             tableLayoutPanel16.RowStyles.Add(new RowStyle());
             tableLayoutPanel16.RowStyles.Add(new RowStyle(SizeType.Absolute, 51F));
-            tableLayoutPanel16.Size = new Size(433, 163);
+            tableLayoutPanel16.Size = new Size(437, 163);
             tableLayoutPanel16.TabIndex = 0;
             // 
             // lblMotorSettingsEstNegAccel
@@ -1679,7 +1690,7 @@
             lblMotorSettingsEstNegAccel.Dock = DockStyle.Fill;
             lblMotorSettingsEstNegAccel.Location = new Point(3, 91);
             lblMotorSettingsEstNegAccel.Name = "lblMotorSettingsEstNegAccel";
-            lblMotorSettingsEstNegAccel.Size = new Size(138, 20);
+            lblMotorSettingsEstNegAccel.Size = new Size(139, 20);
             lblMotorSettingsEstNegAccel.TabIndex = 22;
             lblMotorSettingsEstNegAccel.Text = "Neg: 0";
             // 
@@ -1687,9 +1698,9 @@
             // 
             btnMotorSettingsApply.Dock = DockStyle.Fill;
             btnMotorSettingsApply.Enabled = false;
-            btnMotorSettingsApply.Location = new Point(309, 114);
+            btnMotorSettingsApply.Location = new Point(312, 114);
             btnMotorSettingsApply.Name = "btnMotorSettingsApply";
-            btnMotorSettingsApply.Size = new Size(121, 46);
+            btnMotorSettingsApply.Size = new Size(122, 46);
             btnMotorSettingsApply.TabIndex = 20;
             btnMotorSettingsApply.Text = "Apply";
             btnMotorSettingsApply.UseVisualStyleBackColor = true;
@@ -1699,9 +1710,9 @@
             // 
             btnMotorSettingsCancel.Dock = DockStyle.Fill;
             btnMotorSettingsCancel.Enabled = false;
-            btnMotorSettingsCancel.Location = new Point(147, 114);
+            btnMotorSettingsCancel.Location = new Point(148, 114);
             btnMotorSettingsCancel.Name = "btnMotorSettingsCancel";
-            btnMotorSettingsCancel.Size = new Size(156, 46);
+            btnMotorSettingsCancel.Size = new Size(158, 46);
             btnMotorSettingsCancel.TabIndex = 19;
             btnMotorSettingsCancel.Text = "Cancel";
             btnMotorSettingsCancel.UseVisualStyleBackColor = true;
@@ -1712,7 +1723,7 @@
             btnMotorSettingsApplyDefault.Enabled = false;
             btnMotorSettingsApplyDefault.Location = new Point(3, 114);
             btnMotorSettingsApplyDefault.Name = "btnMotorSettingsApplyDefault";
-            btnMotorSettingsApplyDefault.Size = new Size(138, 46);
+            btnMotorSettingsApplyDefault.Size = new Size(139, 46);
             btnMotorSettingsApplyDefault.TabIndex = 18;
             btnMotorSettingsApplyDefault.Text = "Apply Default";
             btnMotorSettingsApplyDefault.UseVisualStyleBackColor = true;
@@ -1722,9 +1733,9 @@
             // 
             lblMotorSettingsAccelerationUnits.AutoSize = true;
             lblMotorSettingsAccelerationUnits.Dock = DockStyle.Fill;
-            lblMotorSettingsAccelerationUnits.Location = new Point(309, 91);
+            lblMotorSettingsAccelerationUnits.Location = new Point(312, 91);
             lblMotorSettingsAccelerationUnits.Name = "lblMotorSettingsAccelerationUnits";
-            lblMotorSettingsAccelerationUnits.Size = new Size(121, 20);
+            lblMotorSettingsAccelerationUnits.Size = new Size(122, 20);
             lblMotorSettingsAccelerationUnits.TabIndex = 17;
             lblMotorSettingsAccelerationUnits.Text = "um/s^2 (est.)";
             lblMotorSettingsAccelerationUnits.TextAlign = ContentAlignment.MiddleCenter;
@@ -1733,9 +1744,9 @@
             // 
             lblMotorSettingsEstPosAccel.AutoSize = true;
             lblMotorSettingsEstPosAccel.Dock = DockStyle.Fill;
-            lblMotorSettingsEstPosAccel.Location = new Point(147, 91);
+            lblMotorSettingsEstPosAccel.Location = new Point(148, 91);
             lblMotorSettingsEstPosAccel.Name = "lblMotorSettingsEstPosAccel";
-            lblMotorSettingsEstPosAccel.Size = new Size(156, 20);
+            lblMotorSettingsEstPosAccel.Size = new Size(158, 20);
             lblMotorSettingsEstPosAccel.TabIndex = 16;
             lblMotorSettingsEstPosAccel.Text = "Pos: 0";
             lblMotorSettingsEstPosAccel.TextAlign = ContentAlignment.MiddleCenter;
@@ -1744,9 +1755,9 @@
             // 
             label57.AutoSize = true;
             label57.Dock = DockStyle.Fill;
-            label57.Location = new Point(309, 56);
+            label57.Location = new Point(312, 56);
             label57.Name = "label57";
-            label57.Size = new Size(121, 35);
+            label57.Size = new Size(122, 35);
             label57.TabIndex = 14;
             label57.Text = "steps/s";
             label57.TextAlign = ContentAlignment.MiddleLeft;
@@ -1754,7 +1765,7 @@
             // numMotorSettingsAcceleration
             // 
             numMotorSettingsAcceleration.Anchor = AnchorStyles.None;
-            numMotorSettingsAcceleration.Location = new Point(147, 60);
+            numMotorSettingsAcceleration.Location = new Point(149, 60);
             numMotorSettingsAcceleration.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
             numMotorSettingsAcceleration.Minimum = new decimal(new int[] { -1, 0, 0, int.MinValue });
             numMotorSettingsAcceleration.Name = "numMotorSettingsAcceleration";
@@ -1768,7 +1779,7 @@
             label56.Dock = DockStyle.Fill;
             label56.Location = new Point(3, 56);
             label56.Name = "label56";
-            label56.Size = new Size(138, 35);
+            label56.Size = new Size(139, 35);
             label56.TabIndex = 12;
             label56.Text = "Acceleration:";
             label56.TextAlign = ContentAlignment.MiddleLeft;
@@ -1777,9 +1788,9 @@
             // 
             lblMotorSettingsVelocityUnits.AutoSize = true;
             lblMotorSettingsVelocityUnits.Dock = DockStyle.Fill;
-            lblMotorSettingsVelocityUnits.Location = new Point(309, 36);
+            lblMotorSettingsVelocityUnits.Location = new Point(312, 36);
             lblMotorSettingsVelocityUnits.Name = "lblMotorSettingsVelocityUnits";
-            lblMotorSettingsVelocityUnits.Size = new Size(121, 20);
+            lblMotorSettingsVelocityUnits.Size = new Size(122, 20);
             lblMotorSettingsVelocityUnits.TabIndex = 11;
             lblMotorSettingsVelocityUnits.Text = "um/s (est.)";
             lblMotorSettingsVelocityUnits.TextAlign = ContentAlignment.MiddleCenter;
@@ -1788,9 +1799,9 @@
             // 
             lblMotorSettingsEstPosVel.AutoSize = true;
             lblMotorSettingsEstPosVel.Dock = DockStyle.Fill;
-            lblMotorSettingsEstPosVel.Location = new Point(147, 36);
+            lblMotorSettingsEstPosVel.Location = new Point(148, 36);
             lblMotorSettingsEstPosVel.Name = "lblMotorSettingsEstPosVel";
-            lblMotorSettingsEstPosVel.Size = new Size(156, 20);
+            lblMotorSettingsEstPosVel.Size = new Size(158, 20);
             lblMotorSettingsEstPosVel.TabIndex = 10;
             lblMotorSettingsEstPosVel.Text = "Pos: 0";
             lblMotorSettingsEstPosVel.TextAlign = ContentAlignment.MiddleCenter;
@@ -1799,9 +1810,9 @@
             // 
             label52.AutoSize = true;
             label52.Dock = DockStyle.Fill;
-            label52.Location = new Point(309, 0);
+            label52.Location = new Point(312, 0);
             label52.Name = "label52";
-            label52.Size = new Size(121, 36);
+            label52.Size = new Size(122, 36);
             label52.TabIndex = 8;
             label52.Text = "steps/s";
             label52.TextAlign = ContentAlignment.MiddleLeft;
@@ -1809,7 +1820,7 @@
             // numMotorSettingsVelocity
             // 
             numMotorSettingsVelocity.Anchor = AnchorStyles.None;
-            numMotorSettingsVelocity.Location = new Point(147, 4);
+            numMotorSettingsVelocity.Location = new Point(149, 4);
             numMotorSettingsVelocity.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
             numMotorSettingsVelocity.Minimum = new decimal(new int[] { -1, 0, 0, int.MinValue });
             numMotorSettingsVelocity.Name = "numMotorSettingsVelocity";
@@ -1823,7 +1834,7 @@
             label17.Dock = DockStyle.Fill;
             label17.Location = new Point(3, 0);
             label17.Name = "label17";
-            label17.Size = new Size(138, 36);
+            label17.Size = new Size(139, 36);
             label17.TabIndex = 0;
             label17.Text = "Velocity:";
             label17.TextAlign = ContentAlignment.MiddleLeft;
@@ -1834,7 +1845,7 @@
             lblMotorSettingsEstNegVel.Dock = DockStyle.Fill;
             lblMotorSettingsEstNegVel.Location = new Point(3, 36);
             lblMotorSettingsEstNegVel.Name = "lblMotorSettingsEstNegVel";
-            lblMotorSettingsEstNegVel.Size = new Size(138, 20);
+            lblMotorSettingsEstNegVel.Size = new Size(139, 20);
             lblMotorSettingsEstNegVel.TabIndex = 21;
             lblMotorSettingsEstNegVel.Text = "Neg: 0";
             // 
@@ -1860,15 +1871,17 @@
             groupBox15.Margin = new Padding(3, 4, 3, 4);
             groupBox15.Name = "groupBox15";
             groupBox15.Padding = new Padding(3, 4, 3, 4);
-            groupBox15.Size = new Size(198, 149);
+            groupBox15.Size = new Size(382, 149);
             groupBox15.TabIndex = 7;
             groupBox15.TabStop = false;
             groupBox15.Text = "View";
             // 
             // tableLayoutPanel22
             // 
-            tableLayoutPanel22.ColumnCount = 1;
-            tableLayoutPanel22.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel22.ColumnCount = 2;
+            tableLayoutPanel22.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel22.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel22.Controls.Add(chkPlotViewIndenterForce, 1, 0);
             tableLayoutPanel22.Controls.Add(chkPlotViewIndicator, 0, 2);
             tableLayoutPanel22.Controls.Add(chkPlotViewMotorSteps, 0, 0);
             tableLayoutPanel22.Controls.Add(chkPlotViewMotorCalibration, 0, 1);
@@ -1880,8 +1893,22 @@
             tableLayoutPanel22.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel22.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel22.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel22.Size = new Size(192, 121);
+            tableLayoutPanel22.Size = new Size(376, 121);
             tableLayoutPanel22.TabIndex = 0;
+            // 
+            // chkPlotViewIndenterForce
+            // 
+            chkPlotViewIndenterForce.AutoSize = true;
+            chkPlotViewIndenterForce.Checked = true;
+            chkPlotViewIndenterForce.CheckState = CheckState.Checked;
+            chkPlotViewIndenterForce.Dock = DockStyle.Fill;
+            chkPlotViewIndenterForce.Location = new Point(193, 4);
+            chkPlotViewIndenterForce.Margin = new Padding(3, 4, 3, 4);
+            chkPlotViewIndenterForce.Name = "chkPlotViewIndenterForce";
+            chkPlotViewIndenterForce.Size = new Size(180, 32);
+            chkPlotViewIndenterForce.TabIndex = 7;
+            chkPlotViewIndenterForce.Text = "Indenter Force (mg)";
+            chkPlotViewIndenterForce.UseVisualStyleBackColor = true;
             // 
             // chkPlotViewIndicator
             // 
@@ -1892,7 +1919,7 @@
             chkPlotViewIndicator.Location = new Point(3, 84);
             chkPlotViewIndicator.Margin = new Padding(3, 4, 3, 4);
             chkPlotViewIndicator.Name = "chkPlotViewIndicator";
-            chkPlotViewIndicator.Size = new Size(186, 33);
+            chkPlotViewIndicator.Size = new Size(184, 33);
             chkPlotViewIndicator.TabIndex = 6;
             chkPlotViewIndicator.Text = "Indicator (um)";
             chkPlotViewIndicator.UseVisualStyleBackColor = true;
@@ -1907,7 +1934,7 @@
             chkPlotViewMotorSteps.Location = new Point(3, 4);
             chkPlotViewMotorSteps.Margin = new Padding(3, 4, 3, 4);
             chkPlotViewMotorSteps.Name = "chkPlotViewMotorSteps";
-            chkPlotViewMotorSteps.Size = new Size(186, 32);
+            chkPlotViewMotorSteps.Size = new Size(184, 32);
             chkPlotViewMotorSteps.TabIndex = 4;
             chkPlotViewMotorSteps.Text = "Motor Steps (steps)";
             chkPlotViewMotorSteps.UseVisualStyleBackColor = true;
@@ -1922,7 +1949,7 @@
             chkPlotViewMotorCalibration.Location = new Point(3, 44);
             chkPlotViewMotorCalibration.Margin = new Padding(3, 4, 3, 4);
             chkPlotViewMotorCalibration.Name = "chkPlotViewMotorCalibration";
-            chkPlotViewMotorCalibration.Size = new Size(186, 32);
+            chkPlotViewMotorCalibration.Size = new Size(184, 32);
             chkPlotViewMotorCalibration.TabIndex = 5;
             chkPlotViewMotorCalibration.Text = "Motor Calibration (um)";
             chkPlotViewMotorCalibration.UseVisualStyleBackColor = true;
@@ -1931,7 +1958,7 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(447, 143);
+            label15.Location = new Point(534, 104);
             label15.Name = "label15";
             label15.Size = new Size(28, 20);
             label15.TabIndex = 3;
@@ -1950,7 +1977,7 @@
             // 
             // numPlotInterval
             // 
-            numPlotInterval.Location = new Point(304, 141);
+            numPlotInterval.Location = new Point(391, 102);
             numPlotInterval.Margin = new Padding(3, 4, 3, 4);
             numPlotInterval.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
             numPlotInterval.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
@@ -1963,7 +1990,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(207, 143);
+            label9.Location = new Point(391, 78);
             label9.Name = "label9";
             label9.Size = new Size(91, 20);
             label9.TabIndex = 0;
@@ -1972,9 +1999,9 @@
             // groupBox12
             // 
             groupBox12.Controls.Add(tableLayoutPanel17);
-            groupBox12.Location = new Point(456, 815);
+            groupBox12.Location = new Point(1444, 724);
             groupBox12.Name = "groupBox12";
-            groupBox12.Size = new Size(770, 189);
+            groupBox12.Size = new Size(579, 189);
             groupBox12.TabIndex = 10;
             groupBox12.TabStop = false;
             groupBox12.Text = "Data Collection";
@@ -1993,7 +2020,7 @@
             tableLayoutPanel17.RowStyles.Add(new RowStyle(SizeType.Absolute, 51F));
             tableLayoutPanel17.RowStyles.Add(new RowStyle());
             tableLayoutPanel17.RowStyles.Add(new RowStyle(SizeType.Absolute, 51F));
-            tableLayoutPanel17.Size = new Size(764, 163);
+            tableLayoutPanel17.Size = new Size(573, 163);
             tableLayoutPanel17.TabIndex = 0;
             // 
             // tableLayoutPanel20
@@ -2012,14 +2039,14 @@
             tableLayoutPanel20.Name = "tableLayoutPanel20";
             tableLayoutPanel20.RowCount = 1;
             tableLayoutPanel20.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel20.Size = new Size(758, 56);
+            tableLayoutPanel20.Size = new Size(567, 56);
             tableLayoutPanel20.TabIndex = 2;
             // 
             // btnDataCollect
             // 
             btnDataCollect.Dock = DockStyle.Fill;
             btnDataCollect.Enabled = false;
-            btnDataCollect.Location = new Point(467, 3);
+            btnDataCollect.Location = new Point(276, 3);
             btnDataCollect.Name = "btnDataCollect";
             btnDataCollect.Size = new Size(288, 50);
             btnDataCollect.TabIndex = 8;
@@ -2031,7 +2058,7 @@
             // 
             label62.AutoSize = true;
             label62.Dock = DockStyle.Fill;
-            label62.Location = new Point(433, 0);
+            label62.Location = new Point(242, 0);
             label62.Name = "label62";
             label62.Size = new Size(28, 56);
             label62.TabIndex = 7;
@@ -2057,7 +2084,7 @@
             numDataCollectionRate.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
             numDataCollectionRate.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numDataCollectionRate.Name = "numDataCollectionRate";
-            numDataCollectionRate.Size = new Size(305, 27);
+            numDataCollectionRate.Size = new Size(114, 27);
             numDataCollectionRate.TabIndex = 6;
             numDataCollectionRate.Value = new decimal(new int[] { 100, 0, 0, 0 });
             // 
@@ -2073,7 +2100,7 @@
             tableLayoutPanel19.Name = "tableLayoutPanel19";
             tableLayoutPanel19.RowCount = 1;
             tableLayoutPanel19.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel19.Size = new Size(758, 44);
+            tableLayoutPanel19.Size = new Size(567, 44);
             tableLayoutPanel19.TabIndex = 1;
             // 
             // txtDataFileName
@@ -2081,7 +2108,7 @@
             txtDataFileName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtDataFileName.Location = new Point(88, 8);
             txtDataFileName.Name = "txtDataFileName";
-            txtDataFileName.Size = new Size(667, 27);
+            txtDataFileName.Size = new Size(476, 27);
             txtDataFileName.TabIndex = 5;
             // 
             // label58
@@ -2109,13 +2136,13 @@
             tableLayoutPanel18.Name = "tableLayoutPanel18";
             tableLayoutPanel18.RowCount = 1;
             tableLayoutPanel18.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel18.Size = new Size(758, 45);
+            tableLayoutPanel18.Size = new Size(567, 45);
             tableLayoutPanel18.TabIndex = 0;
             // 
             // btnDataSelectDirectory
             // 
             btnDataSelectDirectory.Dock = DockStyle.Fill;
-            btnDataSelectDirectory.Location = new Point(716, 3);
+            btnDataSelectDirectory.Location = new Point(525, 3);
             btnDataSelectDirectory.Name = "btnDataSelectDirectory";
             btnDataSelectDirectory.Size = new Size(39, 39);
             btnDataSelectDirectory.TabIndex = 5;
@@ -2140,13 +2167,13 @@
             txtDataDirectory.Location = new Point(82, 9);
             txtDataDirectory.Name = "txtDataDirectory";
             txtDataDirectory.ReadOnly = true;
-            txtDataDirectory.Size = new Size(628, 27);
+            txtDataDirectory.Size = new Size(437, 27);
             txtDataDirectory.TabIndex = 4;
             // 
             // groupBox14
             // 
             groupBox14.Controls.Add(tableLayoutPanel21);
-            groupBox14.Location = new Point(1232, 919);
+            groupBox14.Location = new Point(648, 725);
             groupBox14.Name = "groupBox14";
             groupBox14.Size = new Size(275, 85);
             groupBox14.TabIndex = 13;
@@ -2313,10 +2340,10 @@
             // groupBox17
             // 
             groupBox17.Controls.Add(groupBox19);
-            groupBox17.Controls.Add(btnHome);
-            groupBox17.Controls.Add(button1);
+            groupBox17.Controls.Add(btnMicroscopeStageHome);
+            groupBox17.Controls.Add(btnMicroscopeStageHalt);
             groupBox17.Controls.Add(groupBox20);
-            groupBox17.Location = new Point(929, 450);
+            groupBox17.Location = new Point(929, 519);
             groupBox17.Name = "groupBox17";
             groupBox17.Size = new Size(506, 359);
             groupBox17.TabIndex = 16;
@@ -2354,13 +2381,13 @@
             radioButton2.Name = "radioButton2";
             radioButton2.Size = new Size(89, 24);
             radioButton2.TabIndex = 15;
-            radioButton2.TabStop = true;
             radioButton2.Text = "Absolute";
             radioButton2.UseVisualStyleBackColor = true;
             // 
             // radioButton1
             // 
             radioButton1.AutoSize = true;
+            radioButton1.Checked = true;
             radioButton1.Location = new Point(385, 44);
             radioButton1.Name = "radioButton1";
             radioButton1.Size = new Size(83, 24);
@@ -2480,25 +2507,26 @@
             numStageCtrlAbsRelXum.Size = new Size(179, 27);
             numStageCtrlAbsRelXum.TabIndex = 0;
             // 
-            // btnHome
+            // btnMicroscopeStageHome
             // 
-            btnHome.Location = new Point(242, 154);
-            btnHome.Name = "btnHome";
-            btnHome.Size = new Size(258, 67);
-            btnHome.TabIndex = 17;
-            btnHome.Text = "Move Home";
-            btnHome.UseVisualStyleBackColor = true;
+            btnMicroscopeStageHome.Location = new Point(242, 154);
+            btnMicroscopeStageHome.Name = "btnMicroscopeStageHome";
+            btnMicroscopeStageHome.Size = new Size(258, 67);
+            btnMicroscopeStageHome.TabIndex = 17;
+            btnMicroscopeStageHome.Text = "Move Home";
+            btnMicroscopeStageHome.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnMicroscopeStageHalt
             // 
-            button1.Enabled = false;
-            button1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold);
-            button1.Location = new Point(242, 26);
-            button1.Name = "button1";
-            button1.Size = new Size(258, 122);
-            button1.TabIndex = 16;
-            button1.Text = "STOP MICROSCOPE STAGE MOTION";
-            button1.UseVisualStyleBackColor = true;
+            btnMicroscopeStageHalt.Enabled = false;
+            btnMicroscopeStageHalt.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold);
+            btnMicroscopeStageHalt.Location = new Point(242, 26);
+            btnMicroscopeStageHalt.Name = "btnMicroscopeStageHalt";
+            btnMicroscopeStageHalt.Size = new Size(258, 122);
+            btnMicroscopeStageHalt.TabIndex = 16;
+            btnMicroscopeStageHalt.Text = "STOP MICROSCOPE STAGE MOTION";
+            btnMicroscopeStageHalt.UseVisualStyleBackColor = true;
+            btnMicroscopeStageHalt.Click += btnMicroscopeStageHalt_Click;
             // 
             // groupBox20
             // 
@@ -2652,53 +2680,117 @@
             groupBox18.Controls.Add(tableLayoutPanel24);
             groupBox18.Location = new Point(929, 324);
             groupBox18.Name = "groupBox18";
-            groupBox18.Size = new Size(506, 120);
+            groupBox18.Size = new Size(506, 189);
             groupBox18.TabIndex = 17;
             groupBox18.TabStop = false;
             groupBox18.Text = "Indenter Settings";
             // 
             // tableLayoutPanel24
             // 
-            tableLayoutPanel24.ColumnCount = 3;
+            tableLayoutPanel24.ColumnCount = 4;
+            tableLayoutPanel24.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel24.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel24.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel24.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel24.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel24.Controls.Add(numIndenterSettingsOffset_mg, 1, 0);
-            tableLayoutPanel24.Controls.Add(numIndenterSettingsProbeWeight_mg, 1, 1);
+            tableLayoutPanel24.Controls.Add(btnIndenterCalWithProbe, 3, 1);
+            tableLayoutPanel24.Controls.Add(label54, 2, 2);
+            tableLayoutPanel24.Controls.Add(numIndenterSettingsCalProbeWeight, 1, 2);
+            tableLayoutPanel24.Controls.Add(label46, 0, 2);
+            tableLayoutPanel24.Controls.Add(numIndenterSettingsCalNoProbe, 1, 0);
+            tableLayoutPanel24.Controls.Add(numIndenterSettingsCalWithProbe, 1, 1);
             tableLayoutPanel24.Controls.Add(label5, 2, 1);
             tableLayoutPanel24.Controls.Add(label25, 0, 1);
             tableLayoutPanel24.Controls.Add(label27, 2, 0);
             tableLayoutPanel24.Controls.Add(label31, 0, 0);
+            tableLayoutPanel24.Controls.Add(btnIndenterSettingsCalibrate, 1, 3);
+            tableLayoutPanel24.Controls.Add(btnIndenterSettingsCalNoProbe, 3, 0);
             tableLayoutPanel24.Dock = DockStyle.Fill;
             tableLayoutPanel24.Location = new Point(3, 23);
             tableLayoutPanel24.Name = "tableLayoutPanel24";
-            tableLayoutPanel24.RowCount = 2;
-            tableLayoutPanel24.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel24.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel24.Size = new Size(500, 94);
+            tableLayoutPanel24.RowCount = 4;
+            tableLayoutPanel24.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel24.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel24.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel24.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel24.Size = new Size(500, 163);
             tableLayoutPanel24.TabIndex = 0;
             // 
-            // numIndenterSettingsOffset_mg
+            // btnIndenterCalWithProbe
             // 
-            numIndenterSettingsOffset_mg.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            numIndenterSettingsOffset_mg.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            numIndenterSettingsOffset_mg.Location = new Point(111, 10);
-            numIndenterSettingsOffset_mg.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
-            numIndenterSettingsOffset_mg.Minimum = new decimal(new int[] { -1, 0, 0, int.MinValue });
-            numIndenterSettingsOffset_mg.Name = "numIndenterSettingsOffset_mg";
-            numIndenterSettingsOffset_mg.Size = new Size(317, 27);
-            numIndenterSettingsOffset_mg.TabIndex = 10;
+            btnIndenterCalWithProbe.Dock = DockStyle.Fill;
+            btnIndenterCalWithProbe.Enabled = false;
+            btnIndenterCalWithProbe.Location = new Point(403, 43);
+            btnIndenterCalWithProbe.Name = "btnIndenterCalWithProbe";
+            btnIndenterCalWithProbe.Size = new Size(94, 34);
+            btnIndenterCalWithProbe.TabIndex = 16;
+            btnIndenterCalWithProbe.Text = "Get";
+            btnIndenterCalWithProbe.UseVisualStyleBackColor = true;
+            btnIndenterCalWithProbe.Click += btnIndenterCalWithProbe_Click;
             // 
-            // numIndenterSettingsProbeWeight_mg
+            // label54
             // 
-            numIndenterSettingsProbeWeight_mg.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            numIndenterSettingsProbeWeight_mg.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            numIndenterSettingsProbeWeight_mg.Location = new Point(111, 57);
-            numIndenterSettingsProbeWeight_mg.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
-            numIndenterSettingsProbeWeight_mg.Minimum = new decimal(new int[] { -1, 0, 0, int.MinValue });
-            numIndenterSettingsProbeWeight_mg.Name = "numIndenterSettingsProbeWeight_mg";
-            numIndenterSettingsProbeWeight_mg.Size = new Size(317, 27);
-            numIndenterSettingsProbeWeight_mg.TabIndex = 9;
+            label54.AutoSize = true;
+            label54.BackColor = Color.Transparent;
+            label54.Dock = DockStyle.Fill;
+            label54.Font = new Font("Segoe UI", 9F);
+            label54.Location = new Point(366, 80);
+            label54.Name = "label54";
+            label54.Size = new Size(31, 40);
+            label54.TabIndex = 13;
+            label54.Text = "mg";
+            label54.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // numIndenterSettingsCalProbeWeight
+            // 
+            numIndenterSettingsCalProbeWeight.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            numIndenterSettingsCalProbeWeight.DecimalPlaces = 4;
+            numIndenterSettingsCalProbeWeight.Enabled = false;
+            numIndenterSettingsCalProbeWeight.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+            numIndenterSettingsCalProbeWeight.Location = new Point(124, 86);
+            numIndenterSettingsCalProbeWeight.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
+            numIndenterSettingsCalProbeWeight.Minimum = new decimal(new int[] { -1, 0, 0, int.MinValue });
+            numIndenterSettingsCalProbeWeight.Name = "numIndenterSettingsCalProbeWeight";
+            numIndenterSettingsCalProbeWeight.Size = new Size(236, 27);
+            numIndenterSettingsCalProbeWeight.TabIndex = 12;
+            // 
+            // label46
+            // 
+            label46.AutoSize = true;
+            label46.BackColor = Color.Transparent;
+            label46.Dock = DockStyle.Fill;
+            label46.Font = new Font("Segoe UI", 9F);
+            label46.Location = new Point(3, 80);
+            label46.Name = "label46";
+            label46.Size = new Size(115, 40);
+            label46.TabIndex = 11;
+            label46.Text = "Probe Weight:";
+            label46.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // numIndenterSettingsCalNoProbe
+            // 
+            numIndenterSettingsCalNoProbe.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            numIndenterSettingsCalNoProbe.DecimalPlaces = 4;
+            numIndenterSettingsCalNoProbe.Enabled = false;
+            numIndenterSettingsCalNoProbe.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+            numIndenterSettingsCalNoProbe.Location = new Point(124, 6);
+            numIndenterSettingsCalNoProbe.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
+            numIndenterSettingsCalNoProbe.Minimum = new decimal(new int[] { -1, 0, 0, int.MinValue });
+            numIndenterSettingsCalNoProbe.Name = "numIndenterSettingsCalNoProbe";
+            numIndenterSettingsCalNoProbe.Size = new Size(236, 27);
+            numIndenterSettingsCalNoProbe.TabIndex = 10;
+            // 
+            // numIndenterSettingsCalWithProbe
+            // 
+            numIndenterSettingsCalWithProbe.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            numIndenterSettingsCalWithProbe.DecimalPlaces = 4;
+            numIndenterSettingsCalWithProbe.Enabled = false;
+            numIndenterSettingsCalWithProbe.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+            numIndenterSettingsCalWithProbe.Location = new Point(124, 46);
+            numIndenterSettingsCalWithProbe.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
+            numIndenterSettingsCalWithProbe.Minimum = new decimal(new int[] { -1, 0, 0, int.MinValue });
+            numIndenterSettingsCalWithProbe.Name = "numIndenterSettingsCalWithProbe";
+            numIndenterSettingsCalWithProbe.Size = new Size(236, 27);
+            numIndenterSettingsCalWithProbe.TabIndex = 9;
             // 
             // label5
             // 
@@ -2706,9 +2798,9 @@
             label5.BackColor = Color.Transparent;
             label5.Dock = DockStyle.Fill;
             label5.Font = new Font("Segoe UI", 9F);
-            label5.Location = new Point(434, 47);
+            label5.Location = new Point(366, 40);
             label5.Name = "label5";
-            label5.Size = new Size(63, 47);
+            label5.Size = new Size(31, 40);
             label5.TabIndex = 8;
             label5.Text = "mg";
             label5.TextAlign = ContentAlignment.MiddleLeft;
@@ -2719,11 +2811,11 @@
             label25.BackColor = Color.Transparent;
             label25.Dock = DockStyle.Fill;
             label25.Font = new Font("Segoe UI", 9F);
-            label25.Location = new Point(3, 47);
+            label25.Location = new Point(3, 40);
             label25.Name = "label25";
-            label25.Size = new Size(102, 47);
+            label25.Size = new Size(115, 40);
             label25.TabIndex = 6;
-            label25.Text = "Probe Weight:";
+            label25.Text = "Raw with Probe:";
             label25.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label27
@@ -2732,9 +2824,9 @@
             label27.BackColor = Color.Transparent;
             label27.Dock = DockStyle.Fill;
             label27.Font = new Font("Segoe UI", 9F);
-            label27.Location = new Point(434, 0);
+            label27.Location = new Point(366, 0);
             label27.Name = "label27";
-            label27.Size = new Size(63, 47);
+            label27.Size = new Size(31, 40);
             label27.TabIndex = 5;
             label27.Text = "mg";
             label27.TextAlign = ContentAlignment.MiddleLeft;
@@ -2747,10 +2839,34 @@
             label31.Font = new Font("Segoe UI", 9F);
             label31.Location = new Point(3, 0);
             label31.Name = "label31";
-            label31.Size = new Size(102, 47);
+            label31.Size = new Size(115, 40);
             label31.TabIndex = 3;
-            label31.Text = "Offset:";
+            label31.Text = "Raw w/o Probe:";
             label31.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // btnIndenterSettingsCalibrate
+            // 
+            btnIndenterSettingsCalibrate.Dock = DockStyle.Fill;
+            btnIndenterSettingsCalibrate.Enabled = false;
+            btnIndenterSettingsCalibrate.Location = new Point(124, 123);
+            btnIndenterSettingsCalibrate.Name = "btnIndenterSettingsCalibrate";
+            btnIndenterSettingsCalibrate.Size = new Size(236, 37);
+            btnIndenterSettingsCalibrate.TabIndex = 14;
+            btnIndenterSettingsCalibrate.Text = "Calibrate";
+            btnIndenterSettingsCalibrate.UseVisualStyleBackColor = true;
+            btnIndenterSettingsCalibrate.Click += btnIndenterSettingsCalibrate_Click;
+            // 
+            // btnIndenterSettingsCalNoProbe
+            // 
+            btnIndenterSettingsCalNoProbe.Dock = DockStyle.Fill;
+            btnIndenterSettingsCalNoProbe.Enabled = false;
+            btnIndenterSettingsCalNoProbe.Location = new Point(403, 3);
+            btnIndenterSettingsCalNoProbe.Name = "btnIndenterSettingsCalNoProbe";
+            btnIndenterSettingsCalNoProbe.Size = new Size(94, 34);
+            btnIndenterSettingsCalNoProbe.TabIndex = 15;
+            btnIndenterSettingsCalNoProbe.Text = "Get";
+            btnIndenterSettingsCalNoProbe.UseVisualStyleBackColor = true;
+            btnIndenterSettingsCalNoProbe.Click += btnIndenterSettingsCalNoProbe_Click;
             // 
             // groupBox21
             // 
@@ -2904,11 +3020,26 @@
             label55.Text = "X:";
             label55.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // tmrMicroscopeDisplayUpdate
+            // 
+            tmrMicroscopeDisplayUpdate.Interval = 1;
+            tmrMicroscopeDisplayUpdate.Tick += tmrMicroscopeDisplayUpdate_Tick;
+            // 
+            // tmrIndenterDisplayUpdate
+            // 
+            tmrIndenterDisplayUpdate.Interval = 1;
+            tmrIndenterDisplayUpdate.Tick += tmrIndenterDisplayUpdate_Tick;
+            // 
+            // tmrAverageIndenterValues
+            // 
+            tmrAverageIndenterValues.Interval = 10;
+            tmrAverageIndenterValues.Tick += tmrAverageIndenterValues_Tick;
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(2031, 1038);
+            ClientSize = new Size(2031, 947);
             Controls.Add(groupBox21);
             Controls.Add(groupBox18);
             Controls.Add(groupBox17);
@@ -3006,8 +3137,9 @@
             groupBox18.ResumeLayout(false);
             tableLayoutPanel24.ResumeLayout(false);
             tableLayoutPanel24.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numIndenterSettingsOffset_mg).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numIndenterSettingsProbeWeight_mg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numIndenterSettingsCalProbeWeight).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numIndenterSettingsCalNoProbe).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numIndenterSettingsCalWithProbe).EndInit();
             groupBox21.ResumeLayout(false);
             tableLayoutPanel26.ResumeLayout(false);
             tableLayoutPanel26.PerformLayout();
@@ -3185,8 +3317,8 @@
         private GroupBox groupBox17;
         private GroupBox groupBox18;
         private TableLayoutPanel tableLayoutPanel24;
-        private NumericUpDown numIndenterSettingsOffset_mg;
-        private NumericUpDown numIndenterSettingsProbeWeight_mg;
+        private NumericUpDown numIndenterSettingsCalNoProbe;
+        private NumericUpDown numIndenterSettingsCalWithProbe;
         private Label label5;
         private Label label25;
         private Label label27;
@@ -3201,8 +3333,8 @@
         private NumericUpDown numStageCtrlAbsRelYum;
         private Label label40;
         private NumericUpDown numStageCtrlAbsRelXum;
-        private Button btnHome;
-        private Button button1;
+        private Button btnMicroscopeStageHome;
+        private Button btnMicroscopeStageHalt;
         private GroupBox groupBox20;
         private TableLayoutPanel tableLayoutPanel25;
         private Button btnStageCtrlRunZUp;
@@ -3232,5 +3364,17 @@
         private Label label51;
         private Label lblMicroscopeStageDisplayX_mm;
         private Label label55;
+        private System.Windows.Forms.Timer tmrMicroscopeDisplayUpdate;
+        private System.Windows.Forms.Timer tmrIndenterDisplayUpdate;
+        private Label label54;
+        private NumericUpDown numIndenterSettingsCalProbeWeight;
+        private Label label46;
+        private Button btnIndenterSettingsCalibrate;
+        private Button btnIndenterCalWithProbe;
+        private Button btnIndenterSettingsCalNoProbe;
+        private System.Windows.Forms.Timer tmrAverageIndenterValues;
+        private CheckBox checkBox3;
+        private CheckBox checkBox2;
+        private CheckBox chkPlotViewIndenterForce;
     }
 }

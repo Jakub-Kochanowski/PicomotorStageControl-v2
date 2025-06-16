@@ -14,7 +14,7 @@ namespace PicomotorStageControl_v2
         private volatile bool running = true;
         public bool Connected { get; private set; }
 
-        public event Action<double, double, double>? OnPositionUpdated;
+        //public event Action<double, double, double>? OnPositionUpdated;
         public double[] CurrentPosition { get; private set; } = new double[3]; // X, Y, Z
 
         public MicroscopeStageController(string portName, int baudRate = 9600)
@@ -59,10 +59,10 @@ namespace PicomotorStageControl_v2
                                 double.TryParse(tokens[2], out double y) &&
                                 double.TryParse(tokens[3], out double z))
                             {
-                                OnPositionUpdated?.Invoke(x, y, z);
-                                this.CurrentPosition[0] = x;
-                                this.CurrentPosition[1] = y;
-                                this.CurrentPosition[2] = z;
+                                //OnPositionUpdated?.Invoke(x, y, z);
+                                this.CurrentPosition[0] = x / 10000.0D;
+                                this.CurrentPosition[1] = y / 10000.0D;
+                                this.CurrentPosition[2] = z / 10000.0D;
                             }
                         }
                     }
