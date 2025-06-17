@@ -197,16 +197,16 @@
             label22 = new Label();
             groupBox17 = new GroupBox();
             groupBox19 = new GroupBox();
-            radioButton2 = new RadioButton();
-            radioButton1 = new RadioButton();
-            button5 = new Button();
-            button4 = new Button();
+            radStageCtrlAbsolute = new RadioButton();
+            radStageCtrlRelative = new RadioButton();
+            numStageCtrlAllGo = new Button();
+            numStageCtrlZGo = new Button();
             label21 = new Label();
             label28 = new Label();
-            button3 = new Button();
+            numStageCtrlYGo = new Button();
             label34 = new Label();
             label37 = new Label();
-            button2 = new Button();
+            numStageCtrlXGo = new Button();
             numStageCtrlAbsRelZum = new NumericUpDown();
             label39 = new Label();
             numStageCtrlAbsRelYum = new NumericUpDown();
@@ -320,7 +320,7 @@
             // groupBox6
             // 
             groupBox6.Controls.Add(tableLayoutPanel6);
-            groupBox6.Location = new Point(11, 35);
+            groupBox6.Location = new Point(12, 35);
             groupBox6.Name = "groupBox6";
             groupBox6.Size = new Size(443, 683);
             groupBox6.TabIndex = 1;
@@ -1644,7 +1644,7 @@
             // groupBox9
             // 
             groupBox9.Controls.Add(tableLayoutPanel16);
-            groupBox9.Location = new Point(11, 724);
+            groupBox9.Location = new Point(12, 724);
             groupBox9.Name = "groupBox9";
             groupBox9.Size = new Size(443, 189);
             groupBox9.TabIndex = 7;
@@ -1958,7 +1958,7 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(534, 104);
+            label15.Location = new Point(544, 104);
             label15.Name = "label15";
             label15.Size = new Size(28, 20);
             label15.TabIndex = 3;
@@ -1966,10 +1966,10 @@
             // 
             // btnPlotClear
             // 
-            btnPlotClear.Location = new Point(482, 137);
+            btnPlotClear.Location = new Point(391, 137);
             btnPlotClear.Margin = new Padding(3, 4, 3, 4);
             btnPlotClear.Name = "btnPlotClear";
-            btnPlotClear.Size = new Size(86, 31);
+            btnPlotClear.Size = new Size(181, 31);
             btnPlotClear.TabIndex = 2;
             btnPlotClear.Text = "Clear Plot";
             btnPlotClear.UseVisualStyleBackColor = true;
@@ -1982,7 +1982,7 @@
             numPlotInterval.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
             numPlotInterval.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numPlotInterval.Name = "numPlotInterval";
-            numPlotInterval.Size = new Size(137, 27);
+            numPlotInterval.Size = new Size(147, 27);
             numPlotInterval.TabIndex = 1;
             numPlotInterval.Value = new decimal(new int[] { 10, 0, 0, 0 });
             numPlotInterval.ValueChanged += numPlotInterval_ValueChanged;
@@ -2173,7 +2173,7 @@
             // groupBox14
             // 
             groupBox14.Controls.Add(tableLayoutPanel21);
-            groupBox14.Location = new Point(648, 725);
+            groupBox14.Location = new Point(461, 725);
             groupBox14.Name = "groupBox14";
             groupBox14.Size = new Size(275, 85);
             groupBox14.TabIndex = 13;
@@ -2352,16 +2352,16 @@
             // 
             // groupBox19
             // 
-            groupBox19.Controls.Add(radioButton2);
-            groupBox19.Controls.Add(radioButton1);
-            groupBox19.Controls.Add(button5);
-            groupBox19.Controls.Add(button4);
+            groupBox19.Controls.Add(radStageCtrlAbsolute);
+            groupBox19.Controls.Add(radStageCtrlRelative);
+            groupBox19.Controls.Add(numStageCtrlAllGo);
+            groupBox19.Controls.Add(numStageCtrlZGo);
             groupBox19.Controls.Add(label21);
             groupBox19.Controls.Add(label28);
-            groupBox19.Controls.Add(button3);
+            groupBox19.Controls.Add(numStageCtrlYGo);
             groupBox19.Controls.Add(label34);
             groupBox19.Controls.Add(label37);
-            groupBox19.Controls.Add(button2);
+            groupBox19.Controls.Add(numStageCtrlXGo);
             groupBox19.Controls.Add(numStageCtrlAbsRelZum);
             groupBox19.Controls.Add(label39);
             groupBox19.Controls.Add(numStageCtrlAbsRelYum);
@@ -2374,45 +2374,47 @@
             groupBox19.TabStop = false;
             groupBox19.Text = "Absolute/Relative";
             // 
-            // radioButton2
+            // radStageCtrlAbsolute
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Location = new Point(385, 74);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(89, 24);
-            radioButton2.TabIndex = 15;
-            radioButton2.Text = "Absolute";
-            radioButton2.UseVisualStyleBackColor = true;
+            radStageCtrlAbsolute.AutoSize = true;
+            radStageCtrlAbsolute.Location = new Point(385, 74);
+            radStageCtrlAbsolute.Name = "radStageCtrlAbsolute";
+            radStageCtrlAbsolute.Size = new Size(89, 24);
+            radStageCtrlAbsolute.TabIndex = 15;
+            radStageCtrlAbsolute.Text = "Absolute";
+            radStageCtrlAbsolute.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // radStageCtrlRelative
             // 
-            radioButton1.AutoSize = true;
-            radioButton1.Checked = true;
-            radioButton1.Location = new Point(385, 44);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(83, 24);
-            radioButton1.TabIndex = 14;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Relative";
-            radioButton1.UseVisualStyleBackColor = true;
+            radStageCtrlRelative.AutoSize = true;
+            radStageCtrlRelative.Checked = true;
+            radStageCtrlRelative.Location = new Point(385, 44);
+            radStageCtrlRelative.Name = "radStageCtrlRelative";
+            radStageCtrlRelative.Size = new Size(83, 24);
+            radStageCtrlRelative.TabIndex = 14;
+            radStageCtrlRelative.TabStop = true;
+            radStageCtrlRelative.Text = "Relative";
+            radStageCtrlRelative.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // numStageCtrlAllGo
             // 
-            button5.Location = new Point(303, 24);
-            button5.Name = "button5";
-            button5.Size = new Size(70, 94);
-            button5.TabIndex = 13;
-            button5.Text = "Go";
-            button5.UseVisualStyleBackColor = true;
+            numStageCtrlAllGo.Location = new Point(303, 24);
+            numStageCtrlAllGo.Name = "numStageCtrlAllGo";
+            numStageCtrlAllGo.Size = new Size(70, 94);
+            numStageCtrlAllGo.TabIndex = 13;
+            numStageCtrlAllGo.Text = "Go";
+            numStageCtrlAllGo.UseVisualStyleBackColor = true;
+            numStageCtrlAllGo.Click += numStageCtrlAllGo_Click;
             // 
-            // button4
+            // numStageCtrlZGo
             // 
-            button4.Location = new Point(254, 89);
-            button4.Name = "button4";
-            button4.Size = new Size(43, 29);
-            button4.TabIndex = 12;
-            button4.Text = "Go";
-            button4.UseVisualStyleBackColor = true;
+            numStageCtrlZGo.Location = new Point(254, 89);
+            numStageCtrlZGo.Name = "numStageCtrlZGo";
+            numStageCtrlZGo.Size = new Size(43, 29);
+            numStageCtrlZGo.TabIndex = 12;
+            numStageCtrlZGo.Text = "Go";
+            numStageCtrlZGo.UseVisualStyleBackColor = true;
+            numStageCtrlZGo.Click += numStageCtrlZGo_Click;
             // 
             // label21
             // 
@@ -2432,14 +2434,15 @@
             label28.TabIndex = 6;
             label28.Text = "um";
             // 
-            // button3
+            // numStageCtrlYGo
             // 
-            button3.Location = new Point(254, 57);
-            button3.Name = "button3";
-            button3.Size = new Size(43, 29);
-            button3.TabIndex = 11;
-            button3.Text = "Go";
-            button3.UseVisualStyleBackColor = true;
+            numStageCtrlYGo.Location = new Point(254, 57);
+            numStageCtrlYGo.Name = "numStageCtrlYGo";
+            numStageCtrlYGo.Size = new Size(43, 29);
+            numStageCtrlYGo.TabIndex = 11;
+            numStageCtrlYGo.Text = "Go";
+            numStageCtrlYGo.UseVisualStyleBackColor = true;
+            numStageCtrlYGo.Click += numStageCtrlYGo_Click;
             // 
             // label34
             // 
@@ -2459,18 +2462,23 @@
             label37.TabIndex = 5;
             label37.Text = "Z:";
             // 
-            // button2
+            // numStageCtrlXGo
             // 
-            button2.Location = new Point(254, 24);
-            button2.Name = "button2";
-            button2.Size = new Size(43, 29);
-            button2.TabIndex = 10;
-            button2.Text = "Go";
-            button2.UseVisualStyleBackColor = true;
+            numStageCtrlXGo.Location = new Point(254, 24);
+            numStageCtrlXGo.Name = "numStageCtrlXGo";
+            numStageCtrlXGo.Size = new Size(43, 29);
+            numStageCtrlXGo.TabIndex = 10;
+            numStageCtrlXGo.Text = "Go";
+            numStageCtrlXGo.UseVisualStyleBackColor = true;
+            numStageCtrlXGo.Click += numStageCtrlXGo_Click;
             // 
             // numStageCtrlAbsRelZum
             // 
+            numStageCtrlAbsRelZum.DecimalPlaces = 2;
+            numStageCtrlAbsRelZum.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
             numStageCtrlAbsRelZum.Location = new Point(33, 91);
+            numStageCtrlAbsRelZum.Maximum = new decimal(new int[] { 99999999, 0, 0, 0 });
+            numStageCtrlAbsRelZum.Minimum = new decimal(new int[] { 99999999, 0, 0, int.MinValue });
             numStageCtrlAbsRelZum.Name = "numStageCtrlAbsRelZum";
             numStageCtrlAbsRelZum.Size = new Size(179, 27);
             numStageCtrlAbsRelZum.TabIndex = 4;
@@ -2486,7 +2494,11 @@
             // 
             // numStageCtrlAbsRelYum
             // 
+            numStageCtrlAbsRelYum.DecimalPlaces = 2;
+            numStageCtrlAbsRelYum.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
             numStageCtrlAbsRelYum.Location = new Point(33, 59);
+            numStageCtrlAbsRelYum.Maximum = new decimal(new int[] { 99999999, 0, 0, 0 });
+            numStageCtrlAbsRelYum.Minimum = new decimal(new int[] { 99999999, 0, 0, int.MinValue });
             numStageCtrlAbsRelYum.Name = "numStageCtrlAbsRelYum";
             numStageCtrlAbsRelYum.Size = new Size(179, 27);
             numStageCtrlAbsRelYum.TabIndex = 2;
@@ -2502,7 +2514,11 @@
             // 
             // numStageCtrlAbsRelXum
             // 
+            numStageCtrlAbsRelXum.DecimalPlaces = 2;
+            numStageCtrlAbsRelXum.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
             numStageCtrlAbsRelXum.Location = new Point(33, 26);
+            numStageCtrlAbsRelXum.Maximum = new decimal(new int[] { 99999999, 0, 0, 0 });
+            numStageCtrlAbsRelXum.Minimum = new decimal(new int[] { 99999999, 0, 0, int.MinValue });
             numStageCtrlAbsRelXum.Name = "numStageCtrlAbsRelXum";
             numStageCtrlAbsRelXum.Size = new Size(179, 27);
             numStageCtrlAbsRelXum.TabIndex = 0;
@@ -2515,10 +2531,10 @@
             btnMicroscopeStageHome.TabIndex = 17;
             btnMicroscopeStageHome.Text = "Move Home";
             btnMicroscopeStageHome.UseVisualStyleBackColor = true;
+            btnMicroscopeStageHome.Click += btnMicroscopeStageHome_Click;
             // 
             // btnMicroscopeStageHalt
             // 
-            btnMicroscopeStageHalt.Enabled = false;
             btnMicroscopeStageHalt.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold);
             btnMicroscopeStageHalt.Location = new Point(242, 26);
             btnMicroscopeStageHalt.Name = "btnMicroscopeStageHalt";
@@ -3347,12 +3363,12 @@
         private Button btnStageCtrlRunYUp;
         private Button btnStageCtrlRunXRight;
         private Button btnStageCtrlRunXLeft;
-        private Button button4;
-        private Button button3;
-        private Button button2;
-        private Button button5;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
+        private Button numStageCtrlZGo;
+        private Button numStageCtrlYGo;
+        private Button numStageCtrlXGo;
+        private Button numStageCtrlAllGo;
+        private RadioButton radStageCtrlAbsolute;
+        private RadioButton radStageCtrlRelative;
         private GroupBox groupBox21;
         private TableLayoutPanel tableLayoutPanel26;
         private Label label59;

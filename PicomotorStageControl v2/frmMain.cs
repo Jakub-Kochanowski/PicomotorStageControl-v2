@@ -640,6 +640,7 @@ namespace PicomotorStageControl_v2
             LoggerMotorSteps.Clear();
             LoggerMotorCalibrationMicrons.Clear();
             LoggerIndicatorMicrons.Clear();
+            LoggerIndenterForce_mg.Clear();
         }
 
         private void chkPlotViewMotorSteps_CheckedChanged(object sender, EventArgs e)
@@ -946,6 +947,9 @@ namespace PicomotorStageControl_v2
 
         private void tmrIndenterDisplayUpdate_Tick(object sender, EventArgs e)
         {
+            if (this.IndenterController == null || this.MicroscopeStageController.Connected == false)
+                return;
+
             lblIndenterDisplayForcemg.Text = Math.Round(this.IndenterController.IndenterForce_mg, 3).ToString();
             lblIndenterDisplayForceN.Text = Math.Round(this.IndenterController.IndenterForce_N, 2).ToString();
         }
@@ -962,7 +966,7 @@ namespace PicomotorStageControl_v2
 
         private void btnIndenterSettingsCalNoProbe_Click(object sender, EventArgs e)
         {
-            if (this.IndenterController == null)
+            if (this.IndenterController == null || this.IndenterController.Connected == false)
                 return;
 
             indenterCal_calOption = 0;
@@ -987,6 +991,9 @@ namespace PicomotorStageControl_v2
 
         private void tmrAverageIndenterValues_Tick(object sender, EventArgs e)
         {
+            if (this.IndenterController == null)
+                return;
+
             indenterCal_sampleSum += this.IndenterController.RawIndenterValue;
             indenterCal_sampleCount++;
             if (indenterCal_sampleCount >= indenterCal_totalSamples)
@@ -1000,6 +1007,85 @@ namespace PicomotorStageControl_v2
                 {
                     this.numIndenterSettingsCalWithProbe.Value = (decimal)(indenterCal_sampleSum / indenterCal_sampleCount) / 100.0M;
                 }
+            }
+        }
+
+        private void btnMicroscopeStageHome_Click(object sender, EventArgs e)
+        {
+            if (this.MicroscopeStageController == null || this.MicroscopeStageController.Connected == false)
+                return;
+
+            MicroscopeStageController.SendCommand("! X Y Z");
+        }
+
+        private void numStageCtrlXGo_Click(object sender, EventArgs e)
+        {
+            if (this.MicroscopeStageController == null || this.MicroscopeStageController.Connected == false)
+                return;
+
+            decimal value = this.numStageCtrlAbsRelXum.Value * 10.0M;
+
+            if (this.radStageCtrlAbsolute.Checked)
+            {
+                this.MicroscopeStageController.SendCommand("R X=" + value.ToString());
+            }
+            else if (this.radStageCtrlRelative.Checked)
+            {
+                this.MicroscopeStageController.SendCommand("M X=" + value.ToString());
+            }
+        }
+
+        private void numStageCtrlYGo_Click(object sender, EventArgs e)
+        {
+            if (this.MicroscopeStageController == null || this.MicroscopeStageController.Connected == false)
+                return;
+
+            decimal value = this.numStageCtrlAbsRelYum.Value * 10.0M;
+
+            if (this.radStageCtrlAbsolute.Checked)
+            {
+                this.MicroscopeStageController.SendCommand("R Y=" + value.ToString());
+            }
+            else if (this.radStageCtrlRelative.Checked)
+            {
+                this.MicroscopeStageController.SendCommand("M Y=" + value.ToString());
+            }
+        }
+
+        private void numStageCtrlZGo_Click(object sender, EventArgs e)
+        {
+            if (this.MicroscopeStageController == null || this.MicroscopeStageController.Connected == false)
+                return;
+
+            decimal value = this.numStageCtrlAbsRelZum.Value * 10.0M;
+
+            if (this.radStageCtrlAbsolute.Checked)
+            {
+                this.MicroscopeStageController.SendCommand("R Z=" + value.ToString());
+            }
+            else if (this.radStageCtrlRelative.Checked)
+            {
+                this.MicroscopeStageController.SendCommand("M Z=" + value.ToString());
+            }
+        }
+
+        private void numStageCtrlAllGo_Click(object sender, EventArgs e)
+        {
+            if (this.MicroscopeStageController == null || this.MicroscopeStageController.Connected == false)
+                return;
+            
+            decimal x = this.numStageCtrlAbsRelXum.Value * 10.0M;
+            decimal y = this.numStageCtrlAbsRelYum.Value * 10.0M;
+            decimal z = this.numStageCtrlAbsRelZum.Value * 10.0M;
+
+
+            if (this.radStageCtrlAbsolute.Checked)
+            {
+                this.MicroscopeStageController.SendCommand("R X=" + x.ToString() + "Y=" + y.ToString() + "Z=" + z.ToString());
+            }
+            else if (this.radStageCtrlRelative.Checked)
+            {
+                this.MicroscopeStageController.SendCommand("M X=" + x.ToString() + "Y=" + y.ToString() + "Z=" + z.ToString());
             }
         }
     }
