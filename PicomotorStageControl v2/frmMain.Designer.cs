@@ -109,9 +109,9 @@
             stripConnectIndenter = new ToolStripMenuItem();
             allToolStripMenuItem = new ToolStripMenuItem();
             stripSettings = new ToolStripMenuItem();
-            stripAbout = new ToolStripMenuItem();
             openSequenceEditorToolStripMenuItem = new ToolStripMenuItem();
             openPlotToolStripMenuItem = new ToolStripMenuItem();
+            stripAbout = new ToolStripMenuItem();
             groupBox2 = new GroupBox();
             btnStopAllMotion = new Button();
             groupBox4 = new GroupBox();
@@ -1108,7 +1108,7 @@
             statusStrip1.Location = new Point(0, 924);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.RenderMode = ToolStripRenderMode.Professional;
-            statusStrip1.Size = new Size(1444, 26);
+            statusStrip1.Size = new Size(1814, 26);
             statusStrip1.SizingGrip = false;
             statusStrip1.TabIndex = 4;
             statusStrip1.Text = "statusStrip1";
@@ -1206,7 +1206,7 @@
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(6, 3, 0, 3);
-            menuStrip1.Size = new Size(1444, 30);
+            menuStrip1.Size = new Size(1814, 30);
             menuStrip1.TabIndex = 5;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -1220,35 +1220,35 @@
             // stripConnectStage
             // 
             stripConnectStage.Name = "stripConnectStage";
-            stripConnectStage.Size = new Size(224, 26);
+            stripConnectStage.Size = new Size(211, 26);
             stripConnectStage.Text = "Holder Stage";
             stripConnectStage.Click += stripConnectStage_Click;
             // 
             // stripConnectIndicator
             // 
             stripConnectIndicator.Name = "stripConnectIndicator";
-            stripConnectIndicator.Size = new Size(224, 26);
+            stripConnectIndicator.Size = new Size(211, 26);
             stripConnectIndicator.Text = "Indicator";
             stripConnectIndicator.Click += stripConnectIndicator_Click;
             // 
             // stripConnectMicroscopeStage
             // 
             stripConnectMicroscopeStage.Name = "stripConnectMicroscopeStage";
-            stripConnectMicroscopeStage.Size = new Size(224, 26);
+            stripConnectMicroscopeStage.Size = new Size(211, 26);
             stripConnectMicroscopeStage.Text = "Microscope Stage";
             stripConnectMicroscopeStage.Click += stripConnectMicroscopeStage_Click;
             // 
             // stripConnectIndenter
             // 
             stripConnectIndenter.Name = "stripConnectIndenter";
-            stripConnectIndenter.Size = new Size(224, 26);
+            stripConnectIndenter.Size = new Size(211, 26);
             stripConnectIndenter.Text = "Indenter";
             stripConnectIndenter.Click += stripConnectIndenter_Click;
             // 
             // allToolStripMenuItem
             // 
             allToolStripMenuItem.Name = "allToolStripMenuItem";
-            allToolStripMenuItem.Size = new Size(224, 26);
+            allToolStripMenuItem.Size = new Size(211, 26);
             allToolStripMenuItem.Text = "(All)";
             // 
             // stripSettings
@@ -1257,13 +1257,6 @@
             stripSettings.Size = new Size(76, 24);
             stripSettings.Text = "Settings";
             stripSettings.Click += stripSettings_Click;
-            // 
-            // stripAbout
-            // 
-            stripAbout.Name = "stripAbout";
-            stripAbout.Size = new Size(64, 24);
-            stripAbout.Text = "About";
-            stripAbout.Click += stripAbout_Click;
             // 
             // openSequenceEditorToolStripMenuItem
             // 
@@ -1276,6 +1269,13 @@
             openPlotToolStripMenuItem.Name = "openPlotToolStripMenuItem";
             openPlotToolStripMenuItem.Size = new Size(89, 24);
             openPlotToolStripMenuItem.Text = "Open Plot";
+            // 
+            // stripAbout
+            // 
+            stripAbout.Name = "stripAbout";
+            stripAbout.Size = new Size(64, 24);
+            stripAbout.Text = "About";
+            stripAbout.Click += stripAbout_Click;
             // 
             // groupBox2
             // 
@@ -2905,7 +2905,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1444, 950);
+            ClientSize = new Size(1814, 950);
             Controls.Add(groupBox21);
             Controls.Add(groupBox18);
             Controls.Add(groupBox17);

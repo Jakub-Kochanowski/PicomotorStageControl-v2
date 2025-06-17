@@ -33,15 +33,13 @@
             groupBox10 = new GroupBox();
             groupBox15 = new GroupBox();
             tableLayoutPanel22 = new TableLayoutPanel();
-            chkPlotViewIndicator = new CheckBox();
-            chkPlotViewMotorSteps = new CheckBox();
-            chkPlotViewMotorCalibration = new CheckBox();
-            chkPlotViewIndenterForce = new CheckBox();
             label15 = new Label();
             btnPlotClear = new Button();
             numPlotInterval = new NumericUpDown();
             label9 = new Label();
             tmrPlotUpdate = new System.Windows.Forms.Timer(components);
+            chkPlotViewIndicator = new CheckBox();
+            chkPlotViewIndenterForce = new CheckBox();
             groupBox10.SuspendLayout();
             groupBox15.SuspendLayout();
             tableLayoutPanel22.SuspendLayout();
@@ -66,7 +64,7 @@
             groupBox10.Controls.Add(label9);
             groupBox10.Location = new Point(12, 12);
             groupBox10.Name = "groupBox10";
-            groupBox10.Size = new Size(207, 276);
+            groupBox10.Size = new Size(207, 227);
             groupBox10.TabIndex = 15;
             groupBox10.TabStop = false;
             groupBox10.Text = "Plot Settings";
@@ -78,7 +76,7 @@
             groupBox15.Margin = new Padding(3, 4, 3, 4);
             groupBox15.Name = "groupBox15";
             groupBox15.Padding = new Padding(3, 4, 3, 4);
-            groupBox15.Size = new Size(195, 149);
+            groupBox15.Size = new Size(195, 103);
             groupBox15.TabIndex = 7;
             groupBox15.TabStop = false;
             groupBox15.Text = "View";
@@ -87,86 +85,22 @@
             // 
             tableLayoutPanel22.ColumnCount = 1;
             tableLayoutPanel22.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel22.Controls.Add(chkPlotViewIndicator, 0, 2);
-            tableLayoutPanel22.Controls.Add(chkPlotViewMotorSteps, 0, 0);
-            tableLayoutPanel22.Controls.Add(chkPlotViewMotorCalibration, 0, 1);
-            tableLayoutPanel22.Controls.Add(chkPlotViewIndenterForce, 0, 3);
+            tableLayoutPanel22.Controls.Add(chkPlotViewIndenterForce, 0, 1);
+            tableLayoutPanel22.Controls.Add(chkPlotViewIndicator, 0, 0);
             tableLayoutPanel22.Dock = DockStyle.Fill;
             tableLayoutPanel22.Location = new Point(3, 24);
             tableLayoutPanel22.Margin = new Padding(3, 4, 3, 4);
             tableLayoutPanel22.Name = "tableLayoutPanel22";
-            tableLayoutPanel22.RowCount = 4;
+            tableLayoutPanel22.RowCount = 2;
             tableLayoutPanel22.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             tableLayoutPanel22.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanel22.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanel22.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanel22.Size = new Size(189, 121);
+            tableLayoutPanel22.Size = new Size(189, 75);
             tableLayoutPanel22.TabIndex = 0;
-            // 
-            // chkPlotViewIndicator
-            // 
-            chkPlotViewIndicator.AutoSize = true;
-            chkPlotViewIndicator.Checked = true;
-            chkPlotViewIndicator.CheckState = CheckState.Checked;
-            chkPlotViewIndicator.Dock = DockStyle.Fill;
-            chkPlotViewIndicator.Location = new Point(3, 64);
-            chkPlotViewIndicator.Margin = new Padding(3, 4, 3, 4);
-            chkPlotViewIndicator.Name = "chkPlotViewIndicator";
-            chkPlotViewIndicator.Size = new Size(184, 22);
-            chkPlotViewIndicator.TabIndex = 6;
-            chkPlotViewIndicator.Text = "Indicator (um)";
-            chkPlotViewIndicator.UseVisualStyleBackColor = true;
-            chkPlotViewIndicator.CheckedChanged += chkPlotViewIndicator_CheckedChanged;
-            // 
-            // chkPlotViewMotorSteps
-            // 
-            chkPlotViewMotorSteps.AutoSize = true;
-            chkPlotViewMotorSteps.Checked = true;
-            chkPlotViewMotorSteps.CheckState = CheckState.Checked;
-            chkPlotViewMotorSteps.Dock = DockStyle.Fill;
-            chkPlotViewMotorSteps.Location = new Point(3, 4);
-            chkPlotViewMotorSteps.Margin = new Padding(3, 4, 3, 4);
-            chkPlotViewMotorSteps.Name = "chkPlotViewMotorSteps";
-            chkPlotViewMotorSteps.Size = new Size(184, 22);
-            chkPlotViewMotorSteps.TabIndex = 4;
-            chkPlotViewMotorSteps.Text = "Motor Steps (steps)";
-            chkPlotViewMotorSteps.UseVisualStyleBackColor = true;
-            chkPlotViewMotorSteps.CheckedChanged += chkPlotViewMotorSteps_CheckedChanged;
-            // 
-            // chkPlotViewMotorCalibration
-            // 
-            chkPlotViewMotorCalibration.AutoSize = true;
-            chkPlotViewMotorCalibration.Checked = true;
-            chkPlotViewMotorCalibration.CheckState = CheckState.Checked;
-            chkPlotViewMotorCalibration.Dock = DockStyle.Fill;
-            chkPlotViewMotorCalibration.Location = new Point(3, 34);
-            chkPlotViewMotorCalibration.Margin = new Padding(3, 4, 3, 4);
-            chkPlotViewMotorCalibration.Name = "chkPlotViewMotorCalibration";
-            chkPlotViewMotorCalibration.Size = new Size(184, 22);
-            chkPlotViewMotorCalibration.TabIndex = 5;
-            chkPlotViewMotorCalibration.Text = "Motor Calibration (um)";
-            chkPlotViewMotorCalibration.UseVisualStyleBackColor = true;
-            chkPlotViewMotorCalibration.CheckedChanged += chkPlotViewMotorCalibration_CheckedChanged;
-            // 
-            // chkPlotViewIndenterForce
-            // 
-            chkPlotViewIndenterForce.AutoSize = true;
-            chkPlotViewIndenterForce.Checked = true;
-            chkPlotViewIndenterForce.CheckState = CheckState.Checked;
-            chkPlotViewIndenterForce.Dock = DockStyle.Fill;
-            chkPlotViewIndenterForce.Location = new Point(3, 94);
-            chkPlotViewIndenterForce.Margin = new Padding(3, 4, 3, 4);
-            chkPlotViewIndenterForce.Name = "chkPlotViewIndenterForce";
-            chkPlotViewIndenterForce.Size = new Size(184, 23);
-            chkPlotViewIndenterForce.TabIndex = 8;
-            chkPlotViewIndenterForce.Text = "Indenter Force (mg)";
-            chkPlotViewIndenterForce.UseVisualStyleBackColor = true;
-            chkPlotViewIndenterForce.CheckedChanged += chkPlotViewIndenterForce_CheckedChanged;
             // 
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(171, 202);
+            label15.Location = new Point(171, 156);
             label15.Name = "label15";
             label15.Size = new Size(28, 20);
             label15.TabIndex = 3;
@@ -174,7 +108,7 @@
             // 
             // btnPlotClear
             // 
-            btnPlotClear.Location = new Point(6, 235);
+            btnPlotClear.Location = new Point(6, 189);
             btnPlotClear.Margin = new Padding(3, 4, 3, 4);
             btnPlotClear.Name = "btnPlotClear";
             btnPlotClear.Size = new Size(195, 31);
@@ -185,7 +119,7 @@
             // 
             // numPlotInterval
             // 
-            numPlotInterval.Location = new Point(6, 200);
+            numPlotInterval.Location = new Point(6, 154);
             numPlotInterval.Margin = new Padding(3, 4, 3, 4);
             numPlotInterval.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
             numPlotInterval.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
@@ -198,7 +132,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(6, 176);
+            label9.Location = new Point(6, 130);
             label9.Name = "label9";
             label9.Size = new Size(91, 20);
             label9.TabIndex = 0;
@@ -208,6 +142,34 @@
             // 
             tmrPlotUpdate.Interval = 10;
             tmrPlotUpdate.Tick += tmrPlotUpdate_Tick;
+            // 
+            // chkPlotViewIndicator
+            // 
+            chkPlotViewIndicator.AutoSize = true;
+            chkPlotViewIndicator.Checked = true;
+            chkPlotViewIndicator.CheckState = CheckState.Checked;
+            chkPlotViewIndicator.Dock = DockStyle.Fill;
+            chkPlotViewIndicator.Location = new Point(3, 4);
+            chkPlotViewIndicator.Margin = new Padding(3, 4, 3, 4);
+            chkPlotViewIndicator.Name = "chkPlotViewIndicator";
+            chkPlotViewIndicator.Size = new Size(183, 29);
+            chkPlotViewIndicator.TabIndex = 9;
+            chkPlotViewIndicator.Text = "Indicator (um)";
+            chkPlotViewIndicator.UseVisualStyleBackColor = true;
+            // 
+            // chkPlotViewIndenterForce
+            // 
+            chkPlotViewIndenterForce.AutoSize = true;
+            chkPlotViewIndenterForce.Checked = true;
+            chkPlotViewIndenterForce.CheckState = CheckState.Checked;
+            chkPlotViewIndenterForce.Dock = DockStyle.Fill;
+            chkPlotViewIndenterForce.Location = new Point(3, 41);
+            chkPlotViewIndenterForce.Margin = new Padding(3, 4, 3, 4);
+            chkPlotViewIndenterForce.Name = "chkPlotViewIndenterForce";
+            chkPlotViewIndenterForce.Size = new Size(183, 30);
+            chkPlotViewIndenterForce.TabIndex = 10;
+            chkPlotViewIndenterForce.Text = "Indenter Force (mg)";
+            chkPlotViewIndenterForce.UseVisualStyleBackColor = true;
             // 
             // frmPlot
             // 
@@ -233,15 +195,13 @@
         private GroupBox groupBox10;
         private GroupBox groupBox15;
         private TableLayoutPanel tableLayoutPanel22;
-        private CheckBox chkPlotViewIndicator;
-        private CheckBox chkPlotViewMotorSteps;
-        private CheckBox chkPlotViewMotorCalibration;
         private Label label15;
         private Button btnPlotClear;
         private NumericUpDown numPlotInterval;
         private Label label9;
-        private CheckBox chkPlotViewIndenterForce;
         public ScottPlot.WinForms.FormsPlot Plot;
         private System.Windows.Forms.Timer tmrPlotUpdate;
+        private CheckBox chkPlotViewIndenterForce;
+        private CheckBox chkPlotViewIndicator;
     }
 }
