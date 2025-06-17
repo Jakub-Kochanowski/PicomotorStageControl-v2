@@ -110,6 +110,8 @@
             allToolStripMenuItem = new ToolStripMenuItem();
             stripSettings = new ToolStripMenuItem();
             stripAbout = new ToolStripMenuItem();
+            openSequenceEditorToolStripMenuItem = new ToolStripMenuItem();
+            openPlotToolStripMenuItem = new ToolStripMenuItem();
             groupBox2 = new GroupBox();
             btnStopAllMotion = new Button();
             groupBox4 = new GroupBox();
@@ -155,17 +157,6 @@
             numMotorSettingsVelocity = new NumericUpDown();
             label17 = new Label();
             lblMotorSettingsEstNegVel = new Label();
-            groupBox10 = new GroupBox();
-            groupBox15 = new GroupBox();
-            tableLayoutPanel22 = new TableLayoutPanel();
-            chkPlotViewIndenterForce = new CheckBox();
-            chkPlotViewIndicator = new CheckBox();
-            chkPlotViewMotorSteps = new CheckBox();
-            chkPlotViewMotorCalibration = new CheckBox();
-            label15 = new Label();
-            btnPlotClear = new Button();
-            numPlotInterval = new NumericUpDown();
-            label9 = new Label();
             groupBox12 = new GroupBox();
             tableLayoutPanel17 = new TableLayoutPanel();
             tableLayoutPanel20 = new TableLayoutPanel();
@@ -180,10 +171,6 @@
             btnDataSelectDirectory = new Button();
             label53 = new Label();
             txtDataDirectory = new TextBox();
-            groupBox14 = new GroupBox();
-            tableLayoutPanel21 = new TableLayoutPanel();
-            btnOpenSequenceEditor = new Button();
-            Plot = new ScottPlot.WinForms.FormsPlot();
             tmrIndicatorDisplayUpdate = new System.Windows.Forms.Timer(components);
             tmrMotorDisplayUpdate = new System.Windows.Forms.Timer(components);
             tmrPlotUpdate = new System.Windows.Forms.Timer(components);
@@ -196,6 +183,10 @@
             lblIndenterDisplayForcemg = new Label();
             label22 = new Label();
             groupBox17 = new GroupBox();
+            label64 = new Label();
+            btnStageCtrlSetSpeed = new Button();
+            numStageCtrlSpeed_um_s = new NumericUpDown();
+            label60 = new Label();
             groupBox19 = new GroupBox();
             radStageCtrlAbsolute = new RadioButton();
             radStageCtrlRelative = new RadioButton();
@@ -254,10 +245,6 @@
             tmrMicroscopeDisplayUpdate = new System.Windows.Forms.Timer(components);
             tmrIndenterDisplayUpdate = new System.Windows.Forms.Timer(components);
             tmrAverageIndenterValues = new System.Windows.Forms.Timer(components);
-            label60 = new Label();
-            numStageCtrlSpeed_um_s = new NumericUpDown();
-            btnStageCtrlSetSpeed = new Button();
-            label64 = new Label();
             groupBox6.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
             groupBox8.SuspendLayout();
@@ -291,21 +278,16 @@
             tableLayoutPanel16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numMotorSettingsAcceleration).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numMotorSettingsVelocity).BeginInit();
-            groupBox10.SuspendLayout();
-            groupBox15.SuspendLayout();
-            tableLayoutPanel22.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numPlotInterval).BeginInit();
             groupBox12.SuspendLayout();
             tableLayoutPanel17.SuspendLayout();
             tableLayoutPanel20.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numDataCollectionRate).BeginInit();
             tableLayoutPanel19.SuspendLayout();
             tableLayoutPanel18.SuspendLayout();
-            groupBox14.SuspendLayout();
-            tableLayoutPanel21.SuspendLayout();
             groupBox16.SuspendLayout();
             tableLayoutPanel23.SuspendLayout();
             groupBox17.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numStageCtrlSpeed_um_s).BeginInit();
             groupBox19.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numStageCtrlAbsRelZum).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numStageCtrlAbsRelYum).BeginInit();
@@ -319,7 +301,6 @@
             ((System.ComponentModel.ISupportInitialize)numIndenterSettingsCalWithProbe).BeginInit();
             groupBox21.SuspendLayout();
             tableLayoutPanel26.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numStageCtrlSpeed_um_s).BeginInit();
             SuspendLayout();
             // 
             // groupBox6
@@ -1124,10 +1105,10 @@
             // 
             statusStrip1.ImageScalingSize = new Size(20, 20);
             statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1, statusStageConnected, toolStripStatusLabel3, toolStripStatusLabel4, statusIndicatorConnected, toolStripStatusLabel6, toolStripStatusLabel7, toolStripStatusLabel8, toolStripStatusLabel9, toolStripStatusLabel10, toolStripStatusLabel11, toolStripStatusLabel12, toolStripStatusLabel13, toolStripStatusLabel14 });
-            statusStrip1.Location = new Point(0, 970);
+            statusStrip1.Location = new Point(0, 924);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.RenderMode = ToolStripRenderMode.Professional;
-            statusStrip1.Size = new Size(2031, 26);
+            statusStrip1.Size = new Size(1444, 26);
             statusStrip1.SizingGrip = false;
             statusStrip1.TabIndex = 4;
             statusStrip1.Text = "statusStrip1";
@@ -1221,11 +1202,11 @@
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { connectToolStripMenuItem, stripSettings, stripAbout });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { connectToolStripMenuItem, stripSettings, openSequenceEditorToolStripMenuItem, openPlotToolStripMenuItem, stripAbout });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(6, 3, 0, 3);
-            menuStrip1.Size = new Size(2031, 30);
+            menuStrip1.Size = new Size(1444, 30);
             menuStrip1.TabIndex = 5;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -1239,35 +1220,35 @@
             // stripConnectStage
             // 
             stripConnectStage.Name = "stripConnectStage";
-            stripConnectStage.Size = new Size(211, 26);
+            stripConnectStage.Size = new Size(224, 26);
             stripConnectStage.Text = "Holder Stage";
             stripConnectStage.Click += stripConnectStage_Click;
             // 
             // stripConnectIndicator
             // 
             stripConnectIndicator.Name = "stripConnectIndicator";
-            stripConnectIndicator.Size = new Size(211, 26);
+            stripConnectIndicator.Size = new Size(224, 26);
             stripConnectIndicator.Text = "Indicator";
             stripConnectIndicator.Click += stripConnectIndicator_Click;
             // 
             // stripConnectMicroscopeStage
             // 
             stripConnectMicroscopeStage.Name = "stripConnectMicroscopeStage";
-            stripConnectMicroscopeStage.Size = new Size(211, 26);
+            stripConnectMicroscopeStage.Size = new Size(224, 26);
             stripConnectMicroscopeStage.Text = "Microscope Stage";
             stripConnectMicroscopeStage.Click += stripConnectMicroscopeStage_Click;
             // 
             // stripConnectIndenter
             // 
             stripConnectIndenter.Name = "stripConnectIndenter";
-            stripConnectIndenter.Size = new Size(211, 26);
+            stripConnectIndenter.Size = new Size(224, 26);
             stripConnectIndenter.Text = "Indenter";
             stripConnectIndenter.Click += stripConnectIndenter_Click;
             // 
             // allToolStripMenuItem
             // 
             allToolStripMenuItem.Name = "allToolStripMenuItem";
-            allToolStripMenuItem.Size = new Size(211, 26);
+            allToolStripMenuItem.Size = new Size(224, 26);
             allToolStripMenuItem.Text = "(All)";
             // 
             // stripSettings
@@ -1283,6 +1264,18 @@
             stripAbout.Size = new Size(64, 24);
             stripAbout.Text = "About";
             stripAbout.Click += stripAbout_Click;
+            // 
+            // openSequenceEditorToolStripMenuItem
+            // 
+            openSequenceEditorToolStripMenuItem.Name = "openSequenceEditorToolStripMenuItem";
+            openSequenceEditorToolStripMenuItem.Size = new Size(171, 24);
+            openSequenceEditorToolStripMenuItem.Text = "Open Sequence Editor";
+            // 
+            // openPlotToolStripMenuItem
+            // 
+            openPlotToolStripMenuItem.Name = "openPlotToolStripMenuItem";
+            openPlotToolStripMenuItem.Size = new Size(89, 24);
+            openPlotToolStripMenuItem.Text = "Open Plot";
             // 
             // groupBox2
             // 
@@ -1854,159 +1847,12 @@
             lblMotorSettingsEstNegVel.TabIndex = 21;
             lblMotorSettingsEstNegVel.Text = "Neg: 0";
             // 
-            // groupBox10
-            // 
-            groupBox10.Controls.Add(groupBox15);
-            groupBox10.Controls.Add(label15);
-            groupBox10.Controls.Add(btnPlotClear);
-            groupBox10.Controls.Add(numPlotInterval);
-            groupBox10.Controls.Add(label9);
-            groupBox10.Location = new Point(1441, 38);
-            groupBox10.Name = "groupBox10";
-            groupBox10.Size = new Size(578, 175);
-            groupBox10.TabIndex = 9;
-            groupBox10.TabStop = false;
-            groupBox10.Text = "Plot Settings";
-            // 
-            // groupBox15
-            // 
-            groupBox15.Controls.Add(tableLayoutPanel22);
-            groupBox15.Dock = DockStyle.Left;
-            groupBox15.Location = new Point(3, 23);
-            groupBox15.Margin = new Padding(3, 4, 3, 4);
-            groupBox15.Name = "groupBox15";
-            groupBox15.Padding = new Padding(3, 4, 3, 4);
-            groupBox15.Size = new Size(382, 149);
-            groupBox15.TabIndex = 7;
-            groupBox15.TabStop = false;
-            groupBox15.Text = "View";
-            // 
-            // tableLayoutPanel22
-            // 
-            tableLayoutPanel22.ColumnCount = 2;
-            tableLayoutPanel22.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel22.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel22.Controls.Add(chkPlotViewIndenterForce, 1, 0);
-            tableLayoutPanel22.Controls.Add(chkPlotViewIndicator, 0, 2);
-            tableLayoutPanel22.Controls.Add(chkPlotViewMotorSteps, 0, 0);
-            tableLayoutPanel22.Controls.Add(chkPlotViewMotorCalibration, 0, 1);
-            tableLayoutPanel22.Dock = DockStyle.Fill;
-            tableLayoutPanel22.Location = new Point(3, 24);
-            tableLayoutPanel22.Margin = new Padding(3, 4, 3, 4);
-            tableLayoutPanel22.Name = "tableLayoutPanel22";
-            tableLayoutPanel22.RowCount = 3;
-            tableLayoutPanel22.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel22.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel22.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel22.Size = new Size(376, 121);
-            tableLayoutPanel22.TabIndex = 0;
-            // 
-            // chkPlotViewIndenterForce
-            // 
-            chkPlotViewIndenterForce.AutoSize = true;
-            chkPlotViewIndenterForce.Checked = true;
-            chkPlotViewIndenterForce.CheckState = CheckState.Checked;
-            chkPlotViewIndenterForce.Dock = DockStyle.Fill;
-            chkPlotViewIndenterForce.Location = new Point(193, 4);
-            chkPlotViewIndenterForce.Margin = new Padding(3, 4, 3, 4);
-            chkPlotViewIndenterForce.Name = "chkPlotViewIndenterForce";
-            chkPlotViewIndenterForce.Size = new Size(180, 32);
-            chkPlotViewIndenterForce.TabIndex = 7;
-            chkPlotViewIndenterForce.Text = "Indenter Force (mg)";
-            chkPlotViewIndenterForce.UseVisualStyleBackColor = true;
-            // 
-            // chkPlotViewIndicator
-            // 
-            chkPlotViewIndicator.AutoSize = true;
-            chkPlotViewIndicator.Checked = true;
-            chkPlotViewIndicator.CheckState = CheckState.Checked;
-            chkPlotViewIndicator.Dock = DockStyle.Fill;
-            chkPlotViewIndicator.Location = new Point(3, 84);
-            chkPlotViewIndicator.Margin = new Padding(3, 4, 3, 4);
-            chkPlotViewIndicator.Name = "chkPlotViewIndicator";
-            chkPlotViewIndicator.Size = new Size(184, 33);
-            chkPlotViewIndicator.TabIndex = 6;
-            chkPlotViewIndicator.Text = "Indicator (um)";
-            chkPlotViewIndicator.UseVisualStyleBackColor = true;
-            chkPlotViewIndicator.CheckedChanged += chkPlotViewIndicator_CheckedChanged;
-            // 
-            // chkPlotViewMotorSteps
-            // 
-            chkPlotViewMotorSteps.AutoSize = true;
-            chkPlotViewMotorSteps.Checked = true;
-            chkPlotViewMotorSteps.CheckState = CheckState.Checked;
-            chkPlotViewMotorSteps.Dock = DockStyle.Fill;
-            chkPlotViewMotorSteps.Location = new Point(3, 4);
-            chkPlotViewMotorSteps.Margin = new Padding(3, 4, 3, 4);
-            chkPlotViewMotorSteps.Name = "chkPlotViewMotorSteps";
-            chkPlotViewMotorSteps.Size = new Size(184, 32);
-            chkPlotViewMotorSteps.TabIndex = 4;
-            chkPlotViewMotorSteps.Text = "Motor Steps (steps)";
-            chkPlotViewMotorSteps.UseVisualStyleBackColor = true;
-            chkPlotViewMotorSteps.CheckedChanged += chkPlotViewMotorSteps_CheckedChanged;
-            // 
-            // chkPlotViewMotorCalibration
-            // 
-            chkPlotViewMotorCalibration.AutoSize = true;
-            chkPlotViewMotorCalibration.Checked = true;
-            chkPlotViewMotorCalibration.CheckState = CheckState.Checked;
-            chkPlotViewMotorCalibration.Dock = DockStyle.Fill;
-            chkPlotViewMotorCalibration.Location = new Point(3, 44);
-            chkPlotViewMotorCalibration.Margin = new Padding(3, 4, 3, 4);
-            chkPlotViewMotorCalibration.Name = "chkPlotViewMotorCalibration";
-            chkPlotViewMotorCalibration.Size = new Size(184, 32);
-            chkPlotViewMotorCalibration.TabIndex = 5;
-            chkPlotViewMotorCalibration.Text = "Motor Calibration (um)";
-            chkPlotViewMotorCalibration.UseVisualStyleBackColor = true;
-            chkPlotViewMotorCalibration.CheckedChanged += chkPlotViewMotorCalibration_CheckedChanged;
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.Location = new Point(544, 104);
-            label15.Name = "label15";
-            label15.Size = new Size(28, 20);
-            label15.TabIndex = 3;
-            label15.Text = "ms";
-            // 
-            // btnPlotClear
-            // 
-            btnPlotClear.Location = new Point(391, 137);
-            btnPlotClear.Margin = new Padding(3, 4, 3, 4);
-            btnPlotClear.Name = "btnPlotClear";
-            btnPlotClear.Size = new Size(181, 31);
-            btnPlotClear.TabIndex = 2;
-            btnPlotClear.Text = "Clear Plot";
-            btnPlotClear.UseVisualStyleBackColor = true;
-            btnPlotClear.Click += btnPlotClear_Click;
-            // 
-            // numPlotInterval
-            // 
-            numPlotInterval.Location = new Point(391, 102);
-            numPlotInterval.Margin = new Padding(3, 4, 3, 4);
-            numPlotInterval.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
-            numPlotInterval.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            numPlotInterval.Name = "numPlotInterval";
-            numPlotInterval.Size = new Size(147, 27);
-            numPlotInterval.TabIndex = 1;
-            numPlotInterval.Value = new decimal(new int[] { 10, 0, 0, 0 });
-            numPlotInterval.ValueChanged += numPlotInterval_ValueChanged;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Location = new Point(391, 78);
-            label9.Name = "label9";
-            label9.Size = new Size(91, 20);
-            label9.TabIndex = 0;
-            label9.Text = "Plot Interval:";
-            // 
             // groupBox12
             // 
             groupBox12.Controls.Add(tableLayoutPanel17);
-            groupBox12.Location = new Point(1444, 724);
+            groupBox12.Location = new Point(461, 725);
             groupBox12.Name = "groupBox12";
-            groupBox12.Size = new Size(579, 189);
+            groupBox12.Size = new Size(462, 189);
             groupBox12.TabIndex = 10;
             groupBox12.TabStop = false;
             groupBox12.Text = "Data Collection";
@@ -2025,16 +1871,16 @@
             tableLayoutPanel17.RowStyles.Add(new RowStyle(SizeType.Absolute, 51F));
             tableLayoutPanel17.RowStyles.Add(new RowStyle());
             tableLayoutPanel17.RowStyles.Add(new RowStyle(SizeType.Absolute, 51F));
-            tableLayoutPanel17.Size = new Size(573, 163);
+            tableLayoutPanel17.Size = new Size(456, 163);
             tableLayoutPanel17.TabIndex = 0;
             // 
             // tableLayoutPanel20
             // 
             tableLayoutPanel20.ColumnCount = 4;
-            tableLayoutPanel20.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel20.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel20.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel20.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 294F));
+            tableLayoutPanel20.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel20.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 38.88889F));
+            tableLayoutPanel20.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel20.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
             tableLayoutPanel20.Controls.Add(btnDataCollect, 3, 0);
             tableLayoutPanel20.Controls.Add(label62, 2, 0);
             tableLayoutPanel20.Controls.Add(label61, 0, 0);
@@ -2044,16 +1890,16 @@
             tableLayoutPanel20.Name = "tableLayoutPanel20";
             tableLayoutPanel20.RowCount = 1;
             tableLayoutPanel20.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel20.Size = new Size(567, 56);
+            tableLayoutPanel20.Size = new Size(450, 56);
             tableLayoutPanel20.TabIndex = 2;
             // 
             // btnDataCollect
             // 
             btnDataCollect.Dock = DockStyle.Fill;
             btnDataCollect.Enabled = false;
-            btnDataCollect.Location = new Point(276, 3);
+            btnDataCollect.Location = new Point(378, 3);
             btnDataCollect.Name = "btnDataCollect";
-            btnDataCollect.Size = new Size(288, 50);
+            btnDataCollect.Size = new Size(69, 50);
             btnDataCollect.TabIndex = 8;
             btnDataCollect.Text = "Collect";
             btnDataCollect.UseVisualStyleBackColor = true;
@@ -2063,9 +1909,9 @@
             // 
             label62.AutoSize = true;
             label62.Dock = DockStyle.Fill;
-            label62.Location = new Point(242, 0);
+            label62.Location = new Point(328, 0);
             label62.Name = "label62";
-            label62.Size = new Size(28, 56);
+            label62.Size = new Size(44, 56);
             label62.TabIndex = 7;
             label62.Text = "ms";
             label62.TextAlign = ContentAlignment.MiddleLeft;
@@ -2076,7 +1922,7 @@
             label61.Dock = DockStyle.Fill;
             label61.Location = new Point(3, 0);
             label61.Name = "label61";
-            label61.Size = new Size(113, 56);
+            label61.Size = new Size(144, 56);
             label61.TabIndex = 5;
             label61.Text = "Collection Rate:";
             label61.TextAlign = ContentAlignment.MiddleLeft;
@@ -2084,12 +1930,12 @@
             // numDataCollectionRate
             // 
             numDataCollectionRate.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            numDataCollectionRate.Location = new Point(122, 18);
+            numDataCollectionRate.Location = new Point(153, 18);
             numDataCollectionRate.Margin = new Padding(3, 11, 3, 3);
             numDataCollectionRate.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
             numDataCollectionRate.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numDataCollectionRate.Name = "numDataCollectionRate";
-            numDataCollectionRate.Size = new Size(114, 27);
+            numDataCollectionRate.Size = new Size(169, 27);
             numDataCollectionRate.TabIndex = 6;
             numDataCollectionRate.Value = new decimal(new int[] { 100, 0, 0, 0 });
             // 
@@ -2105,7 +1951,7 @@
             tableLayoutPanel19.Name = "tableLayoutPanel19";
             tableLayoutPanel19.RowCount = 1;
             tableLayoutPanel19.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel19.Size = new Size(567, 44);
+            tableLayoutPanel19.Size = new Size(450, 44);
             tableLayoutPanel19.TabIndex = 1;
             // 
             // txtDataFileName
@@ -2113,7 +1959,7 @@
             txtDataFileName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtDataFileName.Location = new Point(88, 8);
             txtDataFileName.Name = "txtDataFileName";
-            txtDataFileName.Size = new Size(476, 27);
+            txtDataFileName.Size = new Size(359, 27);
             txtDataFileName.TabIndex = 5;
             // 
             // label58
@@ -2141,13 +1987,13 @@
             tableLayoutPanel18.Name = "tableLayoutPanel18";
             tableLayoutPanel18.RowCount = 1;
             tableLayoutPanel18.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel18.Size = new Size(567, 45);
+            tableLayoutPanel18.Size = new Size(450, 45);
             tableLayoutPanel18.TabIndex = 0;
             // 
             // btnDataSelectDirectory
             // 
             btnDataSelectDirectory.Dock = DockStyle.Fill;
-            btnDataSelectDirectory.Location = new Point(525, 3);
+            btnDataSelectDirectory.Location = new Point(408, 3);
             btnDataSelectDirectory.Name = "btnDataSelectDirectory";
             btnDataSelectDirectory.Size = new Size(39, 39);
             btnDataSelectDirectory.TabIndex = 5;
@@ -2172,51 +2018,8 @@
             txtDataDirectory.Location = new Point(82, 9);
             txtDataDirectory.Name = "txtDataDirectory";
             txtDataDirectory.ReadOnly = true;
-            txtDataDirectory.Size = new Size(437, 27);
+            txtDataDirectory.Size = new Size(320, 27);
             txtDataDirectory.TabIndex = 4;
-            // 
-            // groupBox14
-            // 
-            groupBox14.Controls.Add(tableLayoutPanel21);
-            groupBox14.Location = new Point(461, 725);
-            groupBox14.Name = "groupBox14";
-            groupBox14.Size = new Size(275, 85);
-            groupBox14.TabIndex = 13;
-            groupBox14.TabStop = false;
-            groupBox14.Text = "Other Controls";
-            // 
-            // tableLayoutPanel21
-            // 
-            tableLayoutPanel21.ColumnCount = 1;
-            tableLayoutPanel21.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel21.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 21F));
-            tableLayoutPanel21.Controls.Add(btnOpenSequenceEditor, 0, 0);
-            tableLayoutPanel21.Dock = DockStyle.Fill;
-            tableLayoutPanel21.Location = new Point(3, 23);
-            tableLayoutPanel21.Name = "tableLayoutPanel21";
-            tableLayoutPanel21.RowCount = 1;
-            tableLayoutPanel21.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel21.Size = new Size(269, 59);
-            tableLayoutPanel21.TabIndex = 0;
-            // 
-            // btnOpenSequenceEditor
-            // 
-            btnOpenSequenceEditor.Dock = DockStyle.Fill;
-            btnOpenSequenceEditor.Location = new Point(3, 3);
-            btnOpenSequenceEditor.Name = "btnOpenSequenceEditor";
-            btnOpenSequenceEditor.Size = new Size(263, 53);
-            btnOpenSequenceEditor.TabIndex = 11;
-            btnOpenSequenceEditor.Text = "Open Sequence Editor";
-            btnOpenSequenceEditor.UseVisualStyleBackColor = true;
-            btnOpenSequenceEditor.Click += btnOpenSequenceEditor_Click;
-            // 
-            // Plot
-            // 
-            Plot.DisplayScale = 1.25F;
-            Plot.Location = new Point(1440, 217);
-            Plot.Name = "Plot";
-            Plot.Size = new Size(579, 501);
-            Plot.TabIndex = 14;
             // 
             // tmrIndicatorDisplayUpdate
             // 
@@ -2231,7 +2034,6 @@
             // tmrPlotUpdate
             // 
             tmrPlotUpdate.Interval = 10;
-            tmrPlotUpdate.Tick += tmrPlotUpdate_Tick;
             // 
             // groupBox16
             // 
@@ -2358,6 +2160,45 @@
             groupBox17.TabIndex = 16;
             groupBox17.TabStop = false;
             groupBox17.Text = "Microscope Stage Controls";
+            // 
+            // label64
+            // 
+            label64.AutoSize = true;
+            label64.Location = new Point(242, 232);
+            label64.Name = "label64";
+            label64.Size = new Size(42, 20);
+            label64.TabIndex = 20;
+            label64.Text = "um/s";
+            // 
+            // btnStageCtrlSetSpeed
+            // 
+            btnStageCtrlSetSpeed.Location = new Point(290, 229);
+            btnStageCtrlSetSpeed.Name = "btnStageCtrlSetSpeed";
+            btnStageCtrlSetSpeed.Size = new Size(49, 28);
+            btnStageCtrlSetSpeed.TabIndex = 21;
+            btnStageCtrlSetSpeed.Text = "Set";
+            btnStageCtrlSetSpeed.UseVisualStyleBackColor = true;
+            btnStageCtrlSetSpeed.Click += btnStageCtrlSetSpeed_Click;
+            // 
+            // numStageCtrlSpeed_um_s
+            // 
+            numStageCtrlSpeed_um_s.DecimalPlaces = 3;
+            numStageCtrlSpeed_um_s.Increment = new decimal(new int[] { 1, 0, 0, 196608 });
+            numStageCtrlSpeed_um_s.Location = new Point(66, 230);
+            numStageCtrlSpeed_um_s.Maximum = new decimal(new int[] { 99999999, 0, 0, 0 });
+            numStageCtrlSpeed_um_s.Minimum = new decimal(new int[] { 99999999, 0, 0, int.MinValue });
+            numStageCtrlSpeed_um_s.Name = "numStageCtrlSpeed_um_s";
+            numStageCtrlSpeed_um_s.Size = new Size(170, 27);
+            numStageCtrlSpeed_um_s.TabIndex = 20;
+            // 
+            // label60
+            // 
+            label60.AutoSize = true;
+            label60.Location = new Point(6, 232);
+            label60.Name = "label60";
+            label60.Size = new Size(54, 20);
+            label60.TabIndex = 19;
+            label60.Text = "Speed:";
             // 
             // groupBox19
             // 
@@ -3060,58 +2901,16 @@
             tmrAverageIndenterValues.Interval = 10;
             tmrAverageIndenterValues.Tick += tmrAverageIndenterValues_Tick;
             // 
-            // label60
-            // 
-            label60.AutoSize = true;
-            label60.Location = new Point(6, 232);
-            label60.Name = "label60";
-            label60.Size = new Size(54, 20);
-            label60.TabIndex = 19;
-            label60.Text = "Speed:";
-            // 
-            // numStageCtrlSpeed_um_s
-            // 
-            numStageCtrlSpeed_um_s.DecimalPlaces = 3;
-            numStageCtrlSpeed_um_s.Increment = new decimal(new int[] { 1, 0, 0, 196608 });
-            numStageCtrlSpeed_um_s.Location = new Point(66, 230);
-            numStageCtrlSpeed_um_s.Maximum = new decimal(new int[] { 99999999, 0, 0, 0 });
-            numStageCtrlSpeed_um_s.Minimum = new decimal(new int[] { 99999999, 0, 0, int.MinValue });
-            numStageCtrlSpeed_um_s.Name = "numStageCtrlSpeed_um_s";
-            numStageCtrlSpeed_um_s.Size = new Size(170, 27);
-            numStageCtrlSpeed_um_s.TabIndex = 20;
-            // 
-            // btnStageCtrlSetSpeed
-            // 
-            btnStageCtrlSetSpeed.Location = new Point(290, 229);
-            btnStageCtrlSetSpeed.Name = "btnStageCtrlSetSpeed";
-            btnStageCtrlSetSpeed.Size = new Size(49, 28);
-            btnStageCtrlSetSpeed.TabIndex = 21;
-            btnStageCtrlSetSpeed.Text = "Set";
-            btnStageCtrlSetSpeed.UseVisualStyleBackColor = true;
-            btnStageCtrlSetSpeed.Click += btnStageCtrlSetSpeed_Click;
-            // 
-            // label64
-            // 
-            label64.AutoSize = true;
-            label64.Location = new Point(242, 232);
-            label64.Name = "label64";
-            label64.Size = new Size(42, 20);
-            label64.TabIndex = 20;
-            label64.Text = "um/s";
-            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(2031, 996);
+            ClientSize = new Size(1444, 950);
             Controls.Add(groupBox21);
             Controls.Add(groupBox18);
             Controls.Add(groupBox17);
             Controls.Add(groupBox16);
-            Controls.Add(Plot);
-            Controls.Add(groupBox14);
             Controls.Add(groupBox12);
-            Controls.Add(groupBox10);
             Controls.Add(groupBox9);
             Controls.Add(groupBox2);
             Controls.Add(statusStrip1);
@@ -3170,12 +2969,6 @@
             tableLayoutPanel16.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numMotorSettingsAcceleration).EndInit();
             ((System.ComponentModel.ISupportInitialize)numMotorSettingsVelocity).EndInit();
-            groupBox10.ResumeLayout(false);
-            groupBox10.PerformLayout();
-            groupBox15.ResumeLayout(false);
-            tableLayoutPanel22.ResumeLayout(false);
-            tableLayoutPanel22.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numPlotInterval).EndInit();
             groupBox12.ResumeLayout(false);
             tableLayoutPanel17.ResumeLayout(false);
             tableLayoutPanel20.ResumeLayout(false);
@@ -3185,13 +2978,12 @@
             tableLayoutPanel19.PerformLayout();
             tableLayoutPanel18.ResumeLayout(false);
             tableLayoutPanel18.PerformLayout();
-            groupBox14.ResumeLayout(false);
-            tableLayoutPanel21.ResumeLayout(false);
             groupBox16.ResumeLayout(false);
             tableLayoutPanel23.ResumeLayout(false);
             tableLayoutPanel23.PerformLayout();
             groupBox17.ResumeLayout(false);
             groupBox17.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numStageCtrlSpeed_um_s).EndInit();
             groupBox19.ResumeLayout(false);
             groupBox19.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numStageCtrlAbsRelZum).EndInit();
@@ -3208,7 +3000,6 @@
             groupBox21.ResumeLayout(false);
             tableLayoutPanel26.ResumeLayout(false);
             tableLayoutPanel26.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numStageCtrlSpeed_um_s).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -3327,7 +3118,6 @@
         private Label lblMotorSettingsVelocityUnits;
         private Label lblMotorSettingsEstPosVel;
         private ScottPlot.WinForms.FormsPlot formsPlot1;
-        private GroupBox groupBox10;
         private GroupBox groupBox12;
         private TableLayoutPanel tableLayoutPanel17;
         private TableLayoutPanel tableLayoutPanel20;
@@ -3348,23 +3138,10 @@
         private Button btnDataCollect;
         private Label label62;
         private NumericUpDown numDataCollectionRate;
-        private GroupBox groupBox14;
-        private TableLayoutPanel tableLayoutPanel21;
-        private Button btnOpenSequenceEditor;
         private ToolStripMenuItem connectToolStripMenuItem;
         private ToolStripMenuItem stripConnectStage;
         private ToolStripMenuItem stripConnectIndicator;
-        private ScottPlot.WinForms.FormsPlot Plot;
         private System.Windows.Forms.Timer tmrIndicatorDisplayUpdate;
-        private Label label15;
-        private Button btnPlotClear;
-        private NumericUpDown numPlotInterval;
-        private Label label9;
-        private GroupBox groupBox15;
-        private TableLayoutPanel tableLayoutPanel22;
-        private CheckBox chkPlotViewIndicator;
-        private CheckBox chkPlotViewMotorSteps;
-        private CheckBox chkPlotViewMotorCalibration;
         private System.Windows.Forms.Timer tmrMotorDisplayUpdate;
         private Label lblMotorSettingsEstNegAccel;
         private Label lblMotorSettingsEstNegVel;
@@ -3441,10 +3218,11 @@
         private System.Windows.Forms.Timer tmrAverageIndenterValues;
         private CheckBox checkBox3;
         private CheckBox checkBox2;
-        private CheckBox chkPlotViewIndenterForce;
         private Label label64;
         private Button btnStageCtrlSetSpeed;
         private NumericUpDown numStageCtrlSpeed_um_s;
         private Label label60;
+        private ToolStripMenuItem openSequenceEditorToolStripMenuItem;
+        private ToolStripMenuItem openPlotToolStripMenuItem;
     }
 }

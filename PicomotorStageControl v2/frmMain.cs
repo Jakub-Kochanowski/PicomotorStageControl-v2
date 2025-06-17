@@ -27,11 +27,6 @@ namespace PicomotorStageControl_v2
         public float IndicatorMoveToPosition = 0.0f;
         public bool IndicatorJogWorkerShouldRun = false;
 
-        private DataLogger LoggerMotorSteps;
-        private DataLogger LoggerMotorCalibrationMicrons;
-        private DataLogger LoggerIndicatorMicrons;
-        private DataLogger LoggerIndenterForce_mg;
-        Stopwatch StopwatchTimeElapsed;
 
         BackgroundWorker DataCollectionWorker;
         public bool CollectingData { get; private set; } = false;
@@ -39,6 +34,8 @@ namespace PicomotorStageControl_v2
         public bool IsSequenceRunning { get; set; } = false;
 
         frmSequenceEditor SequenceEditorForm;
+
+        frmPlot PlotForm;
 
         private int indenterCal_sampleCount = 0;
         private int indenterCal_totalSamples = 200;
@@ -58,10 +55,6 @@ namespace PicomotorStageControl_v2
             IndicatorJogWorker.WorkerSupportsCancellation = true;
             IndicatorJogWorker.DoWork += IndicatorJogWorker_DoWork;
 
-            StopwatchTimeElapsed = new Stopwatch();
-            StopwatchTimeElapsed.Start();
-            InitializePlot();
-
             this.tmrPlotUpdate.Enabled = true;
             this.tmrPlotUpdate.Start();
 
@@ -70,8 +63,8 @@ namespace PicomotorStageControl_v2
 
             SequenceEditorForm = new frmSequenceEditor(this);
 
-            //this.stripConnectStage_Click(sender, e); // TODO: TEMP
-            //this.stripConnectIndicator_Click(sender, e);
+            PlotForm = new frmPlot(this);
+            PlotForm.Show();
         }
 
         private void DataCollectionWorker_DoWork(object? sender, DoWorkEventArgs e)
@@ -143,14 +136,6 @@ namespace PicomotorStageControl_v2
 
             streamWriter.Flush();
             streamWriter.Close();
-        }
-
-        private void InitializePlot()
-        {
-            LoggerMotorSteps = Plot.Plot.Add.DataLogger();
-            LoggerMotorCalibrationMicrons = Plot.Plot.Add.DataLogger();
-            LoggerIndicatorMicrons = Plot.Plot.Add.DataLogger();
-            LoggerIndenterForce_mg = Plot.Plot.Add.DataLogger();
         }
 
         private void IndicatorJogWorker_DoWork(object? sender, DoWorkEventArgs e)
@@ -599,68 +584,6 @@ namespace PicomotorStageControl_v2
             }
         }
 
-        private void tmrPlotUpdate_Tick(object sender, EventArgs e)
-        {
-            float currentTime = StopwatchTimeElapsed.ElapsedMilliseconds / 1000.0f;
-
-            if (Motor != null)
-            {
-                LoggerMotorSteps.Add(currentTime, Motor.Position_step);
-                LoggerMotorCalibrationMicrons.Add(currentTime, Motor.PositionFromCalibration_um);
-            }
-            else
-            {
-                LoggerMotorSteps.Add(currentTime, 0);
-                LoggerMotorCalibrationMicrons.Add(currentTime, 0);
-            }
-            if (Indicator != null)
-            {
-                LoggerIndicatorMicrons.Add(currentTime, (float)Indicator.Position);
-            }
-            else
-            {
-                LoggerIndicatorMicrons.Add(currentTime, 0);
-            }
-            if (IndenterController != null)
-            {
-                LoggerIndenterForce_mg.Add(currentTime, IndenterController.IndenterForce_mg);
-            }
-            else
-            {
-                LoggerIndenterForce_mg.Add(currentTime, 0);
-            }
-
-            Plot.Refresh();
-        }
-
-        private void numPlotInterval_ValueChanged(object sender, EventArgs e)
-        {
-            tmrPlotUpdate.Interval = (int)numPlotInterval.Value;
-        }
-
-        private void btnPlotClear_Click(object sender, EventArgs e)
-        {
-            LoggerMotorSteps.Clear();
-            LoggerMotorCalibrationMicrons.Clear();
-            LoggerIndicatorMicrons.Clear();
-            LoggerIndenterForce_mg.Clear();
-        }
-
-        private void chkPlotViewMotorSteps_CheckedChanged(object sender, EventArgs e)
-        {
-            LoggerMotorSteps.IsVisible = chkPlotViewMotorSteps.Checked;
-        }
-
-        private void chkPlotViewMotorCalibration_CheckedChanged(object sender, EventArgs e)
-        {
-            LoggerMotorCalibrationMicrons.IsVisible = chkPlotViewMotorCalibration.Checked;
-        }
-
-        private void chkPlotViewIndicator_CheckedChanged(object sender, EventArgs e)
-        {
-            LoggerIndicatorMicrons.IsVisible = chkPlotViewIndicator.Checked;
-        }
-
         public void StartDataCollection(bool checkFileAlreadyExists)
         {
             string dir = txtDataDirectory.Text;
@@ -950,7 +873,7 @@ namespace PicomotorStageControl_v2
 
         private void tmrIndenterDisplayUpdate_Tick(object sender, EventArgs e)
         {
-            if (this.IndenterController == null || this.MicroscopeStageController.Connected == false)
+            if (this.IndenterController == null || this.IndenterController.Connected == false)
                 return;
 
             lblIndenterDisplayForcemg.Text = Math.Round(this.IndenterController.IndenterForce_mg, 3).ToString();
