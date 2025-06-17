@@ -254,6 +254,10 @@
             tmrMicroscopeDisplayUpdate = new System.Windows.Forms.Timer(components);
             tmrIndenterDisplayUpdate = new System.Windows.Forms.Timer(components);
             tmrAverageIndenterValues = new System.Windows.Forms.Timer(components);
+            label60 = new Label();
+            numStageCtrlSpeed_um_s = new NumericUpDown();
+            btnStageCtrlSetSpeed = new Button();
+            label64 = new Label();
             groupBox6.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
             groupBox8.SuspendLayout();
@@ -315,6 +319,7 @@
             ((System.ComponentModel.ISupportInitialize)numIndenterSettingsCalWithProbe).BeginInit();
             groupBox21.SuspendLayout();
             tableLayoutPanel26.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numStageCtrlSpeed_um_s).BeginInit();
             SuspendLayout();
             // 
             // groupBox6
@@ -1119,7 +1124,7 @@
             // 
             statusStrip1.ImageScalingSize = new Size(20, 20);
             statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1, statusStageConnected, toolStripStatusLabel3, toolStripStatusLabel4, statusIndicatorConnected, toolStripStatusLabel6, toolStripStatusLabel7, toolStripStatusLabel8, toolStripStatusLabel9, toolStripStatusLabel10, toolStripStatusLabel11, toolStripStatusLabel12, toolStripStatusLabel13, toolStripStatusLabel14 });
-            statusStrip1.Location = new Point(0, 921);
+            statusStrip1.Location = new Point(0, 970);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.RenderMode = ToolStripRenderMode.Professional;
             statusStrip1.Size = new Size(2031, 26);
@@ -2339,13 +2344,17 @@
             // 
             // groupBox17
             // 
+            groupBox17.Controls.Add(label64);
+            groupBox17.Controls.Add(btnStageCtrlSetSpeed);
+            groupBox17.Controls.Add(numStageCtrlSpeed_um_s);
+            groupBox17.Controls.Add(label60);
             groupBox17.Controls.Add(groupBox19);
             groupBox17.Controls.Add(btnMicroscopeStageHome);
             groupBox17.Controls.Add(btnMicroscopeStageHalt);
             groupBox17.Controls.Add(groupBox20);
             groupBox17.Location = new Point(929, 519);
             groupBox17.Name = "groupBox17";
-            groupBox17.Size = new Size(506, 359);
+            groupBox17.Size = new Size(506, 394);
             groupBox17.TabIndex = 16;
             groupBox17.TabStop = false;
             groupBox17.Text = "Microscope Stage Controls";
@@ -2367,7 +2376,7 @@
             groupBox19.Controls.Add(numStageCtrlAbsRelYum);
             groupBox19.Controls.Add(label40);
             groupBox19.Controls.Add(numStageCtrlAbsRelXum);
-            groupBox19.Location = new Point(6, 227);
+            groupBox19.Location = new Point(6, 260);
             groupBox19.Name = "groupBox19";
             groupBox19.Size = new Size(494, 125);
             groupBox19.TabIndex = 18;
@@ -3051,11 +3060,50 @@
             tmrAverageIndenterValues.Interval = 10;
             tmrAverageIndenterValues.Tick += tmrAverageIndenterValues_Tick;
             // 
+            // label60
+            // 
+            label60.AutoSize = true;
+            label60.Location = new Point(6, 232);
+            label60.Name = "label60";
+            label60.Size = new Size(54, 20);
+            label60.TabIndex = 19;
+            label60.Text = "Speed:";
+            // 
+            // numStageCtrlSpeed_um_s
+            // 
+            numStageCtrlSpeed_um_s.DecimalPlaces = 3;
+            numStageCtrlSpeed_um_s.Increment = new decimal(new int[] { 1, 0, 0, 196608 });
+            numStageCtrlSpeed_um_s.Location = new Point(66, 230);
+            numStageCtrlSpeed_um_s.Maximum = new decimal(new int[] { 99999999, 0, 0, 0 });
+            numStageCtrlSpeed_um_s.Minimum = new decimal(new int[] { 99999999, 0, 0, int.MinValue });
+            numStageCtrlSpeed_um_s.Name = "numStageCtrlSpeed_um_s";
+            numStageCtrlSpeed_um_s.Size = new Size(170, 27);
+            numStageCtrlSpeed_um_s.TabIndex = 20;
+            // 
+            // btnStageCtrlSetSpeed
+            // 
+            btnStageCtrlSetSpeed.Location = new Point(290, 229);
+            btnStageCtrlSetSpeed.Name = "btnStageCtrlSetSpeed";
+            btnStageCtrlSetSpeed.Size = new Size(49, 28);
+            btnStageCtrlSetSpeed.TabIndex = 21;
+            btnStageCtrlSetSpeed.Text = "Set";
+            btnStageCtrlSetSpeed.UseVisualStyleBackColor = true;
+            btnStageCtrlSetSpeed.Click += btnStageCtrlSetSpeed_Click;
+            // 
+            // label64
+            // 
+            label64.AutoSize = true;
+            label64.Location = new Point(242, 232);
+            label64.Name = "label64";
+            label64.Size = new Size(42, 20);
+            label64.TabIndex = 20;
+            label64.Text = "um/s";
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(2031, 947);
+            ClientSize = new Size(2031, 996);
             Controls.Add(groupBox21);
             Controls.Add(groupBox18);
             Controls.Add(groupBox17);
@@ -3143,6 +3191,7 @@
             tableLayoutPanel23.ResumeLayout(false);
             tableLayoutPanel23.PerformLayout();
             groupBox17.ResumeLayout(false);
+            groupBox17.PerformLayout();
             groupBox19.ResumeLayout(false);
             groupBox19.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numStageCtrlAbsRelZum).EndInit();
@@ -3159,6 +3208,7 @@
             groupBox21.ResumeLayout(false);
             tableLayoutPanel26.ResumeLayout(false);
             tableLayoutPanel26.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numStageCtrlSpeed_um_s).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -3392,5 +3442,9 @@
         private CheckBox checkBox3;
         private CheckBox checkBox2;
         private CheckBox chkPlotViewIndenterForce;
+        private Label label64;
+        private Button btnStageCtrlSetSpeed;
+        private NumericUpDown numStageCtrlSpeed_um_s;
+        private Label label60;
     }
 }

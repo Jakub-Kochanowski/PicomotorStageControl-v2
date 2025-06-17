@@ -389,6 +389,9 @@ namespace PicomotorStageControl_v2
 
         private void tmrMotorDisplayUpdate_Tick(object sender, EventArgs e)
         {
+            if (this.Motor == null)
+                return;
+
             lblCalPositionTotalSteps.Text = this.Motor.Position_step.ToString();
             lblCalPositionNegSteps.Text = this.Motor.PositionNegative_step.ToString();
             lblCalPositionPosSteps.Text = this.Motor.PositionPositive_step.ToString();
@@ -1073,7 +1076,7 @@ namespace PicomotorStageControl_v2
         {
             if (this.MicroscopeStageController == null || this.MicroscopeStageController.Connected == false)
                 return;
-            
+
             decimal x = this.numStageCtrlAbsRelXum.Value * 10.0M;
             decimal y = this.numStageCtrlAbsRelYum.Value * 10.0M;
             decimal z = this.numStageCtrlAbsRelZum.Value * 10.0M;
@@ -1087,6 +1090,16 @@ namespace PicomotorStageControl_v2
             {
                 this.MicroscopeStageController.SendCommand("M X=" + x.ToString() + "Y=" + y.ToString() + "Z=" + z.ToString());
             }
+        }
+
+        private void btnStageCtrlSetSpeed_Click(object sender, EventArgs e)
+        {
+            if (this.MicroscopeStageController == null || this.MicroscopeStageController.Connected == false)
+                return;
+            decimal val = this.numStageCtrlSpeed_um_s.Value * 1000.0M;
+            this.MicroscopeStageController.SendCommand("S X=" + val.ToString() + " Y=" + val.ToString() + " Z=" + val.ToString());
+
+            // TO DO: Implement a way to obtain the current speed from the stage controller and set it as the speed at start.
         }
     }
 }
