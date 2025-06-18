@@ -42,6 +42,9 @@ namespace PicomotorStageControl_v2
         private double indenterCal_sampleSum = 0;
         private int indenterCal_calOption = 0;
 
+        BackgroundWorker springConstantBackgroundWorker;
+
+
         public frmMain()
         {
             InitializeComponent();
@@ -1023,6 +1026,205 @@ namespace PicomotorStageControl_v2
             this.MicroscopeStageController.SendCommand("S X=" + val.ToString() + " Y=" + val.ToString() + " Z=" + val.ToString());
 
             // TO DO: Implement a way to obtain the current speed from the stage controller and set it as the speed at start.
+        }
+
+        //BackgroundWorker contactBackgroundWorker;
+        //private async void button1_Click(object sender, EventArgs e)
+        //{
+
+        //    // Pseudocode:
+        //    // 1. Ensure Motor and IndenterController are connected.
+        //    // 2. Set a safe downward velocity and acceleration for the Motor.
+        //    // 3. Start moving the stage down in small increments (or jog negative).
+        //    // 4. After each move, check the Indenter force reading.
+        //    // 5. If the force exceeds a threshold (indicating contact), stop the stage.
+        //    // 6. Optionally, move up a bit to relieve force.
+        //    // 7. Report the position where contact was detected.
+
+        //    if (Motor == null || IndenterController == null || !IndenterController.Connected)
+        //    {
+        //        MessageBox.Show("Motor or Indenter not connected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        return;
+        //    }
+
+        //    contactBackgroundWorker = new BackgroundWorker();
+        //    contactBackgroundWorker.DoWork += ContactBackgroundWorker_DoWork;
+        //    contactBackgroundWorker.RunWorkerAsync();
+        //}
+
+        //double ContactPoint_um = 0.0D;
+        //private void ContactBackgroundWorker_DoWork(object? sender, DoWorkEventArgs e)
+        //{
+        //    // Parameters
+        //    const double contactThreshold_mg = 0.3D; // Adjust as needed for your setup
+        //    const int stepIncrement = 400; // Steps to move per iteration
+        //    const int delayMs = 100; // Wait time between moves (ms)
+        //    bool contactDetected = false;
+
+        //    int initialVelocity = Motor.Velocity_step;
+        //    int initialAcceleration = Motor.Acceleration_step;
+
+        //    // Set safe velocity/acceleration
+        //    Motor.SetVelocity(500); // Adjust as needed
+        //    Motor.SetAcceleration(2000); // Adjust as needed
+
+        //    double InitialForce = IndenterController.IndenterForce_mg;
+
+        //    // Start moving down until contact
+        //    while (!contactDetected)
+        //    {
+        //        // Move down by a small increment
+        //        Motor.RelativeMove_step(-stepIncrement);
+
+        //        // Wait for move to complete and for force to update
+        //        Thread.Sleep(delayMs);
+
+        //        // Check indenter force
+        //        double force = IndenterController.IndenterForce_mg;
+        //        if (force <= InitialForce - contactThreshold_mg)
+        //        {
+        //            contactDetected = true;
+        //            Motor.StopMotion();
+        //            ContactPoint_um = (double)Indicator.Position;
+        //            MessageBox.Show($"Contact detected at position: {Motor.Position_step} steps\nIndenter force: {force} mg", "Contact Detected", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //            // Optionally, move up a bit to relieve force
+        //            Motor.RelativeMove_step(stepIncrement * 2);
+        //            break;
+        //        }
+        //    }
+
+        //    Motor.SetVelocity(initialVelocity); // Reset to default velocity
+        //    Motor.SetAcceleration(initialAcceleration); // Reset to default acceleration
+        //}
+
+        private void SpringConstantBackgroundWorker_DoWork(object? sender, DoWorkEventArgs e)
+        {
+            //Motor.SetVelocity(200);
+            //IndicatorMoveToPosition = (float)ContactPoint_um;
+            //IndicatorJogWorkerShouldRun = true;
+            //IndicatorJogWorker.RunWorkerAsync();
+
+            //while (IndicatorJogWorker.IsBusy == true)
+            //{
+            //    Thread.Yield();
+            //}
+
+            // Parameters
+
+            if (Motor == null || IndenterController == null || !IndenterController.Connected || Indicator == null)
+                return;
+
+            //const int stepIncrement = 50; // Steps to move per iteration
+            //const int delayMs = 100; // Wait time between moves (ms)
+            int contactsObtained = 0;
+
+            int initialVelocity = Motor.Velocity_step;
+            int initialAcceleration = Motor.Acceleration_step;
+            bool initialCreepUp = Settings.Default.StageMovementCreepUp;
+
+            Motor.SetVelocity((int)this.numIndentationCtrlSpringConstVel_steps.Value);
+            Motor.SetAcceleration((int)this.numIndentationCtrlSpringConstAccel_steps.Value);
+
+            if (this.chkIndentationCtrlSpringConstCreepUp.Checked)
+            {
+                Settings.Default.StageMovementCreepUp = true;
+            }
+            else
+            {
+                Settings.Default.StageMovementCreepUp = false;
+            }
+            Settings.Default.Save();
+
+            List<(double position, double force)> contactPoints = new List<(double, double)>();
+
+            // Start moving down until contact
+            while (contactsObtained < (int)this.numIndentationCtrlSpringConstPoints.Value)
+            {
+                IndicatorMoveToPosition = (float)Indicator.Position - (float)this.numIndentationCtrlSpringConstDistance_um.Value;
+                IndicatorJogWorkerShouldRun = true;
+                IndicatorJogWorker.RunWorkerAsync();
+
+                while (IndicatorJogWorker.IsBusy == true)
+                {
+                    Thread.Yield();
+                }
+
+                Thread.Sleep((int)this.numIndentationCtrlSpringConstDelay_ms.Value);
+
+                //Debug.WriteLine("um: " + Indicator.Position * 1E-6M + " mg: " + IndenterController.IndenterForce_mg * 1E-6 * 9.81);
+                contactPoints.Add(((double)Indicator.Position * 1E-6, IndenterController.IndenterForce_mg * 1E-6 * 9.81));
+
+                contactsObtained++;
+            }
+
+            double slope, intercept, rSquared;
+            (slope, intercept, rSquared) = FitLineToPoints(contactPoints);
+
+            //Debug.WriteLine("Slope: " + slope.ToString() + " Intercept: " + intercept.ToString() + " R^2: " + rSquared.ToString());
+
+            this.Invoke(delegate
+            {
+                lblSpringConstant.Text = ($"Spring Constant: {slope.ToString("F3")} N/m\nR^2: {rSquared.ToString("F3")}");
+            });
+
+            Motor.SetVelocity(initialVelocity);
+            Motor.SetAcceleration(initialAcceleration);
+            Settings.Default.StageMovementCreepUp = initialCreepUp; // Reset creep up setting
+            Settings.Default.Save();
+        }
+
+        private (double Slope, double Intercept, double RSquared) FitLineToPoints(List<(double x, double y)> points)
+        {
+            if (points == null || points.Count < 2)
+            {
+                MessageBox.Show("At least two points are required.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return (0, 0, 0);
+            }
+
+            double sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0, sumY2 = 0;
+            int n = points.Count;
+
+            foreach (var (x, y) in points)
+            {
+                sumX += x;
+                sumY += y;
+                sumXY += x * y;
+                sumX2 += x * x;
+                sumY2 += y * y;
+            }
+
+            double denominator = n * sumX2 - sumX * sumX;
+            if (denominator == 0)
+            {
+                MessageBox.Show("Cannot fit a line (vertical line or all x are equal).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return (0, 0, 0);
+            }
+
+            double slope = (n * sumXY - sumX * sumY) / denominator;
+            double intercept = (sumY - slope * sumX) / n;
+
+            // Calculate R-squared
+            double ssTot = 0, ssRes = 0;
+            double meanY = sumY / n;
+            foreach (var (x, y) in points)
+            {
+                double yPred = slope * x + intercept;
+                ssTot += (y - meanY) * (y - meanY);
+                ssRes += (y - yPred) * (y - yPred);
+            }
+            double rSquared = ssTot == 0 ? 1 : 1 - (ssRes / ssTot);
+
+            return (slope, intercept, rSquared);
+        }
+
+        private void btnIndentationCtrlFindSpringConst_Click(object sender, EventArgs e)
+        {
+            if (Motor == null || IndenterController == null || !IndenterController.Connected || Indicator == null)
+                return;
+
+            springConstantBackgroundWorker = new BackgroundWorker();
+            springConstantBackgroundWorker.DoWork += SpringConstantBackgroundWorker_DoWork;
+            springConstantBackgroundWorker.RunWorkerAsync();
         }
     }
 }

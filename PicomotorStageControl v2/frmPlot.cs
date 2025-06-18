@@ -73,7 +73,14 @@ namespace PicomotorStageControl_v2
                 LoggerIndenterForce_mg.Add(currentTime, 0);
             }
 
-            Plot.Refresh();
+            try
+            {
+                Plot.Refresh();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Plot refresh error: " + ex.Message);
+            }
         }
 
         private void btnPlotClear_Click(object sender, EventArgs e)

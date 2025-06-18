@@ -245,6 +245,24 @@
             tmrMicroscopeDisplayUpdate = new System.Windows.Forms.Timer(components);
             tmrIndenterDisplayUpdate = new System.Windows.Forms.Timer(components);
             tmrAverageIndenterValues = new System.Windows.Forms.Timer(components);
+            btnIndentationCtrlFindSpringConst = new Button();
+            lblSpringConstant = new Label();
+            groupBox10 = new GroupBox();
+            label70 = new Label();
+            numIndentationCtrlSpringConstDelay_ms = new NumericUpDown();
+            label71 = new Label();
+            label69 = new Label();
+            chkIndentationCtrlSpringConstCreepUp = new CheckBox();
+            label67 = new Label();
+            numIndentationCtrlSpringConstAccel_steps = new NumericUpDown();
+            label68 = new Label();
+            label66 = new Label();
+            numIndentationCtrlSpringConstVel_steps = new NumericUpDown();
+            label65 = new Label();
+            label15 = new Label();
+            label9 = new Label();
+            numIndentationCtrlSpringConstDistance_um = new NumericUpDown();
+            numIndentationCtrlSpringConstPoints = new NumericUpDown();
             groupBox6.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
             groupBox8.SuspendLayout();
@@ -301,6 +319,12 @@
             ((System.ComponentModel.ISupportInitialize)numIndenterSettingsCalWithProbe).BeginInit();
             groupBox21.SuspendLayout();
             tableLayoutPanel26.SuspendLayout();
+            groupBox10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numIndentationCtrlSpringConstDelay_ms).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numIndentationCtrlSpringConstAccel_steps).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numIndentationCtrlSpringConstVel_steps).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numIndentationCtrlSpringConstDistance_um).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numIndentationCtrlSpringConstPoints).BeginInit();
             SuspendLayout();
             // 
             // groupBox6
@@ -1108,7 +1132,7 @@
             statusStrip1.Location = new Point(0, 924);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.RenderMode = ToolStripRenderMode.Professional;
-            statusStrip1.Size = new Size(1814, 26);
+            statusStrip1.Size = new Size(1815, 26);
             statusStrip1.SizingGrip = false;
             statusStrip1.TabIndex = 4;
             statusStrip1.Text = "statusStrip1";
@@ -1206,7 +1230,7 @@
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(6, 3, 0, 3);
-            menuStrip1.Size = new Size(1814, 30);
+            menuStrip1.Size = new Size(1815, 30);
             menuStrip1.TabIndex = 5;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -1764,8 +1788,7 @@
             // 
             numMotorSettingsAcceleration.Anchor = AnchorStyles.None;
             numMotorSettingsAcceleration.Location = new Point(149, 60);
-            numMotorSettingsAcceleration.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
-            numMotorSettingsAcceleration.Minimum = new decimal(new int[] { -1, 0, 0, int.MinValue });
+            numMotorSettingsAcceleration.Maximum = new decimal(new int[] { 200000, 0, 0, 0 });
             numMotorSettingsAcceleration.Name = "numMotorSettingsAcceleration";
             numMotorSettingsAcceleration.Size = new Size(155, 27);
             numMotorSettingsAcceleration.TabIndex = 13;
@@ -1819,8 +1842,7 @@
             // 
             numMotorSettingsVelocity.Anchor = AnchorStyles.None;
             numMotorSettingsVelocity.Location = new Point(149, 4);
-            numMotorSettingsVelocity.Maximum = new decimal(new int[] { -1, 0, 0, 0 });
-            numMotorSettingsVelocity.Minimum = new decimal(new int[] { -1, 0, 0, int.MinValue });
+            numMotorSettingsVelocity.Maximum = new decimal(new int[] { 2000, 0, 0, 0 });
             numMotorSettingsVelocity.Name = "numMotorSettingsVelocity";
             numMotorSettingsVelocity.Size = new Size(155, 27);
             numMotorSettingsVelocity.TabIndex = 7;
@@ -2901,11 +2923,197 @@
             tmrAverageIndenterValues.Interval = 10;
             tmrAverageIndenterValues.Tick += tmrAverageIndenterValues_Tick;
             // 
+            // btnIndentationCtrlFindSpringConst
+            // 
+            btnIndentationCtrlFindSpringConst.Location = new Point(6, 224);
+            btnIndentationCtrlFindSpringConst.Name = "btnIndentationCtrlFindSpringConst";
+            btnIndentationCtrlFindSpringConst.Size = new Size(349, 29);
+            btnIndentationCtrlFindSpringConst.TabIndex = 21;
+            btnIndentationCtrlFindSpringConst.Text = "Find Spring Constant";
+            btnIndentationCtrlFindSpringConst.UseVisualStyleBackColor = true;
+            btnIndentationCtrlFindSpringConst.Click += btnIndentationCtrlFindSpringConst_Click;
+            // 
+            // lblSpringConstant
+            // 
+            lblSpringConstant.AutoSize = true;
+            lblSpringConstant.Location = new Point(6, 259);
+            lblSpringConstant.Name = "lblSpringConstant";
+            lblSpringConstant.Size = new Size(117, 20);
+            lblSpringConstant.TabIndex = 22;
+            lblSpringConstant.Text = "Spring Constant:";
+            // 
+            // groupBox10
+            // 
+            groupBox10.Controls.Add(label70);
+            groupBox10.Controls.Add(numIndentationCtrlSpringConstDelay_ms);
+            groupBox10.Controls.Add(label71);
+            groupBox10.Controls.Add(label69);
+            groupBox10.Controls.Add(chkIndentationCtrlSpringConstCreepUp);
+            groupBox10.Controls.Add(label67);
+            groupBox10.Controls.Add(numIndentationCtrlSpringConstAccel_steps);
+            groupBox10.Controls.Add(label68);
+            groupBox10.Controls.Add(label66);
+            groupBox10.Controls.Add(numIndentationCtrlSpringConstVel_steps);
+            groupBox10.Controls.Add(label65);
+            groupBox10.Controls.Add(label15);
+            groupBox10.Controls.Add(label9);
+            groupBox10.Controls.Add(numIndentationCtrlSpringConstDistance_um);
+            groupBox10.Controls.Add(numIndentationCtrlSpringConstPoints);
+            groupBox10.Controls.Add(lblSpringConstant);
+            groupBox10.Controls.Add(btnIndentationCtrlFindSpringConst);
+            groupBox10.Location = new Point(1441, 35);
+            groupBox10.Name = "groupBox10";
+            groupBox10.Size = new Size(361, 321);
+            groupBox10.TabIndex = 23;
+            groupBox10.TabStop = false;
+            groupBox10.Text = "Indentation Controls";
+            // 
+            // label70
+            // 
+            label70.AutoSize = true;
+            label70.Location = new Point(325, 94);
+            label70.Name = "label70";
+            label70.Size = new Size(28, 20);
+            label70.TabIndex = 36;
+            label70.Text = "ms";
+            // 
+            // numIndentationCtrlSpringConstDelay_ms
+            // 
+            numIndentationCtrlSpringConstDelay_ms.Location = new Point(143, 92);
+            numIndentationCtrlSpringConstDelay_ms.Maximum = new decimal(new int[] { 2000, 0, 0, 0 });
+            numIndentationCtrlSpringConstDelay_ms.Name = "numIndentationCtrlSpringConstDelay_ms";
+            numIndentationCtrlSpringConstDelay_ms.Size = new Size(176, 27);
+            numIndentationCtrlSpringConstDelay_ms.TabIndex = 35;
+            numIndentationCtrlSpringConstDelay_ms.Value = new decimal(new int[] { 200, 0, 0, 0 });
+            // 
+            // label71
+            // 
+            label71.AutoSize = true;
+            label71.Location = new Point(6, 94);
+            label71.Name = "label71";
+            label71.Size = new Size(125, 20);
+            label71.TabIndex = 34;
+            label71.Text = "Delay Btw. Points:";
+            // 
+            // label69
+            // 
+            label69.AutoSize = true;
+            label69.Location = new Point(325, 63);
+            label69.Name = "label69";
+            label69.Size = new Size(30, 20);
+            label69.TabIndex = 33;
+            label69.Text = "um";
+            // 
+            // chkIndentationCtrlSpringConstCreepUp
+            // 
+            chkIndentationCtrlSpringConstCreepUp.AutoSize = true;
+            chkIndentationCtrlSpringConstCreepUp.Checked = true;
+            chkIndentationCtrlSpringConstCreepUp.CheckState = CheckState.Checked;
+            chkIndentationCtrlSpringConstCreepUp.Location = new Point(9, 194);
+            chkIndentationCtrlSpringConstCreepUp.Name = "chkIndentationCtrlSpringConstCreepUp";
+            chkIndentationCtrlSpringConstCreepUp.Size = new Size(148, 24);
+            chkIndentationCtrlSpringConstCreepUp.TabIndex = 32;
+            chkIndentationCtrlSpringConstCreepUp.Text = "Creep up to point";
+            chkIndentationCtrlSpringConstCreepUp.UseVisualStyleBackColor = true;
+            // 
+            // label67
+            // 
+            label67.AutoSize = true;
+            label67.Location = new Point(282, 163);
+            label67.Name = "label67";
+            label67.Size = new Size(73, 20);
+            label67.TabIndex = 31;
+            label67.Text = "steps/s^2";
+            // 
+            // numIndentationCtrlSpringConstAccel_steps
+            // 
+            numIndentationCtrlSpringConstAccel_steps.Location = new Point(143, 161);
+            numIndentationCtrlSpringConstAccel_steps.Maximum = new decimal(new int[] { 200000, 0, 0, 0 });
+            numIndentationCtrlSpringConstAccel_steps.Name = "numIndentationCtrlSpringConstAccel_steps";
+            numIndentationCtrlSpringConstAccel_steps.Size = new Size(133, 27);
+            numIndentationCtrlSpringConstAccel_steps.TabIndex = 30;
+            numIndentationCtrlSpringConstAccel_steps.Value = new decimal(new int[] { 200000, 0, 0, 0 });
+            // 
+            // label68
+            // 
+            label68.AutoSize = true;
+            label68.Location = new Point(6, 163);
+            label68.Name = "label68";
+            label68.Size = new Size(95, 20);
+            label68.TabIndex = 29;
+            label68.Text = "Acceleration:";
+            // 
+            // label66
+            // 
+            label66.AutoSize = true;
+            label66.Location = new Point(300, 127);
+            label66.Name = "label66";
+            label66.Size = new Size(55, 20);
+            label66.TabIndex = 28;
+            label66.Text = "steps/s";
+            // 
+            // numIndentationCtrlSpringConstVel_steps
+            // 
+            numIndentationCtrlSpringConstVel_steps.Location = new Point(143, 125);
+            numIndentationCtrlSpringConstVel_steps.Maximum = new decimal(new int[] { 2000, 0, 0, 0 });
+            numIndentationCtrlSpringConstVel_steps.Name = "numIndentationCtrlSpringConstVel_steps";
+            numIndentationCtrlSpringConstVel_steps.Size = new Size(151, 27);
+            numIndentationCtrlSpringConstVel_steps.TabIndex = 28;
+            numIndentationCtrlSpringConstVel_steps.Value = new decimal(new int[] { 200, 0, 0, 0 });
+            // 
+            // label65
+            // 
+            label65.AutoSize = true;
+            label65.Location = new Point(6, 127);
+            label65.Name = "label65";
+            label65.Size = new Size(64, 20);
+            label65.TabIndex = 27;
+            label65.Text = "Velocity:";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(6, 61);
+            label15.Name = "label15";
+            label15.Size = new Size(106, 20);
+            label15.TabIndex = 26;
+            label15.Text = "Point Distance:";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(6, 28);
+            label9.Name = "label9";
+            label9.Size = new Size(131, 20);
+            label9.TabIndex = 25;
+            label9.Text = "Indentation Points:";
+            // 
+            // numIndentationCtrlSpringConstDistance_um
+            // 
+            numIndentationCtrlSpringConstDistance_um.DecimalPlaces = 1;
+            numIndentationCtrlSpringConstDistance_um.Location = new Point(143, 59);
+            numIndentationCtrlSpringConstDistance_um.Maximum = new decimal(new int[] { 99999999, 0, 0, 0 });
+            numIndentationCtrlSpringConstDistance_um.Minimum = new decimal(new int[] { 1, 0, 0, 65536 });
+            numIndentationCtrlSpringConstDistance_um.Name = "numIndentationCtrlSpringConstDistance_um";
+            numIndentationCtrlSpringConstDistance_um.Size = new Size(176, 27);
+            numIndentationCtrlSpringConstDistance_um.TabIndex = 24;
+            numIndentationCtrlSpringConstDistance_um.Value = new decimal(new int[] { 100, 0, 0, 0 });
+            // 
+            // numIndentationCtrlSpringConstPoints
+            // 
+            numIndentationCtrlSpringConstPoints.Location = new Point(143, 26);
+            numIndentationCtrlSpringConstPoints.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
+            numIndentationCtrlSpringConstPoints.Name = "numIndentationCtrlSpringConstPoints";
+            numIndentationCtrlSpringConstPoints.Size = new Size(212, 27);
+            numIndentationCtrlSpringConstPoints.TabIndex = 23;
+            numIndentationCtrlSpringConstPoints.Value = new decimal(new int[] { 2, 0, 0, 0 });
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1814, 950);
+            ClientSize = new Size(1815, 950);
+            Controls.Add(groupBox10);
             Controls.Add(groupBox21);
             Controls.Add(groupBox18);
             Controls.Add(groupBox17);
@@ -3000,6 +3208,13 @@
             groupBox21.ResumeLayout(false);
             tableLayoutPanel26.ResumeLayout(false);
             tableLayoutPanel26.PerformLayout();
+            groupBox10.ResumeLayout(false);
+            groupBox10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numIndentationCtrlSpringConstDelay_ms).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numIndentationCtrlSpringConstAccel_steps).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numIndentationCtrlSpringConstVel_steps).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numIndentationCtrlSpringConstDistance_um).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numIndentationCtrlSpringConstPoints).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -3224,5 +3439,23 @@
         private Label label60;
         private ToolStripMenuItem openSequenceEditorToolStripMenuItem;
         private ToolStripMenuItem openPlotToolStripMenuItem;
+        private Button btnIndentationCtrlFindSpringConst;
+        private Label lblSpringConstant;
+        private GroupBox groupBox10;
+        private Label label9;
+        private NumericUpDown numIndentationCtrlSpringConstDistance_um;
+        private NumericUpDown numIndentationCtrlSpringConstPoints;
+        private NumericUpDown numIndentationCtrlSpringConstVel_steps;
+        private Label label65;
+        private Label label15;
+        private Label label67;
+        private NumericUpDown numIndentationCtrlSpringConstAccel_steps;
+        private Label label68;
+        private Label label66;
+        private CheckBox chkIndentationCtrlSpringConstCreepUp;
+        private Label label69;
+        private Label label70;
+        private NumericUpDown numIndentationCtrlSpringConstDelay_ms;
+        private Label label71;
     }
 }
