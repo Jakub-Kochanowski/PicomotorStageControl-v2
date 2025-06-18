@@ -64,6 +64,7 @@ namespace PicomotorStageControl_v2
             {
                 LoggerIndicatorMicrons.Add(currentTime, 0);
             }
+
             if (MainForm.IndenterController != null)
             {
                 LoggerIndenterForce_mg.Add(currentTime, MainForm.IndenterController.IndenterForce_mg);

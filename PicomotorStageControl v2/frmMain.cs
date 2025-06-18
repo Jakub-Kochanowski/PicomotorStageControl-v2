@@ -44,7 +44,6 @@ namespace PicomotorStageControl_v2
 
         BackgroundWorker springConstantBackgroundWorker;
 
-
         public frmMain()
         {
             InitializeComponent();
@@ -88,7 +87,8 @@ namespace PicomotorStageControl_v2
                 "Motor Velocity (steps/s),Motor Acceleration (steps/s^2),Move State," +
                 "Indicator Position (microns),Indicator Velocity (microns/s)," +
                 "Indenter Force (mg),Indenter Force (N),Indenter Calibration No Probe (mg),Indenter Calibration With Probe (mg),Indenter Probe Weight(mg)," +
-                "Microscope Stage X Position (mm),Microscope Stage Y Position (mm),Microscope Stage Z Position (mm)";
+                "Microscope Stage X Position (mm),Microscope Stage Y Position (mm),Microscope Stage Z Position (mm)," +
+                "Spring Constant Worker Running";
             streamWriter.WriteLine(line);
 
             while (CollectingData)
@@ -131,6 +131,7 @@ namespace PicomotorStageControl_v2
                         MicroscopeStageController.CurrentPosition[1].ToString() + "," + // Y
                         MicroscopeStageController.CurrentPosition[2].ToString(); // Z
                 }
+                line += "," + springConstantBackgroundWorker?.IsBusy.ToString(); // Spring constant worker running
 
                 streamWriter.WriteLine(line);
                 index++;

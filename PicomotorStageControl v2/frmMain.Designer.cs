@@ -2963,7 +2963,7 @@
             groupBox10.Controls.Add(btnIndentationCtrlFindSpringConst);
             groupBox10.Location = new Point(1441, 35);
             groupBox10.Name = "groupBox10";
-            groupBox10.Size = new Size(361, 321);
+            groupBox10.Size = new Size(361, 432);
             groupBox10.TabIndex = 23;
             groupBox10.TabStop = false;
             groupBox10.Text = "Indentation Controls";
