@@ -44,6 +44,15 @@ namespace PicomotorStageControl_v2
 
         BackgroundWorker springConstantBackgroundWorker;
 
+        private enum SpringConstantMeasurementMode
+        {
+            ByPoints,
+            ByDistance,
+            ByForce
+        }
+
+        SpringConstantMeasurementMode springConstantMeasurementMode = SpringConstantMeasurementMode.ByPoints;
+
         public frmMain()
         {
             InitializeComponent();
@@ -1029,149 +1038,173 @@ namespace PicomotorStageControl_v2
             // TO DO: Implement a way to obtain the current speed from the stage controller and set it as the speed at start.
         }
 
-        //BackgroundWorker contactBackgroundWorker;
-        //private async void button1_Click(object sender, EventArgs e)
-        //{
-
-        //    // Pseudocode:
-        //    // 1. Ensure Motor and IndenterController are connected.
-        //    // 2. Set a safe downward velocity and acceleration for the Motor.
-        //    // 3. Start moving the stage down in small increments (or jog negative).
-        //    // 4. After each move, check the Indenter force reading.
-        //    // 5. If the force exceeds a threshold (indicating contact), stop the stage.
-        //    // 6. Optionally, move up a bit to relieve force.
-        //    // 7. Report the position where contact was detected.
-
-        //    if (Motor == null || IndenterController == null || !IndenterController.Connected)
-        //    {
-        //        MessageBox.Show("Motor or Indenter not connected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        return;
-        //    }
-
-        //    contactBackgroundWorker = new BackgroundWorker();
-        //    contactBackgroundWorker.DoWork += ContactBackgroundWorker_DoWork;
-        //    contactBackgroundWorker.RunWorkerAsync();
-        //}
-
-        //double ContactPoint_um = 0.0D;
-        //private void ContactBackgroundWorker_DoWork(object? sender, DoWorkEventArgs e)
-        //{
-        //    // Parameters
-        //    const double contactThreshold_mg = 0.3D; // Adjust as needed for your setup
-        //    const int stepIncrement = 400; // Steps to move per iteration
-        //    const int delayMs = 100; // Wait time between moves (ms)
-        //    bool contactDetected = false;
-
-        //    int initialVelocity = Motor.Velocity_step;
-        //    int initialAcceleration = Motor.Acceleration_step;
-
-        //    // Set safe velocity/acceleration
-        //    Motor.SetVelocity(500); // Adjust as needed
-        //    Motor.SetAcceleration(2000); // Adjust as needed
-
-        //    double InitialForce = IndenterController.IndenterForce_mg;
-
-        //    // Start moving down until contact
-        //    while (!contactDetected)
-        //    {
-        //        // Move down by a small increment
-        //        Motor.RelativeMove_step(-stepIncrement);
-
-        //        // Wait for move to complete and for force to update
-        //        Thread.Sleep(delayMs);
-
-        //        // Check indenter force
-        //        double force = IndenterController.IndenterForce_mg;
-        //        if (force <= InitialForce - contactThreshold_mg)
-        //        {
-        //            contactDetected = true;
-        //            Motor.StopMotion();
-        //            ContactPoint_um = (double)Indicator.Position;
-        //            MessageBox.Show($"Contact detected at position: {Motor.Position_step} steps\nIndenter force: {force} mg", "Contact Detected", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //            // Optionally, move up a bit to relieve force
-        //            Motor.RelativeMove_step(stepIncrement * 2);
-        //            break;
-        //        }
-        //    }
-
-        //    Motor.SetVelocity(initialVelocity); // Reset to default velocity
-        //    Motor.SetAcceleration(initialAcceleration); // Reset to default acceleration
-        //}
-
         private void SpringConstantBackgroundWorker_DoWork(object? sender, DoWorkEventArgs e)
         {
-            //Motor.SetVelocity(200);
-            //IndicatorMoveToPosition = (float)ContactPoint_um;
-            //IndicatorJogWorkerShouldRun = true;
-            //IndicatorJogWorker.RunWorkerAsync();
-
-            //while (IndicatorJogWorker.IsBusy == true)
-            //{
-            //    Thread.Yield();
-            //}
-
-            // Parameters
-
             if (Motor == null || IndenterController == null || !IndenterController.Connected || Indicator == null)
                 return;
-
-            //const int stepIncrement = 50; // Steps to move per iteration
-            //const int delayMs = 100; // Wait time between moves (ms)
-            int contactsObtained = 0;
 
             int initialVelocity = Motor.Velocity_step;
             int initialAcceleration = Motor.Acceleration_step;
             bool initialCreepUp = Settings.Default.StageMovementCreepUp;
 
-            Motor.SetVelocity((int)this.numIndentationCtrlSpringConstVel_steps.Value);
-            Motor.SetAcceleration((int)this.numIndentationCtrlSpringConstAccel_steps.Value);
-
-            if (this.chkIndentationCtrlSpringConstCreepUp.Checked)
+            if (springConstantMeasurementMode == SpringConstantMeasurementMode.ByPoints) // ---------------------------------------------------------
             {
-                Settings.Default.StageMovementCreepUp = true;
+                int contactsObtained = 0;
+
+                Motor.SetVelocity((int)this.numIndentationCtrlSpringConstByPointsVel_steps.Value);
+                Motor.SetAcceleration((int)this.numIndentationCtrlSpringConstByPointsAccel_steps.Value);
+
+                if (this.chkIndentationCtrlSpringConstByPointsCreepUp.Checked)
+                {
+                    Settings.Default.StageMovementCreepUp = true;
+                }
+                else
+                {
+                    Settings.Default.StageMovementCreepUp = false;
+                }
+                Settings.Default.Save(); // TO DO: Do I need to save for settings to to take effect?
+
+                List<(double position, double force)> contactPoints = new List<(double, double)>();
+
+                while (contactsObtained < (int)this.numIndentationCtrlSpringConstByPointsPoints.Value) // TO DO: Add a way to stop all of this.
+                {
+                    IndicatorMoveToPosition = (float)Indicator.Position - (float)this.numIndentationCtrlSpringConstByPointsDistance_um.Value;
+                    IndicatorJogWorkerShouldRun = true;
+                    IndicatorJogWorker.RunWorkerAsync();
+
+                    while (IndicatorJogWorker.IsBusy == true)
+                    {
+                        Thread.Yield();
+                    }
+
+                    Thread.Sleep((int)this.numIndentationCtrlSpringConstByPointsDelay_ms.Value);
+
+                    contactPoints.Add(((double)Indicator.Position * 1E-6, IndenterController.IndenterForce_mg * 1E-6 * 9.81));
+
+                    contactsObtained++;
+                }
+
+                double slope, intercept, rSquared;
+                (slope, intercept, rSquared) = FitLineToPoints(contactPoints);
+
+                this.Invoke(delegate
+                {
+                    numIndentationCtrlSpringConstByPointsSpringConst.Text = ($"Spring Constant: {slope.ToString("F3")} N/m | R^2: {rSquared.ToString("F3")}");
+                });
+
+                Motor.SetVelocity(initialVelocity);
+                Motor.SetAcceleration(initialAcceleration);
+                Settings.Default.StageMovementCreepUp = initialCreepUp;
+                Settings.Default.Save(); // TO DO: I should probably just do Settings.Default.Reload();
             }
-            else
+            else if (springConstantMeasurementMode == SpringConstantMeasurementMode.ByDistance) // ---------------------------------------------------------
             {
-                Settings.Default.StageMovementCreepUp = false;
-            }
-            Settings.Default.Save();
+                Motor.SetVelocity((int)this.numIndentationCtrlSpringConstByDistanceVel_steps.Value);
+                Motor.SetAcceleration((int)this.numIndentationCtrlSpringConstByDistanceAccel_steps.Value);
 
-            List<(double position, double force)> contactPoints = new List<(double, double)>();
+                if (this.chkIndentationCtrlSpringConstByDistanceCreepUp.Checked)
+                {
+                    Settings.Default.StageMovementCreepUp = true;
+                }
+                else
+                {
+                    Settings.Default.StageMovementCreepUp = false;
+                }
+                Settings.Default.Save(); // TO DO: Do I need to save for settings to take effect?
 
-            // Start moving down until contact
-            while (contactsObtained < (int)this.numIndentationCtrlSpringConstPoints.Value)
-            {
-                IndicatorMoveToPosition = (float)Indicator.Position - (float)this.numIndentationCtrlSpringConstDistance_um.Value;
+                //double initialPosition = Indicator.Position * 1E-6; // Convert to meters
+                //double initialForce = IndenterController.IndenterForce_mg * 1E-6 * 9.81; // Convert to Newtons
+
+                int cyclesToWait = 50;
+                int cycleCount = 51; // Capture the first one
+
+                List<(double position, double force)> contactPoints = new List<(double, double)>();
+
+                IndicatorMoveToPosition = (float)Indicator.Position - (float)this.numIndentationCtrlSpringConstByDistanceDistance_um.Value;
                 IndicatorJogWorkerShouldRun = true;
                 IndicatorJogWorker.RunWorkerAsync();
 
                 while (IndicatorJogWorker.IsBusy == true)
                 {
+                    // Figure out a good way to figure out how many points to collect.
+                    if (cycleCount > cyclesToWait)
+                    {
+                        contactPoints.Add(((double)Indicator.Position * 1E-6, IndenterController.IndenterForce_mg * 1E-6 * 9.81));
+                        cycleCount = 0;
+                    }
+                    else
+                    {
+                        cycleCount++;
+                    }
                     Thread.Yield();
                 }
+                //double finalPosition = Indicator.Position * 1E-6; // Convert to meters
+                //double finalForce = IndenterController.IndenterForce_mg * 1E-6 * 9.81; // Convert to Newtons
+                //double slope = (finalForce - initialForce) / (finalPosition - initialPosition);
+                //double intercept = initialForce - slope * initialPosition;
+                //this.Invoke(delegate
+                //{
+                //    lblSpringConstant.Text = ($"Spring Constant: {slope.ToString("F3")} N/m");
+                //});
+                double slope, intercept, rSquared;
+                (slope, intercept, rSquared) = FitLineToPoints(contactPoints);
 
-                Thread.Sleep((int)this.numIndentationCtrlSpringConstDelay_ms.Value);
+                this.Invoke(delegate
+                {
+                    numIndentationCtrlSpringConstByDistanceSpringConst.Text = ($"Spring Constant: {slope.ToString("F3")} N/m | R^2: {rSquared.ToString("F3")}");
+                });
 
-                //Debug.WriteLine("um: " + Indicator.Position * 1E-6M + " mg: " + IndenterController.IndenterForce_mg * 1E-6 * 9.81);
-                contactPoints.Add(((double)Indicator.Position * 1E-6, IndenterController.IndenterForce_mg * 1E-6 * 9.81));
-
-                contactsObtained++;
+                Motor.SetVelocity(initialVelocity);
+                Motor.SetAcceleration(initialAcceleration);
+                Settings.Default.StageMovementCreepUp = initialCreepUp;
+                Settings.Default.Save(); // TO DO: I should probably just do Settings.Default.Reload();
             }
-
-            double slope, intercept, rSquared;
-            (slope, intercept, rSquared) = FitLineToPoints(contactPoints);
-
-            //Debug.WriteLine("Slope: " + slope.ToString() + " Intercept: " + intercept.ToString() + " R^2: " + rSquared.ToString());
-
-            this.Invoke(delegate
+            else if (springConstantMeasurementMode == SpringConstantMeasurementMode.ByForce) // ---------------------------------------------------------
             {
-                lblSpringConstant.Text = ($"Spring Constant: {slope.ToString("F3")} N/m\nR^2: {rSquared.ToString("F3")}");
-            });
+                Motor.SetVelocity((int)this.numIndentationCtrlSpringConstByForceVel_steps.Value);
+                Motor.SetAcceleration((int)this.numIndentationCtrlSpringConstByForceAccel_steps.Value);
+                if (this.chkIndentationCtrlSpringConstByForceCreepUp.Checked)
+                {
+                    Settings.Default.StageMovementCreepUp = true;
+                }
+                else
+                {
+                    Settings.Default.StageMovementCreepUp = false;
+                }
+                Settings.Default.Save(); // TO DO: Do I need to save for settings to take effect?
+                
+                List<(double position, double force)> contactPoints = new List<(double, double)>();
 
-            Motor.SetVelocity(initialVelocity);
-            Motor.SetAcceleration(initialAcceleration);
-            Settings.Default.StageMovementCreepUp = initialCreepUp; // Reset creep up setting
-            Settings.Default.Save();
+                int cyclesToWait = 50;
+                int cycleCount = 51; // Capture the first one
+
+                while (this.IndenterController.IndenterForce_mg <= (double)this.numIndentationCtrlSpringConstByForceEndForce_mg.Value) // TO DO: Add a way to stop all of this.
+                {
+                    if (cycleCount > cyclesToWait)
+                    {
+                        contactPoints.Add(((double)Indicator.Position * 1E-6, IndenterController.IndenterForce_mg * 1E-6 * 9.81));
+                        cycleCount = 0;
+                    }
+                    else
+                    {
+                        cycleCount++;
+                    }
+                    this.Motor.JogNegative();
+                }
+
+                this.Motor.StopMotion();
+                
+                double slope, intercept, rSquared;
+                (slope, intercept, rSquared) = FitLineToPoints(contactPoints);
+                this.Invoke(delegate
+                {
+                    numIndentationCtrlSpringConstByForceSpringConst.Text = ($"Spring Constant: {slope.ToString("F3")} N/m | R^2: {rSquared.ToString("F3")}");
+                });
+                Motor.SetVelocity(initialVelocity);
+                Motor.SetAcceleration(initialAcceleration);
+                Settings.Default.StageMovementCreepUp = initialCreepUp;
+                Settings.Default.Save(); // TO DO: I should probably just do Settings.Default.Reload();
+            }
         }
 
         private (double Slope, double Intercept, double RSquared) FitLineToPoints(List<(double x, double y)> points)
