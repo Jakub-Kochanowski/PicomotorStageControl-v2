@@ -44,6 +44,10 @@ namespace PicomotorStageControl_v2
 
         BackgroundWorker springConstantBackgroundWorker;
 
+        string SampleDetails_SampleName;
+        string SampleDetails_Location;
+        string SampleDetails_Measurement;
+
         private enum SpringConstantMeasurementMode
         {
             ByPoints,
@@ -97,7 +101,7 @@ namespace PicomotorStageControl_v2
                 "Indicator Position (microns),Indicator Velocity (microns/s)," +
                 "Indenter Force (mg),Indenter Force (N),Indenter Calibration No Probe (mg),Indenter Calibration With Probe (mg),Indenter Probe Weight(mg)," +
                 "Microscope Stage X Position (mm),Microscope Stage Y Position (mm),Microscope Stage Z Position (mm)," +
-                "Spring Constant Worker Running";
+                "Spring Constant Worker Running,Sample Name,Sample Location, Sample Measurement";
             streamWriter.WriteLine(line);
 
             while (CollectingData)
@@ -140,7 +144,7 @@ namespace PicomotorStageControl_v2
                         MicroscopeStageController.CurrentPosition[1].ToString() + "," + // Y
                         MicroscopeStageController.CurrentPosition[2].ToString(); // Z
                 }
-                line += "," + springConstantBackgroundWorker?.IsBusy.ToString(); // Spring constant worker running
+                line += "," + springConstantBackgroundWorker?.IsBusy.ToString() + "," + SampleDetails_SampleName + "," + SampleDetails_Location + "," + SampleDetails_Measurement; // Spring constant worker running
 
                 streamWriter.WriteLine(line);
                 index++;
@@ -1172,7 +1176,7 @@ namespace PicomotorStageControl_v2
                     Settings.Default.StageMovementCreepUp = false;
                 }
                 Settings.Default.Save(); // TO DO: Do I need to save for settings to take effect?
-                
+
                 List<(double position, double force)> contactPoints = new List<(double, double)>();
 
                 int cyclesToWait = 50;
@@ -1193,7 +1197,7 @@ namespace PicomotorStageControl_v2
                 }
 
                 this.Motor.StopMotion();
-                
+
                 double slope, intercept, rSquared;
                 (slope, intercept, rSquared) = FitLineToPoints(contactPoints);
                 this.Invoke(delegate
@@ -1259,6 +1263,13 @@ namespace PicomotorStageControl_v2
             springConstantBackgroundWorker = new BackgroundWorker();
             springConstantBackgroundWorker.DoWork += SpringConstantBackgroundWorker_DoWork;
             springConstantBackgroundWorker.RunWorkerAsync();
+        }
+
+        private void btnSampleDetailsSet_Click(object sender, EventArgs e)
+        {
+            this.SampleDetails_SampleName = this.txtSampleDetailsSampleName.Text;
+            this.SampleDetails_Location = this.txtSampleDetailsLocation.Text;
+            this.SampleDetails_Measurement = this.txtSampleDetailsMeasurement.Text;
         }
     }
 }

@@ -292,13 +292,13 @@
             numIndentationCtrlSpringConstByDistanceDistance_um = new NumericUpDown();
             label72 = new Label();
             groupBox23 = new GroupBox();
-            button3 = new Button();
+            btnSampleDetailsSet = new Button();
             label88 = new Label();
             label87 = new Label();
             label86 = new Label();
-            textBox3 = new TextBox();
-            textBox2 = new TextBox();
-            textBox1 = new TextBox();
+            txtSampleDetailsMeasurement = new TextBox();
+            txtSampleDetailsLocation = new TextBox();
+            txtSampleDetailsSampleName = new TextBox();
             groupBox6.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
             groupBox8.SuspendLayout();
@@ -3433,13 +3433,13 @@
             // 
             // groupBox23
             // 
-            groupBox23.Controls.Add(button3);
+            groupBox23.Controls.Add(btnSampleDetailsSet);
             groupBox23.Controls.Add(label88);
             groupBox23.Controls.Add(label87);
             groupBox23.Controls.Add(label86);
-            groupBox23.Controls.Add(textBox3);
-            groupBox23.Controls.Add(textBox2);
-            groupBox23.Controls.Add(textBox1);
+            groupBox23.Controls.Add(txtSampleDetailsMeasurement);
+            groupBox23.Controls.Add(txtSampleDetailsLocation);
+            groupBox23.Controls.Add(txtSampleDetailsSampleName);
             groupBox23.Location = new Point(1820, 35);
             groupBox23.Name = "groupBox23";
             groupBox23.Size = new Size(377, 173);
@@ -3447,14 +3447,15 @@
             groupBox23.TabStop = false;
             groupBox23.Text = "Sample Details";
             // 
-            // button3
+            // btnSampleDetailsSet
             // 
-            button3.Location = new Point(10, 125);
-            button3.Name = "button3";
-            button3.Size = new Size(361, 42);
-            button3.TabIndex = 46;
-            button3.Text = "button3";
-            button3.UseVisualStyleBackColor = true;
+            btnSampleDetailsSet.Location = new Point(10, 125);
+            btnSampleDetailsSet.Name = "btnSampleDetailsSet";
+            btnSampleDetailsSet.Size = new Size(361, 42);
+            btnSampleDetailsSet.TabIndex = 46;
+            btnSampleDetailsSet.Text = "Set";
+            btnSampleDetailsSet.UseVisualStyleBackColor = true;
+            btnSampleDetailsSet.Click += btnSampleDetailsSet_Click;
             // 
             // label88
             // 
@@ -3483,26 +3484,26 @@
             label86.TabIndex = 43;
             label86.Text = "Sample Name:";
             // 
-            // textBox3
+            // txtSampleDetailsMeasurement
             // 
-            textBox3.Location = new Point(122, 92);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(249, 27);
-            textBox3.TabIndex = 42;
+            txtSampleDetailsMeasurement.Location = new Point(122, 92);
+            txtSampleDetailsMeasurement.Name = "txtSampleDetailsMeasurement";
+            txtSampleDetailsMeasurement.Size = new Size(249, 27);
+            txtSampleDetailsMeasurement.TabIndex = 42;
             // 
-            // textBox2
+            // txtSampleDetailsLocation
             // 
-            textBox2.Location = new Point(122, 59);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(249, 27);
-            textBox2.TabIndex = 41;
+            txtSampleDetailsLocation.Location = new Point(122, 59);
+            txtSampleDetailsLocation.Name = "txtSampleDetailsLocation";
+            txtSampleDetailsLocation.Size = new Size(249, 27);
+            txtSampleDetailsLocation.TabIndex = 41;
             // 
-            // textBox1
+            // txtSampleDetailsSampleName
             // 
-            textBox1.Location = new Point(122, 26);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(249, 27);
-            textBox1.TabIndex = 40;
+            txtSampleDetailsSampleName.Location = new Point(122, 26);
+            txtSampleDetailsSampleName.Name = "txtSampleDetailsSampleName";
+            txtSampleDetailsSampleName.Size = new Size(249, 27);
+            txtSampleDetailsSampleName.TabIndex = 40;
             // 
             // frmMain
             // 
@@ -3895,12 +3896,12 @@
         private NumericUpDown numIndentationCtrlSpringConstByDistanceDistance_um;
         private Label label72;
         private GroupBox groupBox23;
-        private Button button3;
+        private Button btnSampleDetailsSet;
         private Label label88;
         private Label label87;
         private Label label86;
-        private TextBox textBox3;
-        private TextBox textBox2;
-        private TextBox textBox1;
+        private TextBox txtSampleDetailsMeasurement;
+        private TextBox txtSampleDetailsLocation;
+        private TextBox txtSampleDetailsSampleName;
     }
 }
