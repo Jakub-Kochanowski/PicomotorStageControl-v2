@@ -303,6 +303,7 @@
             txtSampleDetailsMeasurement = new TextBox();
             txtSampleDetailsLocation = new TextBox();
             txtSampleDetailsSampleName = new TextBox();
+            chkSampleDetailsShowPlot = new CheckBox();
             groupBox6.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
             groupBox8.SuspendLayout();
@@ -3434,6 +3435,7 @@
             // 
             // groupBox23
             // 
+            groupBox23.Controls.Add(chkSampleDetailsShowPlot);
             groupBox23.Controls.Add(label78);
             groupBox23.Controls.Add(label77);
             groupBox23.Controls.Add(numSampleDetailsStressRelaxationTime_ms);
@@ -3564,6 +3566,18 @@
             txtSampleDetailsSampleName.Size = new Size(249, 27);
             txtSampleDetailsSampleName.TabIndex = 40;
             txtSampleDetailsSampleName.TextChanged += txtSampleDetailsSampleName_TextChanged;
+            // 
+            // chkSampleDetailsShowPlot
+            // 
+            chkSampleDetailsShowPlot.AutoSize = true;
+            chkSampleDetailsShowPlot.Checked = true;
+            chkSampleDetailsShowPlot.CheckState = CheckState.Checked;
+            chkSampleDetailsShowPlot.Location = new Point(274, 163);
+            chkSampleDetailsShowPlot.Name = "chkSampleDetailsShowPlot";
+            chkSampleDetailsShowPlot.Size = new Size(97, 24);
+            chkSampleDetailsShowPlot.TabIndex = 55;
+            chkSampleDetailsShowPlot.Text = "Show Plot";
+            chkSampleDetailsShowPlot.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
@@ -3968,5 +3982,6 @@
         private Label label77;
         private NumericUpDown numSampleDetailsStressRelaxationTime_ms;
         private CheckBox chkSampleDetailsCollectStressRelaxation;
+        private CheckBox chkSampleDetailsShowPlot;
     }
 }

@@ -1,6 +1,5 @@
 using NewFocus.Picomotor;
 using PicomotorStageControl_v2.Properties;
-using ScottPlot.Plottables;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
@@ -35,7 +34,7 @@ namespace PicomotorStageControl_v2
 
         frmSequenceEditor SequenceEditorForm;
 
-        frmPlot PlotForm;
+        frmActivePlot PlotForm;
 
         private int indenterCal_sampleCount = 0;
         private int indenterCal_totalSamples = 200;
@@ -80,7 +79,7 @@ namespace PicomotorStageControl_v2
 
             SequenceEditorForm = new frmSequenceEditor(this);
 
-            PlotForm = new frmPlot(this);
+            PlotForm = new frmActivePlot(this);
             PlotForm.Show();
 
             springConstantBackgroundWorker = new BackgroundWorker();
@@ -1251,7 +1250,18 @@ namespace PicomotorStageControl_v2
             this.Invoke(delegate
             {
                 this.btnSampleDetailsSaveCollectedData.Enabled = true;
+
+                if (this.chkSampleDetailsShowPlot.Checked)
+                {
+                    ShowPlot(this.IndentationContactPoints.Select(p => p.position * 1E-6).ToArray(), this.IndentationContactPoints.Select(p => p.force * 1E-6 * 9.81).ToArray(), "Spring Constant Measurement", "Position (m)", "Force (N)");
+                }
             });
+        }
+
+        private void ShowPlot(double[] X, double[] Y, string title, string xLabel, string yLabel)
+        {
+            frmStaticPlot staticPlot = new frmStaticPlot(X, Y, title, xLabel, yLabel);
+            staticPlot.Show(this);
         }
 
         private (double Slope, double Intercept, double RSquared) FitLineToPoints(List<(double t, double x, double y)> points) // I added the t. Whatever.

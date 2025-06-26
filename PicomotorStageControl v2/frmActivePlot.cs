@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace PicomotorStageControl_v2
 {
-    public partial class frmPlot : Form
+    public partial class frmActivePlot : Form
     {
         private frmMain MainForm;
 
@@ -21,7 +21,7 @@ namespace PicomotorStageControl_v2
 
         Stopwatch StopwatchTimeElapsed;
 
-        public frmPlot(frmMain mainForm)
+        public frmActivePlot(frmMain mainForm)
         {
             InitializeComponent();
             this.MainForm = mainForm;

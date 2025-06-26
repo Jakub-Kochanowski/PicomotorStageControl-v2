@@ -1,6 +1,6 @@
 ﻿namespace PicomotorStageControl_v2
 {
-    partial class frmPlot
+    partial class frmActivePlot
     {
         /// <summary>
         /// Required designer variable.
