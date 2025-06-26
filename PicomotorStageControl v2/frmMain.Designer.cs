@@ -268,7 +268,6 @@
             groupBox22 = new GroupBox();
             label85 = new Label();
             btnFindSpringConstByForce = new Button();
-            chkIndentationCtrlSpringConstByForceCreepUp = new CheckBox();
             numIndentationCtrlSpringConstByForceSpringConst = new Label();
             label79 = new Label();
             numIndentationCtrlSpringConstByForceAccel_steps = new NumericUpDown();
@@ -292,6 +291,11 @@
             numIndentationCtrlSpringConstByDistanceDistance_um = new NumericUpDown();
             label72 = new Label();
             groupBox23 = new GroupBox();
+            label78 = new Label();
+            label77 = new Label();
+            numSampleDetailsStressRelaxationTime_ms = new NumericUpDown();
+            chkSampleDetailsCollectStressRelaxation = new CheckBox();
+            btnSampleDetailsSaveCollectedData = new Button();
             btnSampleDetailsSet = new Button();
             label88 = new Label();
             label87 = new Label();
@@ -371,6 +375,7 @@
             ((System.ComponentModel.ISupportInitialize)numIndentationCtrlSpringConstByDistanceVel_steps).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numIndentationCtrlSpringConstByDistanceDistance_um).BeginInit();
             groupBox23.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numSampleDetailsStressRelaxationTime_ms).BeginInit();
             SuspendLayout();
             // 
             // groupBox6
@@ -1175,10 +1180,10 @@
             // 
             statusStrip1.ImageScalingSize = new Size(20, 20);
             statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1, statusStageConnected, toolStripStatusLabel3, toolStripStatusLabel4, statusIndicatorConnected, toolStripStatusLabel6, toolStripStatusLabel7, toolStripStatusLabel8, toolStripStatusLabel9, toolStripStatusLabel10, toolStripStatusLabel11, toolStripStatusLabel12, toolStripStatusLabel13, toolStripStatusLabel14 });
-            statusStrip1.Location = new Point(0, 924);
+            statusStrip1.Location = new Point(0, 1044);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.RenderMode = ToolStripRenderMode.Professional;
-            statusStrip1.Size = new Size(2206, 26);
+            statusStrip1.Size = new Size(1829, 26);
             statusStrip1.SizingGrip = false;
             statusStrip1.TabIndex = 4;
             statusStrip1.Text = "statusStrip1";
@@ -1276,7 +1281,7 @@
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(6, 3, 0, 3);
-            menuStrip1.Size = new Size(2206, 30);
+            menuStrip1.Size = new Size(1829, 30);
             menuStrip1.TabIndex = 5;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -2982,7 +2987,7 @@
             groupBox10.Controls.Add(groupBox15);
             groupBox10.Location = new Point(1441, 35);
             groupBox10.Name = "groupBox10";
-            groupBox10.Size = new Size(373, 767);
+            groupBox10.Size = new Size(373, 738);
             groupBox10.TabIndex = 45;
             groupBox10.TabStop = false;
             groupBox10.Text = "Find Spring Constant";
@@ -3170,12 +3175,12 @@
             btnFindSpringConstByPoints.TabIndex = 21;
             btnFindSpringConstByPoints.Text = "Find Spring Constant";
             btnFindSpringConstByPoints.UseVisualStyleBackColor = true;
+            btnFindSpringConstByPoints.Click += btnFindSpringConstByPoints_Click;
             // 
             // groupBox22
             // 
             groupBox22.Controls.Add(label85);
             groupBox22.Controls.Add(btnFindSpringConstByForce);
-            groupBox22.Controls.Add(chkIndentationCtrlSpringConstByForceCreepUp);
             groupBox22.Controls.Add(numIndentationCtrlSpringConstByForceSpringConst);
             groupBox22.Controls.Add(label79);
             groupBox22.Controls.Add(numIndentationCtrlSpringConstByForceAccel_steps);
@@ -3187,7 +3192,7 @@
             groupBox22.Controls.Add(label83);
             groupBox22.Location = new Point(6, 543);
             groupBox22.Name = "groupBox22";
-            groupBox22.Size = new Size(361, 216);
+            groupBox22.Size = new Size(361, 188);
             groupBox22.TabIndex = 42;
             groupBox22.TabStop = false;
             groupBox22.Text = "By Final Force";
@@ -3203,29 +3208,18 @@
             // 
             // btnFindSpringConstByForce
             // 
-            btnFindSpringConstByForce.Location = new Point(6, 156);
+            btnFindSpringConstByForce.Location = new Point(5, 128);
             btnFindSpringConstByForce.Name = "btnFindSpringConstByForce";
             btnFindSpringConstByForce.Size = new Size(349, 29);
             btnFindSpringConstByForce.TabIndex = 48;
             btnFindSpringConstByForce.Text = "Find Spring Constant";
             btnFindSpringConstByForce.UseVisualStyleBackColor = true;
-            // 
-            // chkIndentationCtrlSpringConstByForceCreepUp
-            // 
-            chkIndentationCtrlSpringConstByForceCreepUp.AutoSize = true;
-            chkIndentationCtrlSpringConstByForceCreepUp.Checked = true;
-            chkIndentationCtrlSpringConstByForceCreepUp.CheckState = CheckState.Checked;
-            chkIndentationCtrlSpringConstByForceCreepUp.Location = new Point(9, 126);
-            chkIndentationCtrlSpringConstByForceCreepUp.Name = "chkIndentationCtrlSpringConstByForceCreepUp";
-            chkIndentationCtrlSpringConstByForceCreepUp.Size = new Size(148, 24);
-            chkIndentationCtrlSpringConstByForceCreepUp.TabIndex = 47;
-            chkIndentationCtrlSpringConstByForceCreepUp.Text = "Creep up to point";
-            chkIndentationCtrlSpringConstByForceCreepUp.UseVisualStyleBackColor = true;
+            btnFindSpringConstByForce.Click += btnFindSpringConstByForce_Click;
             // 
             // numIndentationCtrlSpringConstByForceSpringConst
             // 
             numIndentationCtrlSpringConstByForceSpringConst.AutoSize = true;
-            numIndentationCtrlSpringConstByForceSpringConst.Location = new Point(6, 188);
+            numIndentationCtrlSpringConstByForceSpringConst.Location = new Point(5, 160);
             numIndentationCtrlSpringConstByForceSpringConst.Name = "numIndentationCtrlSpringConstByForceSpringConst";
             numIndentationCtrlSpringConstByForceSpringConst.Size = new Size(117, 20);
             numIndentationCtrlSpringConstByForceSpringConst.TabIndex = 46;
@@ -3287,7 +3281,10 @@
             // 
             // numIndentationCtrlSpringConstByForceEndForce_mg
             // 
+            numIndentationCtrlSpringConstByForceEndForce_mg.DecimalPlaces = 1;
             numIndentationCtrlSpringConstByForceEndForce_mg.Location = new Point(142, 26);
+            numIndentationCtrlSpringConstByForceEndForce_mg.Maximum = new decimal(new int[] { 9999999, 0, 0, 0 });
+            numIndentationCtrlSpringConstByForceEndForce_mg.Minimum = new decimal(new int[] { 999999, 0, 0, int.MinValue });
             numIndentationCtrlSpringConstByForceEndForce_mg.Name = "numIndentationCtrlSpringConstByForceEndForce_mg";
             numIndentationCtrlSpringConstByForceEndForce_mg.Size = new Size(175, 27);
             numIndentationCtrlSpringConstByForceEndForce_mg.TabIndex = 39;
@@ -3339,6 +3336,7 @@
             btnFindSpringConstByDistance.TabIndex = 48;
             btnFindSpringConstByDistance.Text = "Find Spring Constant";
             btnFindSpringConstByDistance.UseVisualStyleBackColor = true;
+            btnFindSpringConstByDistance.Click += btnFindSpringConstByDistance_Click;
             // 
             // chkIndentationCtrlSpringConstByDistanceCreepUp
             // 
@@ -3417,7 +3415,10 @@
             // 
             // numIndentationCtrlSpringConstByDistanceDistance_um
             // 
+            numIndentationCtrlSpringConstByDistanceDistance_um.DecimalPlaces = 1;
             numIndentationCtrlSpringConstByDistanceDistance_um.Location = new Point(142, 26);
+            numIndentationCtrlSpringConstByDistanceDistance_um.Maximum = new decimal(new int[] { 9999999, 0, 0, 0 });
+            numIndentationCtrlSpringConstByDistanceDistance_um.Minimum = new decimal(new int[] { 9999999, 0, 0, int.MinValue });
             numIndentationCtrlSpringConstByDistanceDistance_um.Name = "numIndentationCtrlSpringConstByDistanceDistance_um";
             numIndentationCtrlSpringConstByDistanceDistance_um.Size = new Size(177, 27);
             numIndentationCtrlSpringConstByDistanceDistance_um.TabIndex = 39;
@@ -3433,6 +3434,11 @@
             // 
             // groupBox23
             // 
+            groupBox23.Controls.Add(label78);
+            groupBox23.Controls.Add(label77);
+            groupBox23.Controls.Add(numSampleDetailsStressRelaxationTime_ms);
+            groupBox23.Controls.Add(chkSampleDetailsCollectStressRelaxation);
+            groupBox23.Controls.Add(btnSampleDetailsSaveCollectedData);
             groupBox23.Controls.Add(btnSampleDetailsSet);
             groupBox23.Controls.Add(label88);
             groupBox23.Controls.Add(label87);
@@ -3440,18 +3446,69 @@
             groupBox23.Controls.Add(txtSampleDetailsMeasurement);
             groupBox23.Controls.Add(txtSampleDetailsLocation);
             groupBox23.Controls.Add(txtSampleDetailsSampleName);
-            groupBox23.Location = new Point(1820, 35);
+            groupBox23.Location = new Point(1441, 779);
             groupBox23.Name = "groupBox23";
-            groupBox23.Size = new Size(377, 173);
+            groupBox23.Size = new Size(377, 262);
             groupBox23.TabIndex = 44;
             groupBox23.TabStop = false;
             groupBox23.Text = "Sample Details";
             // 
+            // label78
+            // 
+            label78.AutoSize = true;
+            label78.Location = new Point(341, 190);
+            label78.Name = "label78";
+            label78.Size = new Size(28, 20);
+            label78.TabIndex = 54;
+            label78.Text = "ms";
+            // 
+            // label77
+            // 
+            label77.AutoSize = true;
+            label77.Location = new Point(8, 190);
+            label77.Name = "label77";
+            label77.Size = new Size(190, 20);
+            label77.TabIndex = 53;
+            label77.Text = "Relaxation Collection Time:";
+            // 
+            // numSampleDetailsStressRelaxationTime_ms
+            // 
+            numSampleDetailsStressRelaxationTime_ms.Location = new Point(204, 188);
+            numSampleDetailsStressRelaxationTime_ms.Maximum = new decimal(new int[] { 1215752191, 23, 0, 0 });
+            numSampleDetailsStressRelaxationTime_ms.Name = "numSampleDetailsStressRelaxationTime_ms";
+            numSampleDetailsStressRelaxationTime_ms.Size = new Size(131, 27);
+            numSampleDetailsStressRelaxationTime_ms.TabIndex = 51;
+            // 
+            // chkSampleDetailsCollectStressRelaxation
+            // 
+            chkSampleDetailsCollectStressRelaxation.AutoSize = true;
+            chkSampleDetailsCollectStressRelaxation.Checked = true;
+            chkSampleDetailsCollectStressRelaxation.CheckState = CheckState.Checked;
+            chkSampleDetailsCollectStressRelaxation.Location = new Point(13, 163);
+            chkSampleDetailsCollectStressRelaxation.Name = "chkSampleDetailsCollectStressRelaxation";
+            chkSampleDetailsCollectStressRelaxation.Size = new Size(193, 24);
+            chkSampleDetailsCollectStressRelaxation.TabIndex = 52;
+            chkSampleDetailsCollectStressRelaxation.Text = "Collect Stress Relaxation";
+            chkSampleDetailsCollectStressRelaxation.UseVisualStyleBackColor = true;
+            chkSampleDetailsCollectStressRelaxation.CheckedChanged += chkSampleDetailsCollectStressRelaxation_CheckedChanged;
+            // 
+            // btnSampleDetailsSaveCollectedData
+            // 
+            btnSampleDetailsSaveCollectedData.Enabled = false;
+            btnSampleDetailsSaveCollectedData.Location = new Point(6, 221);
+            btnSampleDetailsSaveCollectedData.Name = "btnSampleDetailsSaveCollectedData";
+            btnSampleDetailsSaveCollectedData.Size = new Size(365, 33);
+            btnSampleDetailsSaveCollectedData.TabIndex = 47;
+            btnSampleDetailsSaveCollectedData.Text = "Save Collected Data";
+            btnSampleDetailsSaveCollectedData.UseVisualStyleBackColor = true;
+            btnSampleDetailsSaveCollectedData.Click += btnSampleDetailsSaveCollectedData_Click;
+            // 
             // btnSampleDetailsSet
             // 
-            btnSampleDetailsSet.Location = new Point(10, 125);
+            btnSampleDetailsSet.Enabled = false;
+            btnSampleDetailsSet.Location = new Point(6, 125);
             btnSampleDetailsSet.Name = "btnSampleDetailsSet";
-            btnSampleDetailsSet.Size = new Size(361, 42);
+            btnSampleDetailsSet.Size = new Size(365, 33);
             btnSampleDetailsSet.TabIndex = 46;
             btnSampleDetailsSet.Text = "Set";
             btnSampleDetailsSet.UseVisualStyleBackColor = true;
@@ -3490,6 +3547,7 @@
             txtSampleDetailsMeasurement.Name = "txtSampleDetailsMeasurement";
             txtSampleDetailsMeasurement.Size = new Size(249, 27);
             txtSampleDetailsMeasurement.TabIndex = 42;
+            txtSampleDetailsMeasurement.TextChanged += txtSampleDetailsMeasurement_TextChanged;
             // 
             // txtSampleDetailsLocation
             // 
@@ -3497,6 +3555,7 @@
             txtSampleDetailsLocation.Name = "txtSampleDetailsLocation";
             txtSampleDetailsLocation.Size = new Size(249, 27);
             txtSampleDetailsLocation.TabIndex = 41;
+            txtSampleDetailsLocation.TextChanged += txtSampleDetailsLocation_TextChanged;
             // 
             // txtSampleDetailsSampleName
             // 
@@ -3504,12 +3563,13 @@
             txtSampleDetailsSampleName.Name = "txtSampleDetailsSampleName";
             txtSampleDetailsSampleName.Size = new Size(249, 27);
             txtSampleDetailsSampleName.TabIndex = 40;
+            txtSampleDetailsSampleName.TextChanged += txtSampleDetailsSampleName_TextChanged;
             // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(2206, 950);
+            ClientSize = new Size(1829, 1070);
             Controls.Add(groupBox10);
             Controls.Add(groupBox23);
             Controls.Add(groupBox21);
@@ -3626,6 +3686,7 @@
             ((System.ComponentModel.ISupportInitialize)numIndentationCtrlSpringConstByDistanceDistance_um).EndInit();
             groupBox23.ResumeLayout(false);
             groupBox23.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numSampleDetailsStressRelaxationTime_ms).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -3872,7 +3933,6 @@
         private GroupBox groupBox22;
         private Label label85;
         private Button btnFindSpringConstByForce;
-        private CheckBox chkIndentationCtrlSpringConstByForceCreepUp;
         private Label numIndentationCtrlSpringConstByForceSpringConst;
         private Label label79;
         private NumericUpDown numIndentationCtrlSpringConstByForceAccel_steps;
@@ -3903,5 +3963,10 @@
         private TextBox txtSampleDetailsMeasurement;
         private TextBox txtSampleDetailsLocation;
         private TextBox txtSampleDetailsSampleName;
+        private Button btnSampleDetailsSaveCollectedData;
+        private Label label78;
+        private Label label77;
+        private NumericUpDown numSampleDetailsStressRelaxationTime_ms;
+        private CheckBox chkSampleDetailsCollectStressRelaxation;
     }
 }

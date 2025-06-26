@@ -47,6 +47,8 @@ namespace PicomotorStageControl_v2
         string SampleDetails_SampleName;
         string SampleDetails_Location;
         string SampleDetails_Measurement;
+        List<(double time, double position, double force)> IndentationContactPoints = new List<(double, double, double)>();
+
 
         private enum SpringConstantMeasurementMode
         {
@@ -80,6 +82,14 @@ namespace PicomotorStageControl_v2
 
             PlotForm = new frmPlot(this);
             PlotForm.Show();
+
+            springConstantBackgroundWorker = new BackgroundWorker();
+            springConstantBackgroundWorker.DoWork += SpringConstantBackgroundWorker_DoWork;
+        }
+
+        private void SpringConstantBackgroundWorker_DoWork1(object? sender, DoWorkEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void DataCollectionWorker_DoWork(object? sender, DoWorkEventArgs e)
@@ -419,6 +429,10 @@ namespace PicomotorStageControl_v2
 
         public void UpdateCalibrationValues()
         {
+            this.numIndenterSettingsCalNoProbe.Value = Settings.Default.IndenterCalibration_RawNoProbe; // TO DO: Should this be set on connect? Probably.
+            this.numIndenterSettingsCalWithProbe.Value = Settings.Default.IndenterCalibration_RawWithProbe;
+            this.numIndenterSettingsCalProbeWeight.Value = Settings.Default.IndenterCalibration_ProbeWeight_mg;
+
             float neg = (float)Settings.Default.AvgNegativeStepSize_um;
             float pos = (float)Settings.Default.AvgPositiveStepSize_um;
 
@@ -904,6 +918,11 @@ namespace PicomotorStageControl_v2
                 this.IndenterController.IndenterCalibrationNoProbe_mg = (double)this.numIndenterSettingsCalNoProbe.Value * 100.0D;
                 this.IndenterController.IndenterCalibrationWithProbe_mg = (double)this.numIndenterSettingsCalWithProbe.Value * 100.0D;
                 this.IndenterController.ProbeWeight_mg = (double)this.numIndenterSettingsCalProbeWeight.Value * 100.0D;
+
+                Settings.Default.IndenterCalibration_RawNoProbe = this.numIndenterSettingsCalNoProbe.Value;
+                Settings.Default.IndenterCalibration_RawWithProbe = this.numIndenterSettingsCalWithProbe.Value;
+                Settings.Default.IndenterCalibration_ProbeWeight_mg = this.numIndenterSettingsCalProbeWeight.Value;
+                Settings.Default.Save();
             }
         }
 
@@ -1051,6 +1070,9 @@ namespace PicomotorStageControl_v2
             int initialAcceleration = Motor.Acceleration_step;
             bool initialCreepUp = Settings.Default.StageMovementCreepUp;
 
+            Stopwatch timeObtained = new Stopwatch();
+            timeObtained.Start();
+
             if (springConstantMeasurementMode == SpringConstantMeasurementMode.ByPoints) // ---------------------------------------------------------
             {
                 int contactsObtained = 0;
@@ -1068,7 +1090,7 @@ namespace PicomotorStageControl_v2
                 }
                 Settings.Default.Save(); // TO DO: Do I need to save for settings to to take effect?
 
-                List<(double position, double force)> contactPoints = new List<(double, double)>();
+                IndentationContactPoints = new List<(double, double, double)>();
 
                 while (contactsObtained < (int)this.numIndentationCtrlSpringConstByPointsPoints.Value) // TO DO: Add a way to stop all of this.
                 {
@@ -1083,13 +1105,13 @@ namespace PicomotorStageControl_v2
 
                     Thread.Sleep((int)this.numIndentationCtrlSpringConstByPointsDelay_ms.Value);
 
-                    contactPoints.Add(((double)Indicator.Position * 1E-6, IndenterController.IndenterForce_mg * 1E-6 * 9.81));
+                    IndentationContactPoints.Add(((double)timeObtained.ElapsedMilliseconds, (double)Indicator.Position * 1E-6, IndenterController.IndenterForce_mg * 1E-6 * 9.81));
 
                     contactsObtained++;
                 }
 
                 double slope, intercept, rSquared;
-                (slope, intercept, rSquared) = FitLineToPoints(contactPoints);
+                (slope, intercept, rSquared) = FitLineToPoints(IndentationContactPoints);
 
                 this.Invoke(delegate
                 {
@@ -1119,10 +1141,10 @@ namespace PicomotorStageControl_v2
                 //double initialPosition = Indicator.Position * 1E-6; // Convert to meters
                 //double initialForce = IndenterController.IndenterForce_mg * 1E-6 * 9.81; // Convert to Newtons
 
-                int cyclesToWait = 50;
-                int cycleCount = 51; // Capture the first one
+                int cyclesToWait = 100000;
+                int cycleCount = 100001; // Capture the first one
 
-                List<(double position, double force)> contactPoints = new List<(double, double)>();
+                IndentationContactPoints = new List<(double, double, double)>();
 
                 IndicatorMoveToPosition = (float)Indicator.Position - (float)this.numIndentationCtrlSpringConstByDistanceDistance_um.Value;
                 IndicatorJogWorkerShouldRun = true;
@@ -1133,7 +1155,7 @@ namespace PicomotorStageControl_v2
                     // Figure out a good way to figure out how many points to collect.
                     if (cycleCount > cyclesToWait)
                     {
-                        contactPoints.Add(((double)Indicator.Position * 1E-6, IndenterController.IndenterForce_mg * 1E-6 * 9.81));
+                        IndentationContactPoints.Add(((double)timeObtained.ElapsedMilliseconds, (double)Indicator.Position * 1E-6, IndenterController.IndenterForce_mg * 1E-6 * 9.81));
                         cycleCount = 0;
                     }
                     else
@@ -1151,7 +1173,7 @@ namespace PicomotorStageControl_v2
                 //    lblSpringConstant.Text = ($"Spring Constant: {slope.ToString("F3")} N/m");
                 //});
                 double slope, intercept, rSquared;
-                (slope, intercept, rSquared) = FitLineToPoints(contactPoints);
+                (slope, intercept, rSquared) = FitLineToPoints(IndentationContactPoints);
 
                 this.Invoke(delegate
                 {
@@ -1167,26 +1189,19 @@ namespace PicomotorStageControl_v2
             {
                 Motor.SetVelocity((int)this.numIndentationCtrlSpringConstByForceVel_steps.Value);
                 Motor.SetAcceleration((int)this.numIndentationCtrlSpringConstByForceAccel_steps.Value);
-                if (this.chkIndentationCtrlSpringConstByForceCreepUp.Checked)
-                {
-                    Settings.Default.StageMovementCreepUp = true;
-                }
-                else
-                {
-                    Settings.Default.StageMovementCreepUp = false;
-                }
+
                 Settings.Default.Save(); // TO DO: Do I need to save for settings to take effect?
 
-                List<(double position, double force)> contactPoints = new List<(double, double)>();
+                IndentationContactPoints = new List<(double, double, double)>();
 
-                int cyclesToWait = 50;
-                int cycleCount = 51; // Capture the first one
+                int cyclesToWait = 100000;
+                int cycleCount = 100001; // Capture the first one
 
-                while (this.IndenterController.IndenterForce_mg <= (double)this.numIndentationCtrlSpringConstByForceEndForce_mg.Value) // TO DO: Add a way to stop all of this.
+                while (this.IndenterController.IndenterForce_mg > (double)this.numIndentationCtrlSpringConstByForceEndForce_mg.Value) // TO DO: Add a way to stop all of this.
                 {
                     if (cycleCount > cyclesToWait)
                     {
-                        contactPoints.Add(((double)Indicator.Position * 1E-6, IndenterController.IndenterForce_mg * 1E-6 * 9.81));
+                        IndentationContactPoints.Add(((double)timeObtained.ElapsedMilliseconds, (double)Indicator.Position * 1E-6, IndenterController.IndenterForce_mg * 1E-6 * 9.81));
                         cycleCount = 0;
                     }
                     else
@@ -1199,7 +1214,8 @@ namespace PicomotorStageControl_v2
                 this.Motor.StopMotion();
 
                 double slope, intercept, rSquared;
-                (slope, intercept, rSquared) = FitLineToPoints(contactPoints);
+
+                (slope, intercept, rSquared) = FitLineToPoints(IndentationContactPoints);
                 this.Invoke(delegate
                 {
                     numIndentationCtrlSpringConstByForceSpringConst.Text = ($"Spring Constant: {slope.ToString("F3")} N/m | R^2: {rSquared.ToString("F3")}");
@@ -1209,9 +1225,36 @@ namespace PicomotorStageControl_v2
                 Settings.Default.StageMovementCreepUp = initialCreepUp;
                 Settings.Default.Save(); // TO DO: I should probably just do Settings.Default.Reload();
             }
+
+            if (chkSampleDetailsCollectStressRelaxation.Checked)
+            {
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
+
+                int cyclesToWait = 100000;
+                int cycleCount = 100001;
+
+                while (stopwatch.ElapsedMilliseconds < numSampleDetailsStressRelaxationTime_ms.Value)
+                {
+                    if (cycleCount > cyclesToWait)
+                    {
+                        IndentationContactPoints.Add(((double)timeObtained.ElapsedMilliseconds, (double)Indicator.Position * 1E-6, IndenterController.IndenterForce_mg * 1E-6 * 9.81));
+                        cycleCount = 0;
+                    }
+                    else
+                    {
+                        cycleCount++;
+                    }
+                }
+            }
+
+            this.Invoke(delegate
+            {
+                this.btnSampleDetailsSaveCollectedData.Enabled = true;
+            });
         }
 
-        private (double Slope, double Intercept, double RSquared) FitLineToPoints(List<(double x, double y)> points)
+        private (double Slope, double Intercept, double RSquared) FitLineToPoints(List<(double t, double x, double y)> points) // I added the t. Whatever.
         {
             if (points == null || points.Count < 2)
             {
@@ -1222,7 +1265,7 @@ namespace PicomotorStageControl_v2
             double sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0, sumY2 = 0;
             int n = points.Count;
 
-            foreach (var (x, y) in points)
+            foreach (var (t, x, y) in points)
             {
                 sumX += x;
                 sumY += y;
@@ -1244,7 +1287,7 @@ namespace PicomotorStageControl_v2
             // Calculate R-squared
             double ssTot = 0, ssRes = 0;
             double meanY = sumY / n;
-            foreach (var (x, y) in points)
+            foreach (var (t, x, y) in points)
             {
                 double yPred = slope * x + intercept;
                 ssTot += (y - meanY) * (y - meanY);
@@ -1267,9 +1310,149 @@ namespace PicomotorStageControl_v2
 
         private void btnSampleDetailsSet_Click(object sender, EventArgs e)
         {
+            if (this.txtSampleDetailsSampleName.Text.Contains(",") || this.txtSampleDetailsLocation.Text.Contains(",") || this.txtSampleDetailsMeasurement.Text.Contains(","))
+            {
+                // TO DO: What other checks are needed?
+                MessageBox.Show("Text cannot contain a comma!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            string potentialName = this.txtSampleDetailsMeasurement.Text + "_" + this.txtSampleDetailsSampleName.Text + "_" + this.txtSampleDetailsLocation.Text + ".csv";
+
+            if (potentialName.IndexOfAny(Path.GetInvalidFileNameChars()) > 0)
+            {
+                MessageBox.Show("Text must not contain invalid characters for a file name!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
             this.SampleDetails_SampleName = this.txtSampleDetailsSampleName.Text;
             this.SampleDetails_Location = this.txtSampleDetailsLocation.Text;
             this.SampleDetails_Measurement = this.txtSampleDetailsMeasurement.Text;
+
+            btnSampleDetailsSet.Enabled = false;
+        }
+
+        private void btnFindSpringConstByPoints_Click(object sender, EventArgs e)
+        {
+            if (springConstantBackgroundWorker.IsBusy)
+                return;
+
+            this.springConstantMeasurementMode = SpringConstantMeasurementMode.ByPoints;
+            this.springConstantBackgroundWorker.RunWorkerAsync();
+        }
+
+        private void btnFindSpringConstByDistance_Click(object sender, EventArgs e)
+        {
+            if (springConstantBackgroundWorker.IsBusy)
+                return;
+
+            this.springConstantMeasurementMode = SpringConstantMeasurementMode.ByDistance;
+            this.springConstantBackgroundWorker.RunWorkerAsync();
+        }
+
+        private void btnFindSpringConstByForce_Click(object sender, EventArgs e)
+        {
+            if (springConstantBackgroundWorker.IsBusy)
+                return;
+
+            this.springConstantMeasurementMode = SpringConstantMeasurementMode.ByForce;
+            this.springConstantBackgroundWorker.RunWorkerAsync();
+        }
+
+        private void chkSampleDetailsCollectStressRelaxation_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.chkSampleDetailsCollectStressRelaxation.Checked)
+            {
+                numSampleDetailsStressRelaxationTime_ms.Enabled = true;
+            }
+            else
+            {
+                numSampleDetailsStressRelaxationTime_ms.Enabled = false;
+            }
+        }
+
+        private void txtSampleDetailsSampleName_TextChanged(object sender, EventArgs e)
+        {
+            if (txtSampleDetailsSampleName.Text != this.SampleDetails_SampleName || txtSampleDetailsLocation.Text != this.SampleDetails_Location || txtSampleDetailsMeasurement.Text != this.SampleDetails_Measurement)
+            {
+                this.btnSampleDetailsSet.Enabled = true;
+            }
+            else
+            {
+                this.btnSampleDetailsSet.Enabled = false;
+            }
+        }
+
+        private void txtSampleDetailsLocation_TextChanged(object sender, EventArgs e)
+        {
+            if (txtSampleDetailsSampleName.Text != this.SampleDetails_SampleName || txtSampleDetailsLocation.Text != this.SampleDetails_Location || txtSampleDetailsMeasurement.Text != this.SampleDetails_Measurement)
+            {
+                this.btnSampleDetailsSet.Enabled = true;
+            }
+            else
+            {
+                this.btnSampleDetailsSet.Enabled = false;
+            }
+        }
+
+        private void txtSampleDetailsMeasurement_TextChanged(object sender, EventArgs e)
+        {
+            if (txtSampleDetailsSampleName.Text != this.SampleDetails_SampleName || txtSampleDetailsLocation.Text != this.SampleDetails_Location || txtSampleDetailsMeasurement.Text != this.SampleDetails_Measurement)
+            {
+                this.btnSampleDetailsSet.Enabled = true;
+            }
+            else
+            {
+                this.btnSampleDetailsSet.Enabled = false;
+            }
+        }
+
+        private void btnSampleDetailsSaveCollectedData_Click(object sender, EventArgs e)
+        {
+            if (IndentationContactPoints.Count == 0)
+            {
+                MessageBox.Show("No data collected to save!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!Directory.Exists(txtDataDirectory.Text))
+            {
+                MessageBox.Show("Data directory does not exist!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string fileName = SampleDetails_SampleName + "_" + SampleDetails_Location + "_" + SampleDetails_Measurement;
+            string fileLocation = txtDataDirectory.Text + "/" + fileName + ".csv";
+
+            if (File.Exists(fileLocation))
+            {
+                MessageBox.Show("File already exists!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                StreamWriter streamWriter = new StreamWriter(fileLocation, false);
+
+                string line = "Time (ms),Position (m),Force (N)";
+
+                streamWriter.WriteLine(line);
+
+                foreach (var point in IndentationContactPoints)
+                {
+                    line = $"{point.time},{point.position * 1E-6},{point.force * 1E-6 * 9.81d}";
+                    streamWriter.WriteLine(line);
+                }
+
+                streamWriter.Flush();
+                streamWriter.Close();
+
+                btnSampleDetailsSaveCollectedData.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error saving file! " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

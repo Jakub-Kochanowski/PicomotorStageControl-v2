@@ -31,7 +31,7 @@ public class IndenterController : IDisposable
 
     //private double CalibratedIndenterValue { get { return RawIndenterValue - IndenterCalibration * 100.0D - ProbeWeight_mg * 100.0D; } }
     public double IndenterForce_mg { get { return CalibratedIndenterValue / 100.0D; } }
-    public double IndenterForce_N { get { return (CalibratedIndenterValue / 1E-6) * 9.81D; } }
+    public double IndenterForce_N { get { return (CalibratedIndenterValue * 1E-6) * 9.81D; } }
 
     
     //public event Action<double, double, double>? OnForceUpdated;
