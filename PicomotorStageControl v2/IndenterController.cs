@@ -17,6 +17,9 @@ public class IndenterController : IDisposable
     public double IndenterCalibrationWithProbe_mg { get; set; } = 0;
     public double IndenterCalibrationOffset_mg { get; set; } = 0;
 
+    public double IndenterDiameter_um { get; set; } = 0.0D;
+    public double IndenterSpringConstant_N_m { get; set; } = 0.0D;
+
     public double ProbeWeight_mg { get; set; } = 0; // Why overcomplicate with private, internal stuff
 
     public double RawIndenterValue = 0.0D;

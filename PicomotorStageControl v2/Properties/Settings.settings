@@ -35,5 +35,11 @@
     <Setting Name="IndenterCalibration_ProbeWeight_mg" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="IndenterCalibration_Diameter_um" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="IndenterCalibration_SpringConst_N_m" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -154,5 +154,29 @@ namespace PicomotorStageControl_v2.Properties {
                 this["IndenterCalibration_ProbeWeight_mg"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal IndenterCalibration_Diameter_um {
+            get {
+                return ((decimal)(this["IndenterCalibration_Diameter_um"]));
+            }
+            set {
+                this["IndenterCalibration_Diameter_um"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal IndenterCalibration_SpringConst_N_m {
+            get {
+                return ((decimal)(this["IndenterCalibration_SpringConst_N_m"]));
+            }
+            set {
+                this["IndenterCalibration_SpringConst_N_m"] = value;
+            }
+        }
     }
 }

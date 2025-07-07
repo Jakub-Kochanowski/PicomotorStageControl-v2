@@ -26,7 +26,6 @@ namespace PicomotorStageControl_v2
         public float IndicatorMoveToPosition = 0.0f;
         public bool IndicatorJogWorkerShouldRun = false;
 
-
         BackgroundWorker DataCollectionWorker;
         public bool CollectingData { get; private set; } = false;
 
@@ -431,6 +430,8 @@ namespace PicomotorStageControl_v2
             this.numIndenterSettingsCalNoProbe.Value = Settings.Default.IndenterCalibration_RawNoProbe; // TO DO: Should this be set on connect? Probably.
             this.numIndenterSettingsCalWithProbe.Value = Settings.Default.IndenterCalibration_RawWithProbe;
             this.numIndenterSettingsCalProbeWeight.Value = Settings.Default.IndenterCalibration_ProbeWeight_mg;
+            this.numIndenterSettingsSpringConstant_N_m.Value = Settings.Default.IndenterCalibration_SpringConst_N_m;
+            this.numIndenterSettingsProbeDiameter_um.Value = Settings.Default.IndenterCalibration_Diameter_um;
 
             float neg = (float)Settings.Default.AvgNegativeStepSize_um;
             float pos = (float)Settings.Default.AvgPositiveStepSize_um;
@@ -695,6 +696,8 @@ namespace PicomotorStageControl_v2
                 this.numIndenterSettingsCalNoProbe.Enabled = true;
                 this.numIndenterSettingsCalWithProbe.Enabled = true; // TO DO: Do an "on-connect" action so that only when its connected it is enabled.
                 this.numIndenterSettingsCalProbeWeight.Enabled = true;
+                this.numIndenterSettingsProbeDiameter_um.Enabled = true;
+                this.numIndenterSettingsSpringConstant_N_m.Enabled = true;
                 this.btnIndenterCalWithProbe.Enabled = true;
                 this.btnIndenterSettingsCalNoProbe.Enabled = true;
                 this.btnIndenterSettingsCalibrate.Enabled = true;
@@ -917,10 +920,14 @@ namespace PicomotorStageControl_v2
                 this.IndenterController.IndenterCalibrationNoProbe_mg = (double)this.numIndenterSettingsCalNoProbe.Value * 100.0D;
                 this.IndenterController.IndenterCalibrationWithProbe_mg = (double)this.numIndenterSettingsCalWithProbe.Value * 100.0D;
                 this.IndenterController.ProbeWeight_mg = (double)this.numIndenterSettingsCalProbeWeight.Value * 100.0D;
+                this.IndenterController.IndenterDiameter_um = (double)this.numIndenterSettingsProbeDiameter_um.Value;
+                this.IndenterController.IndenterSpringConstant_N_m = (double)this.numIndenterSettingsSpringConstant_N_m.Value;
 
                 Settings.Default.IndenterCalibration_RawNoProbe = this.numIndenterSettingsCalNoProbe.Value;
                 Settings.Default.IndenterCalibration_RawWithProbe = this.numIndenterSettingsCalWithProbe.Value;
                 Settings.Default.IndenterCalibration_ProbeWeight_mg = this.numIndenterSettingsCalProbeWeight.Value;
+                Settings.Default.IndenterCalibration_Diameter_um = this.numIndenterSettingsProbeDiameter_um.Value;
+                Settings.Default.IndenterCalibration_SpringConst_N_m = this.numIndenterSettingsSpringConstant_N_m.Value;
                 Settings.Default.Save();
             }
         }
@@ -1114,7 +1121,8 @@ namespace PicomotorStageControl_v2
 
                 this.Invoke(delegate
                 {
-                    numIndentationCtrlSpringConstByPointsSpringConst.Text = ($"Spring Constant: {slope.ToString("F3")} N/m | R^2: {rSquared.ToString("F3")}");
+                    lblSpringConstFlat.Text = ($"Spring Constant: {slope.ToString("F3")} N/m | R^2: {rSquared.ToString("F3")}");
+                    lblSpringConstFlatModulus.Text = "Elastic Modulus: " + CalculateElasticModulusFromFlatSurface(slope).ToString() + " Pa";
                 });
 
                 Motor.SetVelocity(initialVelocity);
@@ -1176,7 +1184,8 @@ namespace PicomotorStageControl_v2
 
                 this.Invoke(delegate
                 {
-                    numIndentationCtrlSpringConstByDistanceSpringConst.Text = ($"Spring Constant: {slope.ToString("F3")} N/m | R^2: {rSquared.ToString("F3")}");
+                    lblSpringConstFlat.Text = ($"Spring Constant: {slope.ToString("F3")} N/m | R^2: {rSquared.ToString("F3")}");
+                    lblSpringConstFlatModulus.Text = "Elastic Modulus: " + CalculateElasticModulusFromFlatSurface(slope).ToString() + " Pa";
                 });
 
                 Motor.SetVelocity(initialVelocity);
@@ -1217,7 +1226,8 @@ namespace PicomotorStageControl_v2
                 (slope, intercept, rSquared) = FitLineToPoints(IndentationContactPoints);
                 this.Invoke(delegate
                 {
-                    numIndentationCtrlSpringConstByForceSpringConst.Text = ($"Spring Constant: {slope.ToString("F3")} N/m | R^2: {rSquared.ToString("F3")}");
+                    lblSpringConstFlat.Text = ($"Spring Constant: {slope.ToString("F3")} N/m | R^2: {rSquared.ToString("F3")}");
+                    lblSpringConstFlatModulus.Text = "Elastic Modulus: " + CalculateElasticModulusFromFlatSurface(slope).ToString() + " Pa";
                 });
                 Motor.SetVelocity(initialVelocity);
                 Motor.SetAcceleration(initialAcceleration);
@@ -1256,6 +1266,16 @@ namespace PicomotorStageControl_v2
                     ShowPlot(this.IndentationContactPoints.Select(p => p.position * 1E-6).ToArray(), this.IndentationContactPoints.Select(p => p.force * 1E-6 * 9.81).ToArray(), "Spring Constant Measurement", "Position (m)", "Force (N)");
                 }
             });
+        }
+
+        private decimal CalculateElasticModulusFromFlatSurface(double k_Surface)
+        {
+            double difference = (1 / k_Surface) - (1 / (double)this.IndenterController.IndenterSpringConstant_N_m);
+            difference = 1 / difference;
+            double poissonsRatio = 0.5; // TO DO: Un-hard-code this
+
+            double elasticModulus = (difference * (1 - poissonsRatio * poissonsRatio)) / ((double)this.IndenterController.IndenterDiameter_um * 1E-6);
+            return (decimal)elasticModulus; // To Do: Fix the conversions. Ridiculous.
         }
 
         private void ShowPlot(double[] X, double[] Y, string title, string xLabel, string yLabel)
@@ -1453,6 +1473,9 @@ namespace PicomotorStageControl_v2
                     line = $"{point.time},{point.position * 1E-6},{point.force * 1E-6 * 9.81d}";
                     streamWriter.WriteLine(line);
                 }
+
+                line = ",,,Spring Const:," + lblSpringConstFlat.Text;
+                streamWriter.WriteLine(line);
 
                 streamWriter.Flush();
                 streamWriter.Close();
