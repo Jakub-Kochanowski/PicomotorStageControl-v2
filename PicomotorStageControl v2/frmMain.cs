@@ -1,4 +1,5 @@
 using NewFocus.Picomotor;
+using PicomotorStageControl_v2;
 using PicomotorStageControl_v2.Properties;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -11,7 +12,9 @@ namespace PicomotorStageControl_v2
     {
         public CmdLib8742? StageCMD;
         public string DeviceID { get; private set; } = String.Empty;
-        public Motor? Motor { get; private set; } // Bad name?
+        public Motor? MotorZ { get; private set; }
+        public Motor? MotorX { get; private set; }
+        public Motor? MotorY { get; private set; }
 
         public Indicator? Indicator { get; private set; } = null;
 
@@ -85,9 +88,18 @@ namespace PicomotorStageControl_v2
             springConstantBackgroundWorker.DoWork += SpringConstantBackgroundWorker_DoWork;
         }
 
-        private void SpringConstantBackgroundWorker_DoWork1(object? sender, DoWorkEventArgs e)
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            throw new NotImplementedException();
+            if (StageCMD != null)
+                StageCMD.Close(this.DeviceID);
+            if (Indicator != null && Indicator.Connected)
+                Indicator.Disconnect();
+            if (MicroscopeStageController != null && MicroscopeStageController.Connected)
+                MicroscopeStageController.Dispose();
+            if (IndenterController != null && IndenterController.Connected)
+                IndenterController.Dispose();
+
         }
 
         private void DataCollectionWorker_DoWork(object? sender, DoWorkEventArgs e)
@@ -101,11 +113,11 @@ namespace PicomotorStageControl_v2
 
             // TO DO: There is definitely a better way to do this, but for now...
 
-            line = "Index,Time(ms),Motor Position (steps),Motor Position Negative (steps),Motor Position Positive (steps)," +
-                "Motor Position From Calibration (microns),Motor Velocity Negative From Calibration (microns),Motor Velocity Positive From Calibration (microns)," +
-                "Motor Acceleration Negative From Calibration (microns),Motor Acceleration Positive From Calibration (microns)," +
-                "Motor Calibration Negative Step Size (microns),Motor Calibration Positive Step Size (microns)," +
-                "Motor Velocity (steps/s),Motor Acceleration (steps/s^2),Move State," +
+            line = "Index,Time(ms),MotorZ Position (steps),MotorZ Position Negative (steps),MotorZ Position Positive (steps)," +
+                "MotorZ Position From Calibration (microns),MotorZ Velocity Negative From Calibration (microns),MotorZ Velocity Positive From Calibration (microns)," +
+                "MotorZ Acceleration Negative From Calibration (microns),MotorZ Acceleration Positive From Calibration (microns)," +
+                "MotorZ Calibration Negative Step Size (microns),MotorZ Calibration Positive Step Size (microns)," +
+                "MotorZ Velocity (steps/s),MotorZ Acceleration (steps/s^2),Move State," +
                 "Indicator Position (microns),Indicator Velocity (microns/s)," +
                 "Indenter Force (mg),Indenter Force (N),Indenter Calibration No Probe (mg),Indenter Calibration With Probe (mg),Indenter Probe Weight(mg)," +
                 "Microscope Stage X Position (mm),Microscope Stage Y Position (mm),Microscope Stage Z Position (mm)," +
@@ -116,21 +128,21 @@ namespace PicomotorStageControl_v2
             {
                 line = index.ToString() + "," +
                     (DateTime.Now.Ticks / (decimal)TimeSpan.TicksPerMillisecond).ToString();
-                if (Motor != null)
+                if (MotorZ != null)
                 {
-                    line += "," + Motor.Position_step.ToString() + "," +
-                        Motor.PositionNegative_step.ToString() + "," +
-                        Motor.PositionPositive_step.ToString() + "," +
-                        Motor.PositionFromCalibration_um.ToString() + "," +
-                        Motor.NegativeVelocityFromCalibration_um.ToString() + "," +
-                        Motor.PositiveVelocityFromCalibration_um.ToString() + "," +
-                        Motor.NegativeAccelerationFromCalibration_um.ToString() + "," +
-                        Motor.PositiveAccelerationFromCalibration_um.ToString() + "," +
-                        Motor.CalibrationNegativeStepSize_um.ToString() + "," +
-                        Motor.CalibrationPositiveStepSize_um.ToString() + "," +
-                        Motor.Velocity_step.ToString() + "," +
-                        Motor.Acceleration_step.ToString() + "," +
-                        Motor.MoveState.ToString();
+                    line += "," + MotorZ.Position_step.ToString() + "," +
+                        MotorZ.PositionNegative_step.ToString() + "," +
+                        MotorZ.PositionPositive_step.ToString() + "," +
+                        MotorZ.PositionFromCalibration_um.ToString() + "," +
+                        MotorZ.NegativeVelocityFromCalibration_um.ToString() + "," +
+                        MotorZ.PositiveVelocityFromCalibration_um.ToString() + "," +
+                        MotorZ.NegativeAccelerationFromCalibration_um.ToString() + "," +
+                        MotorZ.PositiveAccelerationFromCalibration_um.ToString() + "," +
+                        MotorZ.CalibrationNegativeStepSize_um.ToString() + "," +
+                        MotorZ.CalibrationPositiveStepSize_um.ToString() + "," +
+                        MotorZ.Velocity_step.ToString() + "," +
+                        MotorZ.Acceleration_step.ToString() + "," +
+                        MotorZ.MoveState.ToString();
                 }
                 if (Indicator != null)
                 {
@@ -165,13 +177,13 @@ namespace PicomotorStageControl_v2
 
         private void IndicatorJogWorker_DoWork(object? sender, DoWorkEventArgs e)
         {
-            if (Motor == null || Indicator == null)
+            if (MotorZ == null || Indicator == null)
             {
                 return;
             }
 
             bool up = (float)Indicator.Position > IndicatorMoveToPosition;
-            int prevVel = Motor.Velocity_step;
+            int prevVel = MotorZ.Velocity_step;
 
             while ((float)Indicator.Position > IndicatorMoveToPosition && up == true && IndicatorJogWorkerShouldRun)
             {
@@ -179,13 +191,13 @@ namespace PicomotorStageControl_v2
 
                 if (Settings.Default.StageMovementCreepUp)
                 {
-                    if (dist < Settings.Default.StageMovementSlowDownDistance && this.Motor.Velocity_step > Settings.Default.StageMovementSlowDownVelocity)
+                    if (dist < Settings.Default.StageMovementSlowDownDistance && this.MotorZ.Velocity_step > Settings.Default.StageMovementSlowDownVelocity)
                     {
-                        this.Motor.SetVelocity(Settings.Default.StageMovementSlowDownVelocity);
+                        this.MotorZ.SetVelocity(Settings.Default.StageMovementSlowDownVelocity);
                     }
                 }
 
-                Motor.JogNegative();
+                MotorZ.JogNegative();
             }
 
             while ((float)this.Indicator.Position < IndicatorMoveToPosition && up == false && IndicatorJogWorkerShouldRun)
@@ -194,19 +206,19 @@ namespace PicomotorStageControl_v2
 
                 if (Settings.Default.StageMovementCreepUp)
                 {
-                    if (dist < Settings.Default.StageMovementSlowDownDistance && this.Motor.Velocity_step > Settings.Default.StageMovementSlowDownVelocity)
+                    if (dist < Settings.Default.StageMovementSlowDownDistance && this.MotorZ.Velocity_step > Settings.Default.StageMovementSlowDownVelocity)
                     {
-                        this.Motor.SetVelocity(Settings.Default.StageMovementSlowDownVelocity);
+                        this.MotorZ.SetVelocity(Settings.Default.StageMovementSlowDownVelocity);
                     }
                 }
 
-                Motor.JogPositive();
+                MotorZ.JogPositive();
             }
 
-            Motor.StopMotion();
+            MotorZ.StopMotion();
             if (Settings.Default.StageMovementCreepUp)
             {
-                Motor.SetVelocity(prevVel);
+                MotorZ.SetVelocity(prevVel);
             }
             this.IndicatorJogWorkerShouldRun = false;
         }
@@ -323,7 +335,9 @@ namespace PicomotorStageControl_v2
             string returnStr = "";
             StageCMD.Query(this.DeviceID, "MC", ref returnStr); // What does this do? I forgot. Haha. Likely motor check.
 
-            Motor = new Motor(this, 1, (float)Settings.Default.AvgNegativeStepSize_um, (float)Settings.Default.AvgPositiveStepSize_um); // TO DO: Change decimal to float in settings, maybe. Think about it.
+            MotorZ = new Motor(this, 1, (float)Settings.Default.AvgNegativeStepSize_um, (float)Settings.Default.AvgPositiveStepSize_um); // TO DO: Change decimal to float in settings, maybe. Think about it.
+            MotorX = new Motor(this, 2);
+            MotorY = new Motor(this, 3);
 
             tmrMotorDisplayUpdate.Enabled = true;
             tmrMotorDisplayUpdate.Start();
@@ -331,8 +345,8 @@ namespace PicomotorStageControl_v2
             statusStageConnected.Text = "Connected";
             statusStageConnected.ForeColor = Color.Green;
 
-            numMotorSettingsVelocity.Value = Motor.Velocity_step;
-            numMotorSettingsAcceleration.Value = Motor.Acceleration_step;
+            numMotorSettingsVelocity.Value = MotorZ.Velocity_step;
+            numMotorSettingsAcceleration.Value = MotorZ.Acceleration_step;
 
             // Enable Stage Controls
             btnActiveControlsUp.Enabled = true;
@@ -399,29 +413,29 @@ namespace PicomotorStageControl_v2
 
         private void tmrMotorDisplayUpdate_Tick(object sender, EventArgs e)
         {
-            if (this.Motor == null)
+            if (this.MotorZ == null)
                 return;
 
-            lblCalPositionTotalSteps.Text = this.Motor.Position_step.ToString();
-            lblCalPositionNegSteps.Text = this.Motor.PositionNegative_step.ToString();
-            lblCalPositionPosSteps.Text = this.Motor.PositionPositive_step.ToString();
-            lblCalPositionEstMicronPosition.Text = this.Motor.PositionFromCalibration_um.ToString();
+            lblCalPositionTotalSteps.Text = this.MotorZ.Position_step.ToString();
+            lblCalPositionNegSteps.Text = this.MotorZ.PositionNegative_step.ToString();
+            lblCalPositionPosSteps.Text = this.MotorZ.PositionPositive_step.ToString();
+            lblCalPositionEstMicronPosition.Text = this.MotorZ.PositionFromCalibration_um.ToString();
 
-            lblCalVelRaw.Text = this.Motor.Velocity_step.ToString();
-            lblCalVelNeg.Text = this.Motor.NegativeVelocityFromCalibration_um.ToString();
-            lblCalVelPos.Text = this.Motor.PositiveVelocityFromCalibration_um.ToString();
+            lblCalVelRaw.Text = this.MotorZ.Velocity_step.ToString();
+            lblCalVelNeg.Text = this.MotorZ.NegativeVelocityFromCalibration_um.ToString();
+            lblCalVelPos.Text = this.MotorZ.PositiveVelocityFromCalibration_um.ToString();
 
-            lblCalAccelRaw.Text = this.Motor.Acceleration_step.ToString();
-            lblCalAccelNeg.Text = this.Motor.NegativeAccelerationFromCalibration_um.ToString();
-            lblCalAccelPos.Text = this.Motor.PositiveAccelerationFromCalibration_um.ToString();
+            lblCalAccelRaw.Text = this.MotorZ.Acceleration_step.ToString();
+            lblCalAccelNeg.Text = this.MotorZ.NegativeAccelerationFromCalibration_um.ToString();
+            lblCalAccelPos.Text = this.MotorZ.PositiveAccelerationFromCalibration_um.ToString();
         }
 
         private void btnMotorSettingsApply_Click(object sender, EventArgs e)
         {
-            if (this.Motor != null && this.IsSequenceRunning == false)
+            if (this.MotorZ != null && this.IsSequenceRunning == false)
             {
-                this.Motor.SetVelocity((int)numMotorSettingsVelocity.Value);
-                this.Motor.SetAcceleration((int)numMotorSettingsAcceleration.Value);
+                this.MotorZ.SetVelocity((int)numMotorSettingsVelocity.Value);
+                this.MotorZ.SetAcceleration((int)numMotorSettingsAcceleration.Value);
             }
         }
 
@@ -439,14 +453,14 @@ namespace PicomotorStageControl_v2
             lblCalNegStepSize.Text = neg.ToString();
             lblCalPosStepSize.Text = pos.ToString();
 
-            if (this.Motor != null)
+            if (this.MotorZ != null)
             {
-                this.Motor.SetCalibrationNegativeStepSize_um(neg);
-                this.Motor.SetCalibrationPositiveStepSize_um(pos);
-                lblMotorSettingsEstNegVel.Text = Motor.NegativeVelocityFromCalibration_um.ToString();
-                lblMotorSettingsEstPosVel.Text = Motor.PositiveVelocityFromCalibration_um.ToString();
-                lblMotorSettingsEstNegAccel.Text = Motor.NegativeAccelerationFromCalibration_um.ToString();
-                lblMotorSettingsEstPosAccel.Text = Motor.PositiveAccelerationFromCalibration_um.ToString();
+                this.MotorZ.SetCalibrationNegativeStepSize_um(neg);
+                this.MotorZ.SetCalibrationPositiveStepSize_um(pos);
+                lblMotorSettingsEstNegVel.Text = MotorZ.NegativeVelocityFromCalibration_um.ToString();
+                lblMotorSettingsEstPosVel.Text = MotorZ.PositiveVelocityFromCalibration_um.ToString();
+                lblMotorSettingsEstNegAccel.Text = MotorZ.NegativeAccelerationFromCalibration_um.ToString();
+                lblMotorSettingsEstPosAccel.Text = MotorZ.PositiveAccelerationFromCalibration_um.ToString();
 
                 // TO DO: Set ?
             }
@@ -459,36 +473,36 @@ namespace PicomotorStageControl_v2
                 this.SequenceEditorForm.StopSequence = true; // TO DO: Is this good?
             }
 
-            if (this.Motor != null)
+            if (this.MotorZ != null)
             {
                 this.IndicatorJogWorkerShouldRun = false;
-                this.Motor.StopMotion();
+                this.MotorZ.StopMotion();
             }
         }
 
         private void btnActiveControlsUp_Click(object sender, EventArgs e)
         {
-            if (this.Motor != null && this.IsSequenceRunning == false) // TO DO: Should I do is sequence running directly from the form? Probably.
+            if (this.MotorZ != null && this.IsSequenceRunning == false) // TO DO: Should I do is sequence running directly from the form? Probably.
             {
-                this.Motor.JogPositive();
+                this.MotorZ.JogPositive();
             }
         }
 
         private void btnActiveControlsDown_Click(object sender, EventArgs e)
         {
-            if (this.Motor != null && this.IsSequenceRunning == false)
+            if (this.MotorZ != null && this.IsSequenceRunning == false)
             {
-                this.Motor.JogNegative();
+                this.MotorZ.JogNegative();
             }
         }
 
         private void btnMoveDistance_Click(object sender, EventArgs e)
         {
-            if (this.Motor != null && this.IsSequenceRunning == false)
+            if (this.MotorZ != null && this.IsSequenceRunning == false)
             {
                 if (this.MovementReference == MovementReferenceType.Steps)
                 {
-                    this.Motor.RelativeMove_step((int)numMoveDistance.Value);
+                    this.MotorZ.RelativeMove_step((int)numMoveDistance.Value);
                 }
                 else if (this.MovementReference == MovementReferenceType.Indicator && this.Indicator != null)
                 {
@@ -499,18 +513,18 @@ namespace PicomotorStageControl_v2
                 }
                 else if (this.MovementReference == MovementReferenceType.Calibration)
                 {
-                    this.Motor.RelativeMove_step(this.Motor.MicronToStep((int)numMoveDistance.Value));
+                    this.MotorZ.RelativeMove_step(this.MotorZ.MicronToStep((int)numMoveDistance.Value));
                 }
             }
         }
 
         private void btnGoTo_Click(object sender, EventArgs e)
         {
-            if (this.Motor != null && this.IsSequenceRunning == false)
+            if (this.MotorZ != null && this.IsSequenceRunning == false)
             {
                 if (this.MovementReference == MovementReferenceType.Steps)
                 {
-                    this.Motor.MoveToRelativePosition_step((int)numGoTo.Value);
+                    this.MotorZ.MoveToRelativePosition_step((int)numGoTo.Value);
                 }
                 else if (this.MovementReference == MovementReferenceType.Indicator && this.Indicator != null)
                 {
@@ -520,66 +534,66 @@ namespace PicomotorStageControl_v2
                 }
                 else if (this.MovementReference == MovementReferenceType.Calibration)
                 {
-                    this.Motor.MoveToRelativePosition_step(this.Motor.MicronToStep((int)numGoTo.Value));
+                    this.MotorZ.MoveToRelativePosition_step(this.MotorZ.MicronToStep((int)numGoTo.Value));
                 }
             }
         }
 
         private void btnActiveControlsUp_MouseDown(object sender, MouseEventArgs e)
         {
-            if (Motor != null && Motor.MoveState == MoveState.Stationary)
+            if (MotorZ != null && MotorZ.MoveState == MoveState.Stationary && IsSequenceRunning == false)
             {
-                Motor.JogPositive();
+                MotorZ.JogPositive();
             }
         }
 
         private void btnActiveControlsUp_MouseUp(object sender, MouseEventArgs e)
         {
-            if (Motor != null)
+            if (MotorZ != null)
             {
-                Motor.StopMotion();
+                MotorZ.StopMotion();
             }
         }
 
         private void btnActiveControlsDown_MouseDown(object sender, MouseEventArgs e)
         {
-            if (Motor != null && Motor.MoveState == MoveState.Stationary)
+            if (MotorZ != null && MotorZ.MoveState == MoveState.Stationary && IsSequenceRunning == false)
             {
-                Motor.JogNegative();
+                MotorZ.JogNegative();
             }
         }
 
         private void btnActiveControlsDown_MouseUp(object sender, MouseEventArgs e)
         {
-            if (Motor != null)
+            if (MotorZ != null)
             {
-                Motor.StopMotion();
+                MotorZ.StopMotion();
             }
         }
 
         private void numMotorSettingsVelocity_ValueChanged(object sender, EventArgs e)
         {
-            if (Motor != null)
+            if (MotorZ != null)
             {
-                lblMotorSettingsEstNegVel.Text = Motor.NegativeVelocityFromCalibration_um.ToString();
-                lblMotorSettingsEstPosVel.Text = Motor.PositiveVelocityFromCalibration_um.ToString();
+                lblMotorSettingsEstNegVel.Text = MotorZ.NegativeVelocityFromCalibration_um.ToString();
+                lblMotorSettingsEstPosVel.Text = MotorZ.PositiveVelocityFromCalibration_um.ToString();
             }
         }
 
         private void numMotorSettingsAcceleration_ValueChanged(object sender, EventArgs e)
         {
-            if (Motor != null)
+            if (MotorZ != null)
             {
-                lblMotorSettingsEstNegAccel.Text = Motor.NegativeAccelerationFromCalibration_um.ToString();
-                lblMotorSettingsEstPosAccel.Text = Motor.PositiveAccelerationFromCalibration_um.ToString();
+                lblMotorSettingsEstNegAccel.Text = MotorZ.NegativeAccelerationFromCalibration_um.ToString();
+                lblMotorSettingsEstPosAccel.Text = MotorZ.PositiveAccelerationFromCalibration_um.ToString();
             }
         }
 
         private void btnCalZeroPosition_Click(object sender, EventArgs e)
         {
-            if (this.Motor != null && this.IsSequenceRunning == false)
+            if (this.MotorZ != null && this.IsSequenceRunning == false)
             {
-                this.Motor.ZeroDevicePosition();
+                this.MotorZ.ZeroDevicePosition();
             }
         }
 
@@ -656,15 +670,15 @@ namespace PicomotorStageControl_v2
 
         private void btnMotorSettingsApplyDefault_Click(object sender, EventArgs e)
         {
-            if (this.Motor == null || this.IsSequenceRunning == true)
+            if (this.MotorZ == null || this.IsSequenceRunning == true)
             {
                 return;
             }
 
             numMotorSettingsAcceleration.Value = 10000; // TO DO: Check values
             numMotorSettingsVelocity.Value = 2000;
-            this.Motor.SetVelocity((int)numMotorSettingsVelocity.Value);
-            this.Motor.SetAcceleration((int)numMotorSettingsAcceleration.Value);
+            this.MotorZ.SetVelocity((int)numMotorSettingsVelocity.Value);
+            this.MotorZ.SetAcceleration((int)numMotorSettingsAcceleration.Value);
         }
 
         private void stripConnectIndenter_Click(object sender, EventArgs e)
@@ -1069,11 +1083,11 @@ namespace PicomotorStageControl_v2
 
         private void SpringConstantBackgroundWorker_DoWork(object? sender, DoWorkEventArgs e)
         {
-            if (Motor == null || IndenterController == null || !IndenterController.Connected || Indicator == null)
+            if (MotorZ == null || IndenterController == null || !IndenterController.Connected || Indicator == null)
                 return;
 
-            int initialVelocity = Motor.Velocity_step;
-            int initialAcceleration = Motor.Acceleration_step;
+            int initialVelocity = MotorZ.Velocity_step;
+            int initialAcceleration = MotorZ.Acceleration_step;
             bool initialCreepUp = Settings.Default.StageMovementCreepUp;
 
             Stopwatch timeObtained = new Stopwatch();
@@ -1083,8 +1097,8 @@ namespace PicomotorStageControl_v2
             {
                 int contactsObtained = 0;
 
-                Motor.SetVelocity((int)this.numIndentationCtrlSpringConstByPointsVel_steps.Value);
-                Motor.SetAcceleration((int)this.numIndentationCtrlSpringConstByPointsAccel_steps.Value);
+                MotorZ.SetVelocity((int)this.numIndentationCtrlSpringConstByPointsVel_steps.Value);
+                MotorZ.SetAcceleration((int)this.numIndentationCtrlSpringConstByPointsAccel_steps.Value);
 
                 if (this.chkIndentationCtrlSpringConstByPointsCreepUp.Checked)
                 {
@@ -1125,15 +1139,15 @@ namespace PicomotorStageControl_v2
                     lblSpringConstFlatModulus.Text = "Elastic Modulus: " + CalculateElasticModulusFromFlatSurface(slope).ToString() + " Pa";
                 });
 
-                Motor.SetVelocity(initialVelocity);
-                Motor.SetAcceleration(initialAcceleration);
+                MotorZ.SetVelocity(initialVelocity);
+                MotorZ.SetAcceleration(initialAcceleration);
                 Settings.Default.StageMovementCreepUp = initialCreepUp;
                 Settings.Default.Save(); // TO DO: I should probably just do Settings.Default.Reload();
             }
             else if (springConstantMeasurementMode == SpringConstantMeasurementMode.ByDistance) // ---------------------------------------------------------
             {
-                Motor.SetVelocity((int)this.numIndentationCtrlSpringConstByDistanceVel_steps.Value);
-                Motor.SetAcceleration((int)this.numIndentationCtrlSpringConstByDistanceAccel_steps.Value);
+                MotorZ.SetVelocity((int)this.numIndentationCtrlSpringConstByDistanceVel_steps.Value);
+                MotorZ.SetAcceleration((int)this.numIndentationCtrlSpringConstByDistanceAccel_steps.Value);
 
                 if (this.chkIndentationCtrlSpringConstByDistanceCreepUp.Checked)
                 {
@@ -1188,15 +1202,15 @@ namespace PicomotorStageControl_v2
                     lblSpringConstFlatModulus.Text = "Elastic Modulus: " + CalculateElasticModulusFromFlatSurface(slope).ToString() + " Pa";
                 });
 
-                Motor.SetVelocity(initialVelocity);
-                Motor.SetAcceleration(initialAcceleration);
+                MotorZ.SetVelocity(initialVelocity);
+                MotorZ.SetAcceleration(initialAcceleration);
                 Settings.Default.StageMovementCreepUp = initialCreepUp;
                 Settings.Default.Save(); // TO DO: I should probably just do Settings.Default.Reload();
             }
             else if (springConstantMeasurementMode == SpringConstantMeasurementMode.ByForce) // ---------------------------------------------------------
             {
-                Motor.SetVelocity((int)this.numIndentationCtrlSpringConstByForceVel_steps.Value);
-                Motor.SetAcceleration((int)this.numIndentationCtrlSpringConstByForceAccel_steps.Value);
+                MotorZ.SetVelocity((int)this.numIndentationCtrlSpringConstByForceVel_steps.Value);
+                MotorZ.SetAcceleration((int)this.numIndentationCtrlSpringConstByForceAccel_steps.Value);
 
                 Settings.Default.Save(); // TO DO: Do I need to save for settings to take effect?
 
@@ -1216,10 +1230,10 @@ namespace PicomotorStageControl_v2
                     {
                         cycleCount++;
                     }
-                    this.Motor.JogNegative();
+                    this.MotorZ.JogNegative();
                 }
 
-                this.Motor.StopMotion();
+                this.MotorZ.StopMotion();
 
                 double slope, intercept, rSquared;
 
@@ -1229,8 +1243,8 @@ namespace PicomotorStageControl_v2
                     lblSpringConstFlat.Text = ($"Spring Constant: {slope.ToString("F3")} N/m | R^2: {rSquared.ToString("F3")}");
                     lblSpringConstFlatModulus.Text = "Elastic Modulus: " + CalculateElasticModulusFromFlatSurface(slope).ToString() + " Pa";
                 });
-                Motor.SetVelocity(initialVelocity);
-                Motor.SetAcceleration(initialAcceleration);
+                MotorZ.SetVelocity(initialVelocity);
+                MotorZ.SetAcceleration(initialAcceleration);
                 Settings.Default.StageMovementCreepUp = initialCreepUp;
                 Settings.Default.Save(); // TO DO: I should probably just do Settings.Default.Reload();
             }
@@ -1330,7 +1344,7 @@ namespace PicomotorStageControl_v2
 
         private void btnIndentationCtrlFindSpringConst_Click(object sender, EventArgs e)
         {
-            if (Motor == null || IndenterController == null || !IndenterController.Connected || Indicator == null)
+            if (MotorZ == null || IndenterController == null || !IndenterController.Connected || Indicator == null)
                 return;
 
             springConstantBackgroundWorker = new BackgroundWorker();
@@ -1486,6 +1500,266 @@ namespace PicomotorStageControl_v2
             {
                 MessageBox.Show("Error saving file! " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnHolderStageRunYUp_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (IsSequenceRunning == true)
+                return;
+
+            if (MotorY == null || MotorY.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            MotorY.JogPositive();
+        }
+
+        private void btnHolderStageRunYUp_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (MotorY != null && IsSequenceRunning == false)
+            {
+                MotorY.StopMotion();
+            }
+        }
+
+        private void btnHolderStageRunXLeftYUp_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (IsSequenceRunning == true)
+                return;
+
+            if (MotorY == null || MotorY.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            if (MotorX == null || MotorX.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            MotorY.StopMotion();
+            MotorX.StopMotion();
+        }
+
+        private void btnHolderStageRunXLeftYUp_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (IsSequenceRunning == true)
+                return;
+
+            if (MotorY == null || MotorY.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            if (MotorX == null || MotorX.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            MotorY.JogPositive();
+            MotorX.JogNegative();
+        }
+
+        private void btnHolderStageRunXRightYUp_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (IsSequenceRunning == true)
+                return;
+
+            if (MotorY == null || MotorY.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            if (MotorX == null || MotorX.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            MotorY.JogPositive();
+            MotorX.JogPositive();
+        }
+
+        private void btnHolderStageRunXRightYUp_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (IsSequenceRunning == true)
+                return;
+
+            if (MotorY == null || MotorY.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            if (MotorX == null || MotorX.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            MotorY.StopMotion();
+            MotorX.StopMotion();
+        }
+
+        private void btnHolderStageRunXLeft_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (IsSequenceRunning == true)
+                return;
+
+            if (MotorX == null || MotorX.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            MotorX.JogNegative();
+        }
+
+        private void btnHolderStageRunXLeft_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (IsSequenceRunning == true)
+                return;
+
+            if (MotorX == null || MotorX.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            MotorX.StopMotion();
+        }
+
+        private void btnHolderStageRunXLeftYDown_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (IsSequenceRunning == true)
+                return;
+
+            if (MotorY == null || MotorY.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            if (MotorX == null || MotorX.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            MotorY.JogNegative();
+            MotorX.JogNegative();
+        }
+
+        private void btnHolderStageRunXLeftYDown_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (IsSequenceRunning == true)
+                return;
+
+            if (MotorY == null || MotorY.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            if (MotorX == null || MotorX.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            MotorY.StopMotion();
+            MotorX.StopMotion();
+        }
+
+        private void btnHolderStageRunYDown_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (IsSequenceRunning == true)
+                return;
+
+            if (MotorY == null || MotorY.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            MotorY.JogNegative();
+        }
+
+        private void btnHolderStageRunYDown_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (IsSequenceRunning == true)
+                return;
+
+            if (MotorY == null || MotorY.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            MotorY.StopMotion();
+        }
+
+        private void btnHolderStageRunXRightYDown_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (IsSequenceRunning == true)
+                return;
+
+            if (MotorY == null || MotorY.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            if (MotorX == null || MotorX.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            MotorY.JogNegative();
+            MotorX.JogPositive();
+        }
+
+        private void btnHolderStageRunXRightYDown_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (IsSequenceRunning == true)
+                return;
+
+            if (MotorY == null || MotorY.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            if (MotorX == null || MotorX.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            MotorY.StopMotion();
+            MotorX.StopMotion();
+        }
+
+        private void btnHolderStageRunXRight_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (IsSequenceRunning == true)
+                return;
+
+            if (MotorX == null || MotorX.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            MotorX.JogPositive();
+        }
+
+        private void openSequenceEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if ((Application.OpenForms["frmSequenceEditor"] as frmSequenceEditor) != null)
+                return;
+
+            SequenceEditorForm = new frmSequenceEditor(this);
+            SequenceEditorForm.Show();
+        }
+
+        private void btnHolderStageRunXRight_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (IsSequenceRunning == true)
+                return;
+
+            if (MotorX == null || MotorX.MoveState != MoveState.Stationary)
+            {
+                return;
+            }
+
+            MotorX.StopMotion();
         }
     }
 }

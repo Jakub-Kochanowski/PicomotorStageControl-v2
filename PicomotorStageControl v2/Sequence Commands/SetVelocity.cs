@@ -23,13 +23,13 @@ namespace PicomotorStageControl_v2.SequenceCommands
 
         public override void Execute()
         {
-            if (this.MainForm.Motor == null)
+            if (this.MainForm.MotorZ == null)
             {
                 return;
             }
 
             this.Running = true;
-            this.MainForm.Motor.SetVelocity(this.Velocity_steps_s);
+            this.MainForm.MotorZ.SetVelocity(this.Velocity_steps_s);
             this.Running = false;
         }
     }

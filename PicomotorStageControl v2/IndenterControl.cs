@@ -37,7 +37,7 @@ namespace PicomotorStageControl_v2
 
         private void btnFindSpringConstByPoints_Click(object sender, EventArgs e)
         {
-            if (FindSpringConstant.IsBusy || MainForm.Motor == null || MainForm.IndenterController == null || MainForm.IndenterController.Connected == false || MainForm.Indicator == null)
+            if (FindSpringConstant.IsBusy || MainForm.MotorZ == null || MainForm.IndenterController == null || MainForm.IndenterController.Connected == false || MainForm.Indicator == null)
                 return;
 
         }

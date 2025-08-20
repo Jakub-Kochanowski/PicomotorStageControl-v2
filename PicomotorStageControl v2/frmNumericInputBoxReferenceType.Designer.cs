@@ -81,7 +81,7 @@
             cmbReference.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             cmbReference.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbReference.FormattingEnabled = true;
-            cmbReference.Items.AddRange(new object[] { "Indicator", "Motor", "Calibration" });
+            cmbReference.Items.AddRange(new object[] { "Indicator", "MotorZ", "Calibration" });
             cmbReference.Location = new Point(291, 31);
             cmbReference.Name = "cmbReference";
             cmbReference.Size = new Size(75, 28);

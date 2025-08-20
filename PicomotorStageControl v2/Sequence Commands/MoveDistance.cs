@@ -34,7 +34,7 @@ namespace PicomotorStageControl_v2.SequenceCommands
         {
             // TO DO: Handle this potential null indicator case? Will this ever happen?
             bool up = (float)this.MainForm.Indicator.Position > (float)this.IndicatorMoveToPosition;
-            int prevVel = this.MainForm.Motor.Velocity_step;
+            int prevVel = this.MainForm.MotorZ.Velocity_step;
 
             while ((float)this.MainForm.Indicator.Position > IndicatorMoveToPosition && up == true && IndicatorJogWorkerShouldRun)
             {
@@ -42,15 +42,15 @@ namespace PicomotorStageControl_v2.SequenceCommands
 
                 if (Settings.Default.StageMovementCreepUp)
                 {
-                    if (dist < Settings.Default.StageMovementSlowDownDistance && this.MainForm.Motor.Velocity_step > Settings.Default.StageMovementSlowDownVelocity)
+                    if (dist < Settings.Default.StageMovementSlowDownDistance && this.MainForm.MotorZ.Velocity_step > Settings.Default.StageMovementSlowDownVelocity)
                     {
-                        this.MainForm.Motor.SetVelocity(Settings.Default.StageMovementSlowDownVelocity);
+                        this.MainForm.MotorZ.SetVelocity(Settings.Default.StageMovementSlowDownVelocity);
                     }
                 }
 
-                this.MainForm.Motor.JogNegative();
+                this.MainForm.MotorZ.JogNegative();
                 this.Running = true;
-                MoveState a = this.MainForm.Motor.MoveState;
+                MoveState a = this.MainForm.MotorZ.MoveState;
             }
 
             while ((float)this.MainForm.Indicator.Position < IndicatorMoveToPosition && up == false && IndicatorJogWorkerShouldRun)
@@ -59,21 +59,21 @@ namespace PicomotorStageControl_v2.SequenceCommands
 
                 if (Settings.Default.StageMovementCreepUp)
                 {
-                    if (dist < Settings.Default.StageMovementSlowDownDistance && this.MainForm.Motor.Velocity_step > Settings.Default.StageMovementSlowDownVelocity)
+                    if (dist < Settings.Default.StageMovementSlowDownDistance && this.MainForm.MotorZ.Velocity_step > Settings.Default.StageMovementSlowDownVelocity)
                     {
-                        this.MainForm.Motor.SetVelocity(Settings.Default.StageMovementSlowDownVelocity);
+                        this.MainForm.MotorZ.SetVelocity(Settings.Default.StageMovementSlowDownVelocity);
                     }
                 }
 
-                this.MainForm.Motor.JogPositive();
+                this.MainForm.MotorZ.JogPositive();
                 this.Running = true;
                 // MoveState a = this.MainForm.Motor.MoveState; What was I doing here?
             }
 
-            this.MainForm.Motor.StopMotion();
+            this.MainForm.MotorZ.StopMotion();
             if (Settings.Default.StageMovementCreepUp)
             {
-                this.MainForm.Motor.SetVelocity(prevVel);
+                this.MainForm.MotorZ.SetVelocity(prevVel);
             }
             this.IndicatorJogWorkerShouldRun = false;
 
@@ -82,18 +82,18 @@ namespace PicomotorStageControl_v2.SequenceCommands
 
         private void MoveDistanceBackgroundWorker_DoWork(object? sender, DoWorkEventArgs e)
         {
-            if (this.MainForm.Motor == null)
+            if (this.MainForm.MotorZ == null)
             {
                 return;                
             }
 
             if (this.MovementReference == MovementReferenceType.Steps)
             {
-                this.MainForm.Motor.RelativeMove_step((int)this.Distance);
+                this.MainForm.MotorZ.RelativeMove_step((int)this.Distance);
             }
             else if (this.MovementReference == MovementReferenceType.Calibration)
             {
-                this.MainForm.Motor.RelativeMove_step(this.MainForm.Motor.MicronToStep((float)this.Distance));
+                this.MainForm.MotorZ.RelativeMove_step(this.MainForm.MotorZ.MicronToStep((float)this.Distance));
             }
             else if (this.MovementReference == MovementReferenceType.Indicator)
             {
@@ -136,9 +136,9 @@ namespace PicomotorStageControl_v2.SequenceCommands
             //    this.LogMessage = "Moved Distance: " + this.MainForm.Indicator.Position.ToString() + " (" + MovementReference.ToString() + ")";
             //}
 
-            if (this.MainForm.Motor != null)
+            if (this.MainForm.MotorZ != null)
             {
-                this.MainForm.Motor.StopMotion(); // TO DO: Should this be in the stop button method, instead? Probably.
+                this.MainForm.MotorZ.StopMotion(); // TO DO: Should this be in the stop button method, instead? Probably.
             }
 
             MoveDistanceBackgroundWorker.Dispose();
