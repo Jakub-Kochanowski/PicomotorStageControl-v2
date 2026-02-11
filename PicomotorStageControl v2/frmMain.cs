@@ -119,7 +119,7 @@ namespace PicomotorStageControl_v2
                 "MotorZ Calibration Negative Step Size (microns),MotorZ Calibration Positive Step Size (microns)," +
                 "MotorZ Velocity (steps/s),MotorZ Acceleration (steps/s^2),Move State," +
                 "Indicator Position (microns),Indicator Velocity (microns/s)," +
-                "Indenter Force (mg),Indenter Force (N),Indenter Calibration No Probe (mg),Indenter Calibration With Probe (mg),Indenter Probe Weight(mg)," +
+                "Indenter Force (mg),Indenter Force (N),Indenter Calibration No Probe (mg),Indenter Calibration With Probe (mg),Spring Constant (N/m),Indenter Probe Weight(mg)," +
                 "Microscope Stage X Position (mm),Microscope Stage Y Position (mm),Microscope Stage Z Position (mm)," +
                 "Spring Constant Worker Running,Sample Name,Sample Location, Sample Measurement";
             streamWriter.WriteLine(line);
@@ -155,6 +155,7 @@ namespace PicomotorStageControl_v2
                         IndenterController.IndenterForce_N.ToString() + "," +
                         IndenterController.IndenterCalibrationNoProbe_mg.ToString() + "," +
                         IndenterController.IndenterCalibrationWithProbe_mg.ToString() + "," +
+                        IndenterController.IndenterSpringConstant_N_m.ToString() + "," +
                         //IndenterController.IndenterCalibration.ToString() + "," +
                         IndenterController.ProbeWeight_mg.ToString();
                 }
@@ -1489,6 +1490,9 @@ namespace PicomotorStageControl_v2
                 }
 
                 line = ",,,Spring Const:," + lblSpringConstFlat.Text;
+                streamWriter.WriteLine(line);
+
+                line = ",,,Flat Elastic Modulus:," + lblSpringConstFlatModulus.Text;
                 streamWriter.WriteLine(line);
 
                 streamWriter.Flush();
